@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Anmelden</h1>
+
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder="Benutzername" [(ngModel)]="data.username">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="password" placeholder="Passwort" [(ngModel)]="data.password">
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-flat-button [mat-dialog-close]="data">Anmelden</button>
+    <button mat-button (click)="onNoClick()">Abbrechen</button>
+</div>

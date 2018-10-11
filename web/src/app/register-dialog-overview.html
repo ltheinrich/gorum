@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Registrieren</h1>
+
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder="Benutzername" [(ngModel)]="data.username">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="password" placeholder="Passwort" [(ngModel)]="data.password">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="password" placeholder="Passwort wiederholen" [(ngModel)]="data.repeat">
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-flat-button [mat-dialog-close]="data">Registrieren</button>
+    <button mat-button (click)="onNoClick()">Abbrechen</button>
+</div>

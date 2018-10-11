@@ -6,5 +6,10 @@
         "database": "gorum",
         "username": "gorum",
         "password": "gorum"
+    },
+    "https": {
+        "address": ":1813",
+        "certificate": "assets/crt.pem",
+        "key": "assets/key.pem"
     }
 }

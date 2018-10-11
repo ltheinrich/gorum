@@ -1,6 +1,9 @@
 package gorum
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/lheinrichde/golib/pkg/config"
 	"github.com/lheinrichde/golib/pkg/db"
 )
@@ -15,9 +18,23 @@ func Init() error {
 		return err
 	}
 
+	handle()
+	fmt.Println("Gorum (c) 2018 Lennart Heinrich")
+
+	if err := listen(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
+// register handlers
+func handle() {
+	// web/dist files (Angular)
+	http.Handle("/", http.FileServer(http.Dir("web/dist/gorum")))
+}
+
+// load config template and overwrite with custom
 func loadConfig() error {
 	// load template config
 	if err := config.LoadConfig("assets/config.tpl.json"); err != nil {
@@ -32,7 +49,9 @@ func loadConfig() error {
 	return nil
 }
 
+// connect to postgresql database
 func connectDB() error {
+	// define login variables
 	host := config.Get("postgresql", "host")
 	port := config.Get("postgresql", "port")
 	ssl := config.Get("postgresql", "ssl")
@@ -40,5 +59,16 @@ func connectDB() error {
 	username := config.Get("postgresql", "username")
 	password := config.Get("postgresql", "password")
 
+	// connect and return error
 	return db.Connect(host, port, ssl, database, username, password)
+}
+
+// listen to address (https)
+func listen() error {
+	// define https variable
+	address := config.Get("https", "address")
+	certificate := config.Get("https", "certificate")
+	key := config.Get("https", "key")
+
+	return http.ListenAndServeTLS(address, certificate, key, nil)
 }
