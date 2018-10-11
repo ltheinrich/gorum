@@ -1,5 +1,6 @@
 # Binaries
 /bin/
+/assets/config.json
 
 # IDEs and editors
 /.idea
