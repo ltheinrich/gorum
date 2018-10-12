@@ -32,8 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private setLogin(username: string, password: string, message: string): void {
-    sessionStorage.setItem('username', username);
-    sessionStorage.setItem('password', password);
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
     this.conf.login = true;
     this.openSnackBar(message);
   }

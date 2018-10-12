@@ -21,7 +21,7 @@ export module Config {
 
     export function setLogin() {
         Config.API('login',
-            { username: sessionStorage.getItem('username'), password: sessionStorage.getItem('password') })
+            { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
             .subscribe(values => login = values['valid']);
     }
 
