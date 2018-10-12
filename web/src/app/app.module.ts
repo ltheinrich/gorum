@@ -6,22 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {
-  MatButtonModule,
-  MatToolbarModule,
-  MatIconModule,
-  MatSidenavModule,
-  MatListModule,
-  MatInputModule,
-  MatDialogModule,
-  MatSnackBarModule
+  MatButtonModule, MatToolbarModule, MatIconModule, MatSidenavModule,
+  MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule
 } from '@angular/material';
 import { LoginDialogOverview } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginDialogOverview,
-    RegisterDialogOverview
+    LoginDialogOverview, RegisterDialogOverview
   ],
   imports: [
     BrowserModule,
@@ -29,19 +22,10 @@ import { LoginDialogOverview } from './app.component';
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatInputModule,
-    MatDialogModule,
-    MatSnackBarModule
+    MatButtonModule, MatToolbarModule, MatIconModule, MatSidenavModule,
+    MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule
   ],
-  entryComponents: [
-    LoginDialogOverview,
-    RegisterDialogOverview
-  ],
+  entryComponents: [LoginDialogOverview, RegisterDialogOverview],
   exports: [],
   providers: [],
   bootstrap: [AppComponent]
