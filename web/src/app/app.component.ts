@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.conf.setHttp(this.http);
+    this.conf.setLogin();
   }
 
   ngOnDestroy(): void {
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private setLogin(username: string, password: string, message: string): void {
     sessionStorage.setItem('username', username);
     sessionStorage.setItem('password', password);
+    this.conf.login = true;
     this.openSnackBar(message);
   }
 
@@ -50,10 +52,11 @@ export class AppComponent implements OnInit, OnDestroy {
         return;
       }
 
+      const hashed = Config.Hash(result.password);
       Config.API('login',
-        { username: result.username, password: Config.Hash(result.password) })
+        { username: result.username, password: hashed })
         .subscribe(values => values['valid'] === true ?
-          this.setLogin(result.username, result.password, 'Die Anmeldung war erfolgreich') :
+          this.setLogin(result.username, hashed, 'Die Anmeldung war erfolgreich') :
           this.openSnackBar('Der Benutzername oder das Passwort ist falsch'));
     });
   }
@@ -71,9 +74,10 @@ export class AppComponent implements OnInit, OnDestroy {
       }
 
       if (result.password === result.repeat) {
-        Config.API('register', { username: result.username, mail: result.mail, password: Config.Hash(result.password) })
+        const hashed = Config.Hash(result.password);
+        Config.API('register', { username: result.username, mail: result.mail, password: hashed })
           .subscribe(values => values['done'] === true ?
-            this.setLogin(result.username, result.password, 'Der Benutzer wurde erfolgreich erstellt') :
+            this.setLogin(result.username, hashed, 'Der Benutzer wurde erfolgreich erstellt') :
             this.openSnackBar('Der Benutzername existiert bereits'));
       } else {
         this.openSnackBar('Die Passwörter stimmen nicht überein');

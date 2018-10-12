@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 export module Config {
     let http: HttpClient;
 
+    export let login: boolean;
+
     export function Get(parent: string, child: string): string {
         switch (parent) {
             case 'title':
@@ -20,6 +22,12 @@ export module Config {
 
     export function setHttp(httpClient: HttpClient) {
         http = httpClient;
+    }
+
+    export function setLogin() {
+        Config.API('login',
+            { username: sessionStorage.getItem('username'), password: sessionStorage.getItem('password') })
+            .subscribe(values => login = values['valid']);
     }
 
     export function Hash(text: string): string {
