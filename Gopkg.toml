@@ -24,7 +24,12 @@
 #   go-tests = true
 #   unused-packages = true
 
+ignored = ["github.com/lheinrichde/golib/*"]
 
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/crypto"

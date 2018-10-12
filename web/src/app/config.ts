@@ -1,6 +1,10 @@
 import { sha3_512 } from 'js-sha3';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export module Config {
+    let http: HttpClient;
+
     export function Get(parent: string, child: string): string {
         switch (parent) {
             case 'title':
@@ -10,11 +14,15 @@ export module Config {
         }
     }
 
-    export function API(url: string): string {
-        return 'https://localhost:1813/' + url;
+    export function API(url: string, body: any): Observable<any> {
+        return http.post<any>('https://localhost:1813/api/' + url, body);
+    }
+
+    export function setHttp(httpClient: HttpClient) {
+        http = httpClient;
     }
 
     export function Hash(text: string): string {
-        return sha3_512('secpass_' + sha3_512(text));
+        return sha3_512('gorum_' + sha3_512(text));
     }
 }
