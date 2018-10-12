@@ -2,15 +2,19 @@
 
 <div mat-dialog-content>
     <mat-form-field>
-        <input matInput placeholder="Benutzername" [(ngModel)]="data.username">
+        <input matInput placeholder="Benutzername" [(ngModel)]="data.username" required>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type="password" placeholder="Passwort" [(ngModel)]="data.password">
+        <input matInput type="email" placeholder="E-Mail Adresse" [(ngModel)]="data.mail" required>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type="password" placeholder="Passwort wiederholen" [(ngModel)]="data.repeat">
+        <input matInput type="password" placeholder="Passwort" [(ngModel)]="data.password" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="password" placeholder="Passwort wiederholen" [(ngModel)]="data.repeat" required>
     </mat-form-field>
 </div>
 
