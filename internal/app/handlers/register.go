@@ -24,6 +24,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	username, mail, password := handler.GetString(request, "username"), handler.GetString(request, "mail"), handler.GetString(request, "password")
 	if username == "" || mail == "" || password == "" {
 		ErrorWrite(w, "400")
+		return
 	}
 
 	// query db

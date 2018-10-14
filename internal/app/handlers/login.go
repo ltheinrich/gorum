@@ -24,6 +24,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	username, password := handler.GetString(request, "username"), handler.GetString(request, "password")
 	if username == "" || password == "" {
 		ErrorWrite(w, "400")
+		return
 	}
 
 	// query db
