@@ -4,26 +4,20 @@ import (
 	"database/sql"
 	"net/http"
 
-	"github.com/lheinrichde/golib/pkg/handler"
-
+	"github.com/lheinrichde/gorum/internal/pkg/db"
 	"golang.org/x/crypto/bcrypt"
-
-	"github.com/lheinrichde/golib/pkg/db"
 )
 
 // Login handler
 func Login(w http.ResponseWriter, r *http.Request) {
+	var err error
 	Header(w)
-	request, err := Read(r.Body, r.ContentLength)
-	if err != nil {
-		Error(w, err)
-		return
-	}
+	request := Read(r.Body, r.ContentLength)
 
 	// check if username and password are provided
-	username, password := handler.GetString(request, "username"), handler.GetString(request, "password")
+	username, password := GetString(request, "username"), GetString(request, "password")
 	if username == "" || password == "" {
-		ErrorWrite(w, "400")
+		Code(w, "400")
 		return
 	}
 
@@ -32,7 +26,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err = db.DB.QueryRow("SELECT passwordhash FROM users WHERE username = $1 OR mail = $1;", username).Scan(&passwordHash)
 	if err == sql.ErrNoRows {
 		// not exists
-		ErrorWrite(w, "403")
+		Code(w, "403")
 		return
 	} else if err != nil {
 		// error

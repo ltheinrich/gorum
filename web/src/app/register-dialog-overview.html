@@ -1,24 +1,24 @@
-<h1 mat-dialog-title>Registrieren</h1>
+<h1 mat-dialog-title>{{lang("register")}}</h1>
 
 <div mat-dialog-content>
     <mat-form-field>
-        <input matInput placeholder="Benutzername" [(ngModel)]="data.username" required>
+        <input matInput placeholder='{{lang("username")}}' [(ngModel)]='data.username' required>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type="email" placeholder="E-Mail Adresse" [(ngModel)]="data.mail" required>
+        <input matInput type='email' placeholder='{{lang("mailAddress")}}' [(ngModel)]='data.mail' required>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type="password" placeholder="Passwort" [(ngModel)]="data.password" required>
+        <input matInput type='password' placeholder='{{lang("password")}}' [(ngModel)]='data.password' required>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type="password" placeholder="Passwort wiederholen" [(ngModel)]="data.repeat" required>
+        <input matInput type='password' placeholder='{{lang("repeatPassword")}}' [(ngModel)]='data.repeat' required>
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-    <button mat-flat-button [mat-dialog-close]="data">Registrieren</button>
-    <button mat-button (click)="onNoClick()">Abbrechen</button>
+    <button mat-flat-button [mat-dialog-close]='data'>{{lang("register")}}</button>
+    <button mat-button (click)='onNoClick()'>{{lang("cancel")}}</button>
 </div>
