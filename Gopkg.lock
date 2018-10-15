@@ -2,19 +2,35 @@
 
 
 [[projects]]
+  digest = "1:8ef506fc2bb9ced9b151dafa592d4046063d744c646c1bbe801982ce87e4bc24"
+  name = "github.com/lib/pq"
+  packages = [
+    ".",
+    "oid",
+  ]
+  pruneopts = "UT"
+  revision = "4ded0e9383f75c197b3a2aaa6d590ac52df6fd79"
+  version = "v1.0.0"
+
+[[projects]]
   branch = "master"
-  digest = "1:1ecf2a49df33be51e757d0033d5d51d5f784f35f68e5a38f797b2d3f03357d71"
+  digest = "1:9878200d79556690febd52cacc85712eff1b871b5a35109bbb58b6ea6b12e0cc"
   name = "golang.org/x/crypto"
   packages = [
     "bcrypt",
     "blowfish",
+    "sha3",
   ]
   pruneopts = "UT"
-  revision = "7c1a557ab941a71c619514f229f0b27ccb0c27cf"
+  revision = "0c41d7ab0a0ee717d4590a44bcb987dfd9e183eb"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["golang.org/x/crypto/bcrypt"]
+  input-imports = [
+    "github.com/lib/pq",
+    "golang.org/x/crypto/bcrypt",
+    "golang.org/x/crypto/sha3",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

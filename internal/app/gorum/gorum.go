@@ -5,15 +5,20 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/lheinrichde/golib/pkg/config"
-	"github.com/lheinrichde/golib/pkg/db"
 	"github.com/lheinrichde/gorum/internal/app/handlers"
+	"github.com/lheinrichde/gorum/internal/pkg/config"
+	"github.com/lheinrichde/gorum/internal/pkg/db"
 )
 
 // Init startup
 func Init() error {
 	// load config
 	if err := loadConfig(); err != nil {
+		return err
+	}
+
+	// load language
+	if err := loadLanguage(); err != nil {
 		return err
 	}
 
@@ -62,6 +67,22 @@ func loadConfig() error {
 		return err
 	}
 
+	return nil
+}
+
+// load language file
+func loadLanguage() error {
+	var err error
+
+	// load language file
+	var language []byte
+	language, err = ioutil.ReadFile("assets/language.json")
+	if err != nil {
+		return err
+	}
+
+	// set language and return
+	handlers.Language = language
 	return nil
 }
 

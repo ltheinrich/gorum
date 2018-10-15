@@ -3,6 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Config } from './config';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { Language } from './language';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  conf = Config;
+  conf = Config.get;
+  lang = Language.get;
 
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
@@ -23,8 +25,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.conf.setHttp(this.http);
-    this.conf.setLogin();
+    Config.setHttp(this.http);
+    Config.setLogin();
+    Language.loadLanguage('de');
+    Config.load('title');
   }
 
   ngOnDestroy(): void {
@@ -34,17 +38,21 @@ export class AppComponent implements OnInit, OnDestroy {
   private setLogin(username: string, password: string, message: string): void {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
-    this.conf.login = true;
+    Config.login = true;
     this.openSnackBar(message);
   }
 
   openLogin(): void {
     const dialogRef = this.dialog.open(LoginDialogOverview, { width: '300px', data: {} });
     dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined) {
+        return;
+      }
+
       if (result.username === undefined || result.password === undefined) {
         this.openSnackBar('Bitte fülle alle Eingabefelder aus');
       } else {
-        const hashed = Config.Hash(result.password);
+        const hashed = Config.hash(result.password);
         Config.API('login',
           { username: result.username, password: hashed })
           .subscribe(values => values['valid'] === true ?
@@ -57,10 +65,14 @@ export class AppComponent implements OnInit, OnDestroy {
   openRegister(): void {
     const dialogRef = this.dialog.open(RegisterDialogOverview, { width: '300px', data: {} });
     dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined) {
+        return;
+      }
+
       if (result.username === undefined || result.mail === undefined || result.password === undefined || result.repeat === undefined) {
         this.openSnackBar('Bitte fülle alle Eingabefelder aus');
       } else if (result.password === result.repeat) {
-        const hashed = Config.Hash(result.password);
+        const hashed = Config.hash(result.password);
         Config.API('register', { username: result.username, mail: result.mail, password: hashed })
           .subscribe(values => values['done'] === true ?
             this.setLogin(result.username, hashed, 'Der Benutzer wurde erfolgreich erstellt') :
@@ -86,6 +98,8 @@ export interface LoginDialogData {
 })
 // tslint:disable-next-line:component-class-suffix
 export class LoginDialogOverview {
+  conf = Config.get;
+  lang = Language.get;
   constructor(public dialogRef: MatDialogRef<LoginDialogOverview>, @Inject(MAT_DIALOG_DATA) public data: LoginDialogData) { }
   onNoClick(): void {
     this.dialogRef.close();
@@ -102,6 +116,8 @@ export interface RegisterDialogData {
 })
 // tslint:disable-next-line:component-class-suffix
 export class RegisterDialogOverview {
+  conf = Config.get;
+  lang = Language.get;
   constructor(public dialogRef: MatDialogRef<RegisterDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData) { }
   onNoClick(): void {

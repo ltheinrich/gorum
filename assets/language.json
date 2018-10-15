@@ -1,0 +1,13 @@
+{
+    "de": {
+        "login": "Anmelden",
+        "register": "Registrieren",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "repeatPassword": "Passwort wiederholen",
+        "mailAddress": "E-Mail Adresse",
+        "cancel": "Abbrechen"
+    },
+    "en": {},
+    "ru": {}
+}

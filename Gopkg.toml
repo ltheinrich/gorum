@@ -24,8 +24,6 @@
 #   go-tests = true
 #   unused-packages = true
 
-ignored = ["github.com/lheinrichde/golib/*"]
-
 [prune]
   go-tests = true
   unused-packages = true

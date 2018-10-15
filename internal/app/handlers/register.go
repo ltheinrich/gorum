@@ -6,24 +6,19 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/lheinrichde/golib/pkg/handler"
-
-	"github.com/lheinrichde/golib/pkg/db"
+	"github.com/lheinrichde/gorum/internal/pkg/db"
 )
 
 // Register handler
 func Register(w http.ResponseWriter, r *http.Request) {
+	var err error
 	Header(w)
-	request, err := Read(r.Body, r.ContentLength)
-	if err != nil {
-		Error(w, err)
-		return
-	}
+	request := Read(r.Body, r.ContentLength)
 
 	// check if username and password are provided
-	username, mail, password := handler.GetString(request, "username"), handler.GetString(request, "mail"), handler.GetString(request, "password")
+	username, mail, password := GetString(request, "username"), GetString(request, "mail"), GetString(request, "password")
 	if username == "" || mail == "" || password == "" {
-		ErrorWrite(w, "400")
+		Code(w, "400")
 		return
 	}
 
