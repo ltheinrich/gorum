@@ -25,10 +25,6 @@
   font-feature-settings: 'liga';
 }
 
-html, body {
-  margin: -1px;
-}
-
 @media (min-width:600px) {
     .card-out-margin {
         margin: 7%;
