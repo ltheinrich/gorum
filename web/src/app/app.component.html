@@ -5,7 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <h1 class='app-name'>&nbsp;{{conf("title")}}</h1>
+      <h1>&nbsp;{{conf("title")}}</h1>
     </mat-toolbar>
 
     <mat-sidenav-container class='sidenav-container' [style.marginTop.px]='56'>
@@ -25,7 +25,7 @@
 </ng-container>
 
 <ng-template #elseTemplate>
-  <mat-toolbar color='primary'>
+  <mat-toolbar color='primary' class='navbar-border'>
     <span><button mat-icon-button><img src='favicon.ico' height='30' width='30'></button></span>
     <span><button mat-flat-button routerLink='/'>{{conf("title")}}</button></span>
     <span><button mat-flat-button (click)='openLogin()'>{{lang("login")}}</button></span>
