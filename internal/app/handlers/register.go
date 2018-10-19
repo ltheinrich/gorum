@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/lheinrichde/gorum/internal/pkg/db"
+	"github.com/lheinrichde/gorum/pkg/db"
 )
 
 // Register handler

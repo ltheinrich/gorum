@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 
-	"github.com/lheinrichde/gorum/internal/pkg/db"
+	"github.com/lheinrichde/gorum/pkg/db"
 	"golang.org/x/crypto/bcrypt"
 )
 
