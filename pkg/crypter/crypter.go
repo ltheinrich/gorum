@@ -23,6 +23,18 @@ func Hash(input string) string {
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
+// HashByte return SHA-3 512 hash []byte
+func HashByte(input []byte) []byte {
+	// initialize hasher
+	hasher := sha3.New512()
+
+	// write byte slice to hasher
+	hasher.Write(input)
+
+	// return hash
+	return hasher.Sum(nil)
+}
+
 // GenerateKey generate AES key
 func GenerateKey(key string) []byte {
 	// define length

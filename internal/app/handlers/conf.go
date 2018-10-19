@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/lheinrichde/gorum/internal/pkg/db"
+	"github.com/lheinrichde/gorum/pkg/db"
 )
 
 // Conf handler
