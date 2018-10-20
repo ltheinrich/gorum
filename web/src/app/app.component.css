@@ -16,7 +16,7 @@
   right: 0;
 }
 
-.is-mobile .toolbar {
+.toolbar {
   position: fixed;
   z-index: 2;
 }
@@ -29,6 +29,6 @@ h1.app-name {
   flex: 1;
 }
 
-.is-mobile .sidenav-container {
+.sidenav-container {
   flex: 1 0 auto;
 }

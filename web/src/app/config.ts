@@ -12,8 +12,9 @@ export module Config {
         return configMap.get(key);
     }
 
-    export function load(key: string) {
-        API('conf', { confkey: key }).subscribe(values => configMap.set(key, values[key]));
+    export function load(keys: string[]) {
+        API('conf', { confkeys: keys }).subscribe(values =>
+            Object.entries(values).forEach(([key, value]) => configMap.set(key, value as string)));
     }
 
     export function API(url: string, body: any): Observable<any> {

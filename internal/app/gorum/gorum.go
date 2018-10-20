@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"github.com/lheinrichde/gorum/internal/app/handlers"
-	"github.com/lheinrichde/gorum/pkg/db"
 	"github.com/lheinrichde/gorum/pkg/config"
+	"github.com/lheinrichde/gorum/pkg/db"
 )
 
 // Init startup

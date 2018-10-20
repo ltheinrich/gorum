@@ -96,14 +96,27 @@ func GetString(request map[string]interface{}, name string) string {
 // GetStringArray get string array or nil
 func GetStringArray(request map[string]interface{}, name string) []string {
 	// cast
-	value, ok := request[name].([]string)
+	raw, okRaw := request[name].([]interface{})
 
-	// return value
-	if ok {
-		return value
+	// check if array
+	if okRaw {
+		// loop through string
+		values := []string{}
+		for _, value := range raw {
+			// cast to string
+			str, okStr := value.(string)
+
+			// append
+			if okStr {
+				values = append(values, str)
+			}
+		}
+
+		// return slice
+		return values
 	}
 
-	// return empty string
+	// return
 	return nil
 }
 
