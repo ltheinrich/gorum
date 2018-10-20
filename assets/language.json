@@ -6,7 +6,18 @@
         "password": "Passwort",
         "repeatPassword": "Passwort wiederholen",
         "mailAddress": "E-Mail Adresse",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "users": "Benutzer",
+        "user": "Benutzer",
+        "logout": "Abmelden",
+        "loginSuccess": "Die Anmeldung war erfolgreich",
+        "loginWrong": "Der Benutzername oder das Passwort ist falsch",
+        "fillAllFields": "Bitte fülle alle Eingabefelder aus",
+        "userCreated": "Der Benutzer wurde erfolgreich erstellt",
+        "userAlreadyExists": "Der Benutzername existiert bereits",
+        "passwordsNotMatch": "Die Passwörter stimmen nicht überein",
+        "close": "Schließen",
+        "loggedOut": "Du wurdest erfolgreich abgemeldet"
     },
     "en": {},
     "ru": {}

@@ -2,15 +2,15 @@
 
 <div mat-dialog-content>
     <mat-form-field>
-        <input matInput placeholder='{{lang("username")}}' [(ngModel)]='data.username' required>
+        <input matInput placeholder="{{lang('username')}}" [(ngModel)]="data.username" required>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type='password' placeholder='{{lang("password")}}' [(ngModel)]='data.password' required>
+        <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="data.password" required>
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-    <button mat-flat-button color="primary" [mat-dialog-close]='data'>{{lang("login")}}</button>
-    <button mat-button (click)='onNoClick()'>{{lang("cancel")}}</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="data">{{lang("login")}}</button>
+    <button mat-button (click)="onNoClick()">{{lang("cancel")}}</button>
 </div>

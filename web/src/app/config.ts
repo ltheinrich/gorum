@@ -28,6 +28,13 @@ export module Config {
             .subscribe(values => login = values['valid']);
     }
 
+    export function logout() {
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
+        login = false;
+        console.log('logged out');
+    }
+
     export function setHttp(httpClient: HttpClient) { http = httpClient; }
 
     export function hash(text: string): string { return sha3_512('gorum_' + sha3_512(text)); }

@@ -1,9 +1,9 @@
 .navbar-border {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin-top: -8px;
+  margin-left: -8px;
+  margin-right: -8px;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .container {
@@ -31,4 +31,8 @@ h1.app-name {
 
 .sidenav-container {
   flex: 1 0 auto;
+}
+
+.fill-toolbar {
+  flex: 1 1 auto;
 }

@@ -2,23 +2,22 @@ package handlers
 
 import (
 	"database/sql"
-	"net/http"
+	"errors"
+	"time"
 
 	"github.com/lheinrichde/gorum/pkg/db"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // Register handler
-func Register(w http.ResponseWriter, r *http.Request) {
+func Register(request map[string]interface{}, username string) interface{} {
 	var err error
-	Header(w)
-	request := Read(r.Body, r.ContentLength)
 
 	// check if username and password are provided
 	username, mail, password := GetString(request, "username"), GetString(request, "mail"), GetString(request, "password")
 	if username == "" || mail == "" || password == "" {
-		Code(w, "400")
-		return
+		// return not provided
+		return errors.New("400")
 	}
 
 	// query db
@@ -29,26 +28,24 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		var passwordHash []byte
 		passwordHash, err = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost+1)
 		if err != nil {
-			Error(w, err)
-			return
+			// return error
+			return err
 		}
 
 		// insert into database
-		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, mail) VALUES ($1, $2, $3);", username, string(passwordHash), mail)
+		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, mail, registered) VALUES ($1, $2, $3, $4);", username, string(passwordHash), mail, time.Now().Format("2006-01-02T15:04:05"))
 		if err != nil {
-			Error(w, err)
-			return
+			// return error
+			return err
 		}
 
 		// registered
-		Write(w, map[string]interface{}{"done": true})
-		return
+		return map[string]interface{}{"done": true}
 	} else if err != nil {
-		// error
-		Error(w, err)
-		return
+		// return error
+		return err
 	}
 
 	// username exists
-	Write(w, map[string]interface{}{"done": false})
+	return map[string]interface{}{"done": false}
 }
