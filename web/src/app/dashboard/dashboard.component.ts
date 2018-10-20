@@ -13,8 +13,9 @@ export class DashboardComponent implements OnInit {
   conf = Config.get;
   lang = Language.get;
 
-  constructor() { }
+  constructor(private title: Title) { }
 
   ngOnInit() {
+    this.title.setTitle(Config.get('title'));
   }
 }
