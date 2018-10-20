@@ -14,6 +14,7 @@ var (
 		"lang":     Lang,
 		"conf":     Conf,
 		"users":    Users,
+		"user":     User,
 	}
 )
 
