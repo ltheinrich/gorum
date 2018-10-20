@@ -12,11 +12,12 @@ import {
 import { LoginDialogOverview } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './user/user.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginDialogOverview, RegisterDialogOverview, UsersComponent, UserComponent
+    LoginDialogOverview, RegisterDialogOverview, UsersComponent, UserComponent, DashboardComponent
   ],
   imports: [
     BrowserModule,
