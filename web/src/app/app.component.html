@@ -26,10 +26,10 @@
 
 <ng-template #elseTemplate>
   <mat-toolbar color='primary' class='navbar-border'>
-    <span><button mat-icon-button><img src='favicon.ico' height='30' width='30'></button></span>
-    <span><button mat-flat-button routerLink='/'>{{conf("title")}}</button></span>
-    <span><button mat-flat-button (click)='openLogin()'>{{lang("login")}}</button></span>
-    <span><button mat-flat-button (click)='openRegister()'>{{lang("register")}}</button></span>
+    <span><button mat-icon-button disabled><img src='favicon.ico' height='30' width='30'></button></span>
+    <span><button mat-button routerLink='/'>{{conf("title")}}</button></span>
+    <span><button mat-button (click)='openLogin()'>{{lang("login")}}</button></span>
+    <span><button mat-button (click)='openRegister()'>{{lang("register")}}</button></span>
   </mat-toolbar>
 
   <router-outlet></router-outlet>

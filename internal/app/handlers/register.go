@@ -4,9 +4,8 @@ import (
 	"database/sql"
 	"net/http"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/lheinrichde/gorum/pkg/db"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Register handler
