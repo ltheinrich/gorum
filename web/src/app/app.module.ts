@@ -10,11 +10,13 @@ import {
   MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule
 } from '@angular/material';
 import { LoginDialogOverview } from './app.component';
+import { UsersComponent } from './users/users.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginDialogOverview, RegisterDialogOverview
+    LoginDialogOverview, RegisterDialogOverview, UsersComponent, UserComponent
   ],
   imports: [
     BrowserModule,

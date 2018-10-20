@@ -1,22 +1,20 @@
 package handlers
 
 import (
-	"net/http"
+	"errors"
 
 	"github.com/lheinrichde/gorum/pkg/db"
 )
 
 // Conf handler
-func Conf(w http.ResponseWriter, r *http.Request) {
+func Conf(request map[string]interface{}, username string) interface{} {
 	var err error
-	Header(w)
-	request := Read(r.Body, r.ContentLength)
 
 	// check if confkeys are provided
 	confkeys := GetStringArray(request, "confkeys")
 	if confkeys == nil {
-		Code(w, "400")
-		return
+		// return not provided
+		return errors.New("400")
 	}
 
 	// map to write
@@ -28,15 +26,14 @@ func Conf(w http.ResponseWriter, r *http.Request) {
 		var confvalue string
 		err = db.DB.QueryRow("SELECT confvalue FROM config WHERE confkey = $1;", confkey).Scan(&confvalue)
 		if err != nil {
-			// error
-			Error(w, err)
-			return
+			// return error
+			return err
 		}
 
 		// set confvalue in map
 		confvalues[confkey] = confvalue
 	}
 
-	// write map
-	Write(w, confvalues)
+	// return map
+	return confvalues
 }

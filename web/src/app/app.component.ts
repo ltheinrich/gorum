@@ -11,6 +11,7 @@ import { Language } from './language';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  config = Config;
   conf = Config.get;
   lang = Language.get;
 
@@ -50,14 +51,14 @@ export class AppComponent implements OnInit, OnDestroy {
       }
 
       if (result.username === undefined || result.password === undefined) {
-        this.openSnackBar('Bitte fülle alle Eingabefelder aus');
+        this.openSnackBar(Language.get('fillAllFields'));
       } else {
         const hashed = Config.hash(result.password);
         Config.API('login',
           { username: result.username, password: hashed })
           .subscribe(values => values['valid'] === true ?
-            this.setLogin(result.username, hashed, 'Die Anmeldung war erfolgreich') :
-            this.openSnackBar('Der Benutzername oder das Passwort ist falsch'));
+            this.setLogin(result.username, hashed, Language.get('loginSuccess')) :
+            this.openSnackBar(Language.get('loginWrong')));
       }
     });
   }
@@ -70,21 +71,26 @@ export class AppComponent implements OnInit, OnDestroy {
       }
 
       if (result.username === undefined || result.mail === undefined || result.password === undefined || result.repeat === undefined) {
-        this.openSnackBar('Bitte fülle alle Eingabefelder aus');
+        this.openSnackBar(Language.get('fillAllFields'));
       } else if (result.password === result.repeat) {
         const hashed = Config.hash(result.password);
         Config.API('register', { username: result.username, mail: result.mail, password: hashed })
           .subscribe(values => values['done'] === true ?
-            this.setLogin(result.username, hashed, 'Der Benutzer wurde erfolgreich erstellt') :
-            this.openSnackBar('Der Benutzername existiert bereits'));
+            this.setLogin(result.username, hashed, Language.get('userCreated')) :
+            this.openSnackBar(Language.get('userAlreadyExists')));
       } else {
-        this.openSnackBar('Die Passwörter stimmen nicht überein');
+        this.openSnackBar(Language.get('passwordsNotMatch'));
       }
     });
   }
 
+  doLogout(): void {
+    Config.logout();
+    this.openSnackBar(Language.get('loggedOut'));
+  }
+
   openSnackBar(message: string) {
-    this.snackBar.open(message, 'Schließen', { duration: 5000 });
+    this.snackBar.open(message, Language.get('close'), { duration: 5000 });
   }
 }
 

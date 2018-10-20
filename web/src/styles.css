@@ -26,7 +26,8 @@
 }
 
 @media (min-width:600px) {
-    .card-out-margin {
-        margin: 7%;
+    .border {
+        padding-right: 9%;
+        padding-left: 9%;
     }
 }

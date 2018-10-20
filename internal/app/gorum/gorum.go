@@ -50,9 +50,14 @@ func handle() {
 	http.Handle("/", http.FileServer(http.Dir("web/dist/gorum")))
 
 	// register all handlers in map
-	for url, h := range handlers.Handlers {
-		http.HandleFunc("/api/"+url, h)
+	for url, handler := range handlers.Handlers {
+		RegisterHandler(url, handler)
 	}
+}
+
+// RegisterHandler add handler
+func RegisterHandler(url string, handler func(request map[string]interface{}, username string) interface{}) {
+	http.HandleFunc("/api/"+url, handlers.GenerateHandler(handler))
 }
 
 // load config template and overwrite with custom
