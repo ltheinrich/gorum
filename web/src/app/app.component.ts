@@ -28,10 +28,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Config.setHttp(this.http);
-    Config.setLogin();
+    Config.loadFirst(['title'], this.title);
     Language.loadLanguage('de');
-    Config.load(['title']);
-    this.title.setTitle(Config.get('title'));
+    Config.setLogin();
   }
 
   ngOnDestroy(): void {

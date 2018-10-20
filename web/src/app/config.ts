@@ -2,6 +2,7 @@ import { sha3_512 } from 'js-sha3';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Title } from '@angular/platform-browser';
 
 export module Config {
     let http: HttpClient;
@@ -15,6 +16,18 @@ export module Config {
     export function load(keys: string[]) {
         API('conf', { confkeys: keys }).subscribe(values =>
             Object.entries(values).forEach(([key, value]) => configMap.set(key, value as string)));
+    }
+
+    export function loadFirst(keys: string[], title: Title) {
+        API('conf', { confkeys: keys }).subscribe(values =>
+            Object.entries(values).forEach(([key, value]) => loadFirstSet(key, value as string, title)));
+    }
+
+    function loadFirstSet(key: string, value: string, title: Title) {
+        configMap.set(key, value);
+        if (key === 'title') {
+            title.setTitle(value);
+        }
     }
 
     export function API(url: string, body: any): Observable<any> {
