@@ -1,5 +1,5 @@
 .user-item:hover {
     cursor: pointer;
     background: #e0e0e0;
-    border-radius: 5%;
+    border-radius: 4px;
 }
