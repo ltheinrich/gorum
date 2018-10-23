@@ -46,8 +46,8 @@ func Init() error {
 
 // register handlers
 func handle() {
-	// web/dist files (Angular)
-	http.Handle("/", http.FileServer(http.Dir("web/dist/gorum")))
+	// web files (Angular)
+	http.HandleFunc("/", handlers.Web)
 
 	// register all handlers in map
 	for url, handler := range handlers.Handlers {
