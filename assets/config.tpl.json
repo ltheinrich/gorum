@@ -10,6 +10,7 @@
     "https": {
         "address": ":1813",
         "certificate": "assets/crt.pem",
-        "key": "assets/key.pem"
+        "key": "assets/key.pem",
+        "directory": "web/dist/gorum"
     }
 }
