@@ -48,6 +48,11 @@ export module Config {
         console.log('logged out');
     }
 
+    export function registeredDate(registered: Object): string {
+        const date = new Date(<string>registered);
+        return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+    }
+
     export function setHttp(httpClient: HttpClient) { http = httpClient; }
 
     export function hash(text: string): string { return sha3_512('gorum_' + sha3_512(text)); }

@@ -17,7 +17,8 @@
         "userAlreadyExists": "Der Benutzername existiert bereits",
         "passwordsNotMatch": "Die Passwörter stimmen nicht überein",
         "close": "Schließen",
-        "loggedOut": "Du wurdest erfolgreich abgemeldet"
+        "loggedOut": "Du wurdest erfolgreich abgemeldet",
+        "joinedOn": "Beigetreten am"
     },
     "en": {},
     "ru": {}

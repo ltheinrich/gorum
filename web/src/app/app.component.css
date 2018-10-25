@@ -4,6 +4,7 @@
   margin-right: -8px;
   padding-left: 10%;
   padding-right: 10%;
+  width: 101%;
 }
 
 .container {
@@ -31,8 +32,4 @@ h1.app-name {
 
 .sidenav-container {
   flex: 1 0 auto;
-}
-
-.fill-toolbar {
-  flex: 1 1 auto;
 }

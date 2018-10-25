@@ -2,6 +2,6 @@
   <mat-list-item class="user-item" routerLink="/user/{{user.id}}">
     <img matListAvatar width="50" height="50" src="data:image/png;base64,{{user.data['avatar']}}">
     <h4 mat-line>{{user.data['username']}}</h4>
-    <p mat-line>{{registeredDate(user.data['registered'])}}</p>
+    <p mat-line class="gray">{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</p>
   </mat-list-item>
 </mat-list>
