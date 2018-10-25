@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {
   MatButtonModule, MatToolbarModule, MatIconModule, MatSidenavModule,
-  MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule
+  MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule,
+  MatCardModule
 } from '@angular/material';
 import { LoginDialogOverview } from './app.component';
 import { UsersComponent } from './users/users.component';
@@ -26,7 +27,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
     AppRoutingModule,
     MatButtonModule, MatToolbarModule, MatIconModule, MatSidenavModule,
-    MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule
+    MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule,
+    MatCardModule
   ],
   entryComponents: [LoginDialogOverview, RegisterDialogOverview],
   exports: [],

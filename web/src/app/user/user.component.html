@@ -1,3 +1,19 @@
-<p>
-  // TODO
-</p>
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar width="50" height="50" src="data:image/png;base64,{{user.data['avatar']}}">
+    <mat-card-title>{{user.data['username']}}</mat-card-title>
+    <mat-card-subtitle>{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</mat-card-subtitle>
+    <span class="fill-space"></span>
+    <mat-card-actions>
+      <button mat-flat-button color="primary">Follow</button>
+      <button mat-button color="primary">Edit profile</button>
+    </mat-card-actions>
+  </mat-card-header>
+  <!-- maybe header? -->
+
+  <mat-card-content>
+    <p>
+      Some user content
+    </p>
+  </mat-card-content>
+</mat-card>

@@ -37,7 +37,7 @@
         <h5>{{conf("title")}}</h5>
       </button></span>
     <span><button mat-button routerLink="/users">{{lang("users")}}</button></span>
-    <span class="fill-toolbar"></span>
+    <span class="fill-space"></span>
     <ng-container *ngIf="!config.login; else logout">
       <span><button mat-button (click)="openLogin()">{{lang("login")}}</button></span>
       <span><button mat-button (click)="openRegister()">{{lang("register")}}</button></span>
