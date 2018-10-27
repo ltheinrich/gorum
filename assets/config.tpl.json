@@ -12,5 +12,8 @@
         "certificate": "assets/crt.pem",
         "key": "assets/key.pem",
         "directory": "web/dist/gorum"
+    },
+    "data": {
+        "avatars": "data/avatars"
     }
 }

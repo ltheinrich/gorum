@@ -3,11 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 export module Config {
     let http: HttpClient;
+    let router: Router;
     const configMap: Map<string, string> = new Map<string, string>();
     export let login: boolean;
+    export const baseUrl = environment.production ? '/' : 'https://localhost:1813/';
+    export const apiUrl = baseUrl + 'api/';
 
     export function get(key: string): string {
         return configMap.get(key);
@@ -31,14 +35,28 @@ export module Config {
     }
 
     export function API(url: string, body: any): Observable<any> {
-        const apiUrl = environment.production ? '/api/' : 'https://localhost:1813/api/';
         return http.post<any>(apiUrl + url, body);
+    }
+
+    export function checkLogin(): boolean {
+        if (!Config.login) {
+            router.navigate(['/']);
+        }
+        return Config.login;
     }
 
     export function setLogin() {
         Config.API('login',
             { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
             .subscribe(values => login = values['valid']);
+    }
+
+    export function setRouter(newRouter: Router) {
+        router = newRouter;
+    }
+
+    export function getUsername(): string {
+        return localStorage.getItem('username');
     }
 
     export function logout() {

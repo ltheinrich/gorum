@@ -15,6 +15,7 @@ var (
 		"conf":     Conf,
 		"users":    Users,
 		"user":     User,
+		"edituser": EditUser,
 	}
 )
 
@@ -31,7 +32,8 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 		w.WriteHeader(200)
 
 		// write response
-		response := handler(read(r.Body, r.ContentLength), "")
+		request := read(r.Body, r.ContentLength)
+		response := handler(request, GetString(request, "username"))
 		if err, isErr := response.(error); isErr {
 			// write error string
 			writeMap(w, map[string]interface{}{"error": err.Error()})

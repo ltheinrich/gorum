@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/
 import { HttpClient } from '@angular/common/http';
 import { Language } from './language';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
 
   constructor(private http: HttpClient, private title: Title, public dialog: MatDialog,
-    public snackBar: MatSnackBar, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    public snackBar: MatSnackBar, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
@@ -31,6 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     Config.loadFirst(['title'], this.title);
     Language.loadLanguage('de');
     Config.setLogin();
+    Config.setRouter(this.router);
   }
 
   ngOnDestroy(): void {

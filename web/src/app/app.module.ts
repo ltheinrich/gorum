@@ -14,11 +14,15 @@ import { LoginDialogOverview } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './user/user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditProfileComponent, AvatarDialogOverview } from './edit-profile/edit-profile.component';
+import { SafePipe } from './safepipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginDialogOverview, RegisterDialogOverview, UsersComponent, UserComponent, DashboardComponent
+    LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview,
+    UsersComponent, UserComponent, DashboardComponent, EditProfileComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule,
     MatCardModule
   ],
-  entryComponents: [LoginDialogOverview, RegisterDialogOverview],
+  entryComponents: [LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview],
   exports: [],
   providers: [],
   bootstrap: [AppComponent]

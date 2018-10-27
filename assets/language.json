@@ -18,7 +18,11 @@
         "passwordsNotMatch": "Die Passwörter stimmen nicht überein",
         "close": "Schließen",
         "loggedOut": "Du wurdest erfolgreich abgemeldet",
-        "joinedOn": "Beigetreten am"
+        "joinedOn": "Beigetreten am",
+        "report": "Melden",
+        "editProfile": "Profil bearbeiten",
+        "save": "Speichern",
+        "editAvatar": "Profilbild ändern"
     },
     "en": {},
     "ru": {}

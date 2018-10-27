@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
   conf = Config.get;
   lang = Language.get;
 
-  user: User;
+  user = new User(0, {});
   id = +this.route.snapshot.paramMap.get('id');
 
   constructor(private route: ActivatedRoute, private title: Title) { }
