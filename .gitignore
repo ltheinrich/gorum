@@ -1,5 +1,6 @@
-# Binaries
+# Custom
 /bin/
+/data/
 /assets/config.json
 
 # IDEs and editors

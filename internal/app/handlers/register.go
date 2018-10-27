@@ -14,7 +14,7 @@ func Register(request map[string]interface{}, username string) interface{} {
 	var err error
 
 	// check if username and password are provided
-	username, mail, password := GetString(request, "username"), GetString(request, "mail"), GetString(request, "password")
+	mail, password := GetString(request, "mail"), GetString(request, "password")
 	if username == "" || mail == "" || password == "" {
 		// return not provided
 		return errors.New("400")
