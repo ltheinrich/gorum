@@ -2,9 +2,8 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    url(material-icons.woff2) format('woff2')
+  src: local('Material Icons'), local('MaterialIcons-Regular'),
+    url(material-icons.woff2) format('woff2');
 }
 
 .material-icons {
@@ -25,11 +24,11 @@
   font-feature-settings: 'liga';
 }
 
-@media (min-width:600px) {
-    .border {
-        padding-right: 9%;
-        padding-left: 9%;
-    }
+@media (min-width: 600px) {
+  .border {
+    padding-right: 9%;
+    padding-left: 9%;
+  }
 }
 
 .fill-space {
@@ -37,5 +36,5 @@
 }
 
 .gray {
-    color: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
 }

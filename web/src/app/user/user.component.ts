@@ -27,15 +27,18 @@ export class UserComponent implements OnInit {
   user = new User(0, {});
   id = +this.route.snapshot.paramMap.get('id');
 
-  constructor(private route: ActivatedRoute, private title: Title) { }
+  constructor(private route: ActivatedRoute, private title: Title) {}
 
   ngOnInit() {
-    Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
+    Config.API('user', { userID: this.id }).subscribe(values =>
+      this.initUser(values)
+    );
   }
 
   initUser(values: any) {
     this.user = new User(this.id, values);
-    this.title.setTitle(this.user.data['username'] + ' - ' + Config.get('title'));
+    this.title.setTitle(
+      this.user.data['username'] + ' - ' + Config.get('title')
+    );
   }
-
 }

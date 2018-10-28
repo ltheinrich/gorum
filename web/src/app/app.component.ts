@@ -1,7 +1,18 @@
-import { Component, ChangeDetectorRef, OnDestroy, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  OnDestroy,
+  Inject,
+  OnInit
+} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Config } from './config';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatSnackBar
+} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Language } from './language';
 import { Title } from '@angular/platform-browser';
@@ -20,9 +31,15 @@ export class AppComponent implements OnInit, OnDestroy {
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
 
-  constructor(private http: HttpClient, private title: Title, public dialog: MatDialog,
-    public snackBar: MatSnackBar, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private title: Title,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private router: Router
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
@@ -48,7 +65,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openLogin(): void {
-    const dialogRef = this.dialog.open(LoginDialogOverview, { width: '300px', data: {} });
+    const dialogRef = this.dialog.open(LoginDialogOverview, {
+      width: '300px',
+      data: {}
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === undefined) {
         return;
@@ -58,30 +78,56 @@ export class AppComponent implements OnInit, OnDestroy {
         this.openSnackBar(Language.get('fillAllFields'));
       } else {
         const hashed = Config.hash(result.password);
-        Config.API('login',
-          { username: result.username, password: hashed })
-          .subscribe(values => values['valid'] === true ?
-            this.setLogin(result.username, hashed, Language.get('loginSuccess')) :
-            this.openSnackBar(Language.get('loginWrong')));
+        Config.API('login', {
+          username: result.username,
+          password: hashed
+        }).subscribe(
+          values =>
+            values['valid'] === true
+              ? this.setLogin(
+                  result.username,
+                  hashed,
+                  Language.get('loginSuccess')
+                )
+              : this.openSnackBar(Language.get('loginWrong'))
+        );
       }
     });
   }
 
   openRegister(): void {
-    const dialogRef = this.dialog.open(RegisterDialogOverview, { width: '300px', data: {} });
+    const dialogRef = this.dialog.open(RegisterDialogOverview, {
+      width: '300px',
+      data: {}
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === undefined) {
         return;
       }
 
-      if (result.username === undefined || result.mail === undefined || result.password === undefined || result.repeat === undefined) {
+      if (
+        result.username === undefined ||
+        result.mail === undefined ||
+        result.password === undefined ||
+        result.repeat === undefined
+      ) {
         this.openSnackBar(Language.get('fillAllFields'));
       } else if (result.password === result.repeat) {
         const hashed = Config.hash(result.password);
-        Config.API('register', { username: result.username, mail: result.mail, password: hashed })
-          .subscribe(values => values['done'] === true ?
-            this.setLogin(result.username, hashed, Language.get('userCreated')) :
-            this.openSnackBar(Language.get('userAlreadyExists')));
+        Config.API('register', {
+          username: result.username,
+          mail: result.mail,
+          password: hashed
+        }).subscribe(
+          values =>
+            values['done'] === true
+              ? this.setLogin(
+                  result.username,
+                  hashed,
+                  Language.get('userCreated')
+                )
+              : this.openSnackBar(Language.get('userAlreadyExists'))
+        );
       } else {
         this.openSnackBar(Language.get('passwordsNotMatch'));
       }
@@ -99,37 +145,48 @@ export class AppComponent implements OnInit, OnDestroy {
 }
 
 export interface LoginDialogData {
-  username: string; password: string;
+  username: string;
+  password: string;
 }
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'login-dialog-overview', templateUrl: './login-dialog-overview.html'
+  selector: 'login-dialog-overview',
+  templateUrl: './login-dialog-overview.html'
 })
 // tslint:disable-next-line:component-class-suffix
 export class LoginDialogOverview {
   conf = Config.get;
   lang = Language.get;
-  constructor(public dialogRef: MatDialogRef<LoginDialogOverview>, @Inject(MAT_DIALOG_DATA) public data: LoginDialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<LoginDialogOverview>,
+    @Inject(MAT_DIALOG_DATA) public data: LoginDialogData
+  ) {}
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
 
 export interface RegisterDialogData {
-  username: string; mail: string; password: string; repeat: string;
+  username: string;
+  mail: string;
+  password: string;
+  repeat: string;
 }
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'register-dialog-overview', templateUrl: './register-dialog-overview.html'
+  selector: 'register-dialog-overview',
+  templateUrl: './register-dialog-overview.html'
 })
 // tslint:disable-next-line:component-class-suffix
 export class RegisterDialogOverview {
   conf = Config.get;
   lang = Language.get;
-  constructor(public dialogRef: MatDialogRef<RegisterDialogOverview>,
-    @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<RegisterDialogOverview>,
+    @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData
+  ) {}
   onNoClick(): void {
     this.dialogRef.close();
   }
