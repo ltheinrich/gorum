@@ -16,13 +16,19 @@ export class UsersComponent implements OnInit {
 
   users: User[] = [];
 
-  constructor(private title: Title) { }
+  constructor(private title: Title) {}
 
   ngOnInit() {
     this.title.setTitle(Language.get('users') + ' - ' + Config.get('title'));
     Config.API('users', {}).subscribe(values =>
       Object.entries(values).forEach(user =>
-        this.users.push(new User(<number><unknown>user[0], <{ [key: string]: Object; }>user[1]))));
+        this.users.push(
+          new User(
+            <number>(<unknown>user[0]),
+            <{ [key: string]: Object }>user[1]
+          )
+        )
+      )
+    );
   }
-
 }

@@ -1,19 +1,19 @@
 {
-    "postgresql": {
-        "host": "127.0.0.1",
-        "port": "5432",
-        "ssl": "disable",
-        "database": "gorum",
-        "username": "gorum",
-        "password": "gorum"
-    },
-    "https": {
-        "address": ":1813",
-        "certificate": "assets/crt.pem",
-        "key": "assets/key.pem",
-        "directory": "web/dist/gorum"
-    },
-    "data": {
-        "avatars": "data/avatars"
-    }
+  "postgresql": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "ssl": "disable",
+    "database": "gorum",
+    "username": "gorum",
+    "password": "gorum"
+  },
+  "https": {
+    "address": ":1813",
+    "certificate": "assets/crt.pem",
+    "key": "assets/key.pem",
+    "directory": "web/dist/gorum"
+  },
+  "data": {
+    "images": "data/images"
+  }
 }
