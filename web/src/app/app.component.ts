@@ -81,15 +81,14 @@ export class AppComponent implements OnInit, OnDestroy {
         Config.API('login', {
           username: result.username,
           password: hashed
-        }).subscribe(
-          values =>
-            values['valid'] === true
-              ? this.setLogin(
-                  result.username,
-                  hashed,
-                  Language.get('loginSuccess')
-                )
-              : this.openSnackBar(Language.get('loginWrong'))
+        }).subscribe(values =>
+          values['valid'] === true
+            ? this.setLogin(
+                result.username,
+                hashed,
+                Language.get('loginSuccess')
+              )
+            : this.openSnackBar(Language.get('loginWrong'))
         );
       }
     });
@@ -118,15 +117,16 @@ export class AppComponent implements OnInit, OnDestroy {
           username: result.username,
           mail: result.mail,
           password: hashed
-        }).subscribe(
-          values =>
-            values['done'] === true
-              ? this.setLogin(
-                  result.username,
-                  hashed,
-                  Language.get('userCreated')
-                )
-              : this.openSnackBar(Language.get('userAlreadyExists'))
+        }).subscribe(values =>
+          values['done'] === true
+            ? this.setLogin(
+                result.username,
+                hashed,
+                Language.get('userCreated')
+              )
+            : values['error'] === '400'
+            ? this.openSnackBar(Language.get('wrongData'))
+            : this.openSnackBar(Language.get('userAlreadyExists'))
         );
       } else {
         this.openSnackBar(Language.get('passwordsNotMatch'));
