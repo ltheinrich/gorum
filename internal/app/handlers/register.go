@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/lheinrichde/gorum/pkg/tools"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -15,7 +16,7 @@ func Register(request map[string]interface{}, username string) interface{} {
 
 	// check if username and password are provided
 	mail, password := GetString(request, "mail"), GetString(request, "password")
-	if username == "" || mail == "" || password == "" {
+	if username == "" || mail == "" || password == "" || !tools.MailRegEx.MatchString(mail) {
 		// return not provided
 		return errors.New("400")
 	}

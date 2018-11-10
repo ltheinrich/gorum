@@ -22,7 +22,8 @@
     "report": "Melden",
     "editProfile": "Profil bearbeiten",
     "save": "Speichern",
-    "editAvatar": "Profilbild ändern"
+    "editAvatar": "Profilbild ändern",
+    "wrongData": "Die Daten sind fehlerhaft"
   },
   "en": {},
   "ru": {}
