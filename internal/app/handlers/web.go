@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"compress/gzip"
 	"fmt"
 	"io"
 	"log"
@@ -18,7 +19,7 @@ var (
 )
 
 // Web serve web/dist/gorum files
-func Web(w http.ResponseWriter, r *http.Request) {
+func Web(rw http.ResponseWriter, r *http.Request) {
 	var err error
 
 	// get filename
@@ -30,6 +31,15 @@ func Web(w http.ResponseWriter, r *http.Request) {
 	// open file
 	var file *os.File
 	file, err = os.Open(fmt.Sprintf("%s/%s", config.Get("https", "directory"), fileName))
+
+	// defer file close and set content-type and content-encoding
+	defer file.Close()
+	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(fileName))+"; charset=utf-8")
+	rw.Header().Set("Content-Encoding", "gzip")
+
+	// gzip compression
+	w, _ := gzip.NewWriterLevel(rw, 2)
+	defer w.Close()
 
 	// check if file exists
 	if os.IsNotExist(err) {
@@ -47,10 +57,6 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-
-	// defer file close and set content-type
-	defer file.Close()
-	w.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(fileName))+"; charset=utf-8")
 
 	// write file
 	_, err = io.Copy(w, file)
