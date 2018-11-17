@@ -23,7 +23,8 @@
     "editProfile": "Profil bearbeiten",
     "save": "Speichern",
     "editAvatar": "Profilbild ändern",
-    "wrongData": "Die Daten sind fehlerhaft"
+    "wrongData": "Die Daten sind fehlerhaft",
+    "noUsers": "Es existieren keine Benutzer"
   },
   "en": {},
   "ru": {}
