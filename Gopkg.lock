@@ -14,7 +14,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9878200d79556690febd52cacc85712eff1b871b5a35109bbb58b6ea6b12e0cc"
+  digest = "1:63a14e646d94e2ae184411654ca4448992d21ca5b037c46c33c1e56d077e9fd0"
   name = "golang.org/x/crypto"
   packages = [
     "bcrypt",
@@ -22,7 +22,7 @@
     "sha3",
   ]
   pruneopts = "UT"
-  revision = "0c41d7ab0a0ee717d4590a44bcb987dfd9e183eb"
+  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
 
 [solve-meta]
   analyzer-name = "dep"
