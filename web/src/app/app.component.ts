@@ -18,6 +18,8 @@ import { Language } from './language';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
+let appInstance: AppComponent;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
+    appInstance = this;
   }
 
   ngOnInit(): void {
@@ -73,25 +76,21 @@ export class AppComponent implements OnInit, OnDestroy {
       if (result === undefined) {
         return;
       }
-
-      if (result.username === undefined || result.password === undefined) {
-        this.openSnackBar(Language.get('fillAllFields'));
-      } else {
-        const hashed = Config.hash(result.password);
-        Config.API('login', {
-          username: result.username,
-          password: hashed
-        }).subscribe(values =>
-          values['valid'] === true
-            ? this.setLogin(
-                result.username,
-                hashed,
-                Language.get('loginSuccess')
-              )
-            : this.openSnackBar(Language.get('loginWrong'))
-        );
-      }
+      this.login(result, dialogRef);
     });
+  }
+
+  public login(result: any, dialogRef: MatDialogRef<any>): void {
+    if (result.username === undefined || result.password === undefined) {
+      this.openSnackBar(Language.get('fillAllFields'));
+      return;
+    } else {
+      const hashed = Config.hash(result.password);
+      Config.API('login', {
+        username: result.username,
+        password: hashed
+      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef));
+    }
   }
 
   openRegister(): void {
@@ -103,35 +102,43 @@ export class AppComponent implements OnInit, OnDestroy {
       if (result === undefined) {
         return;
       }
-
-      if (
-        result.username === undefined ||
-        result.mail === undefined ||
-        result.password === undefined ||
-        result.repeat === undefined
-      ) {
-        this.openSnackBar(Language.get('fillAllFields'));
-      } else if (result.password === result.repeat) {
-        const hashed = Config.hash(result.password);
-        Config.API('register', {
-          username: result.username,
-          mail: result.mail,
-          password: hashed
-        }).subscribe(values =>
-          values['done'] === true
-            ? this.setLogin(
-                result.username,
-                hashed,
-                Language.get('userCreated')
-              )
-            : values['error'] === '400'
-            ? this.openSnackBar(Language.get('wrongData'))
-            : this.openSnackBar(Language.get('userAlreadyExists'))
-        );
-      } else {
-        this.openSnackBar(Language.get('passwordsNotMatch'));
-      }
+      this.register(result, dialogRef);
     });
+  }
+
+  public register(result: any, dialogRef: MatDialogRef<any>): void {
+    if (
+      result.username === undefined || result.mail === undefined ||
+      result.password === undefined || result.repeat === undefined
+    ) {
+      this.openSnackBar(Language.get('fillAllFields'));
+      return;
+    } else if (result.password === result.repeat) {
+      const hashed = Config.hash(result.password);
+      Config.API('register', {
+        username: result.username,
+        mail: result.mail,
+        password: hashed
+      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef));
+    } else {
+      this.openSnackBar(Language.get('passwordsNotMatch'));
+    }
+  }
+
+  closeDialogOnLogin(values: any, username: string, hashed: string, dialogRef: MatDialogRef<any>): void {
+    if (values['valid'] === true) {
+      this.setLogin(username, hashed, Language.get('loginSuccess'));
+      dialogRef.close();
+    } else if (values['valid'] === false) {
+      this.openSnackBar(Language.get('loginWrong'));
+    } else if (values['done'] === true) {
+      this.setLogin(username, hashed, Language.get('userCreated'));
+      dialogRef.close();
+    } else if (values['error'] === '400') {
+      this.openSnackBar(Language.get('wrongData'));
+    } else {
+      this.openSnackBar(Language.get('userAlreadyExists'));
+    }
   }
 
   doLogout(): void {
@@ -161,9 +168,12 @@ export class LoginDialogOverview {
   constructor(
     public dialogRef: MatDialogRef<LoginDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: LoginDialogData
-  ) {}
+  ) { }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  doLogin(): void {
+    appInstance.login(this.data, this.dialogRef);
   }
 }
 
@@ -186,8 +196,11 @@ export class RegisterDialogOverview {
   constructor(
     public dialogRef: MatDialogRef<RegisterDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData
-  ) {}
+  ) { }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  doRegister(): void {
+    appInstance.register(this.data, this.dialogRef);
   }
 }
