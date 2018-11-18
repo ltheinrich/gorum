@@ -14,7 +14,7 @@
     "loginWrong": "Der Benutzername oder das Passwort ist falsch",
     "fillAllFields": "Bitte fülle alle Eingabefelder aus",
     "userCreated": "Der Benutzer wurde erfolgreich erstellt",
-    "userAlreadyExists": "Der Benutzername existiert bereits",
+    "userAlreadyExists": "Der Benutzername or die E-Mail Adresse existiert bereits",
     "passwordsNotMatch": "Die Passwörter stimmen nicht überein",
     "close": "Schließen",
     "loggedOut": "Du wurdest erfolgreich abgemeldet",
