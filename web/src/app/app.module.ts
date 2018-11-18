@@ -25,6 +25,7 @@ import {
   AvatarDialogOverview
 } from './edit-profile/edit-profile.component';
 import { SafePipe } from './safepipe';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SafePipe } from './safepipe';
     UserComponent,
     DashboardComponent,
     EditProfileComponent,
-    SafePipe
+    SafePipe,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

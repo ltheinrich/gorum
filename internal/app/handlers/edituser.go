@@ -10,11 +10,17 @@ import (
 func EditUser(request map[string]interface{}, username string) interface{} {
 	var err error
 
-	// check if new user data provided
-	newUsername, newAvatar := GetString(request, "newUsername"), GetString(request, "newAvatar")
-	if newUsername == "" && newAvatar == "" {
+	// check if new user data and password are provided
+	newUsername, newAvatar, password := GetString(request, "newUsername"), GetString(request, "newAvatar"), GetString(request, "password")
+	if (newUsername == "" && newAvatar == "") || password == "" {
 		// both not provided
 		return errors.New("400")
+	}
+
+	// check login
+	if !login(username, password) {
+		// invalid login
+		return errors.New("403")
 	}
 
 	// check what provided

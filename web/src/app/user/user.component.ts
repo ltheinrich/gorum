@@ -27,9 +27,10 @@ export class UserComponent implements OnInit {
   user = new User(0, {});
   id = +this.route.snapshot.paramMap.get('id');
 
-  constructor(private route: ActivatedRoute, private title: Title) {}
+  constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
+    Config.setLogin(false);
     Config.API('user', { userID: this.id }).subscribe(values =>
       this.initUser(values)
     );

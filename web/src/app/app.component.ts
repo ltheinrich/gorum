@@ -16,9 +16,10 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Language } from './language';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RouterState } from '@angular/router';
+import { Location } from '@angular/common';
 
-let appInstance: AppComponent;
+export let appInstance: AppComponent;
 
 @Component({
   selector: 'app-root',
@@ -52,7 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
     Config.setHttp(this.http);
     Config.loadFirst(['title'], this.title);
     Language.loadLanguage('de');
-    Config.setLogin();
     Config.setRouter(this.router);
   }
 
