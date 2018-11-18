@@ -5,13 +5,14 @@ import { Language } from '../language';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
+import { PrivateSite } from '../private-site';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, PrivateSite {
   config = Config;
   conf = Config.get;
   lang = Language.get;
@@ -23,14 +24,12 @@ export class EditProfileComponent implements OnInit {
     private router: Router,
     private title: Title,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
-    if (Config.checkLogin()) {
-      Config.API('user', {
-        username: localStorage.getItem('username')
-      }).subscribe(values => this.initUser(values));
-    }
+    Config.setLogin(true);
+    Config.API('user', { username: localStorage.getItem('username') })
+      .subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
@@ -40,7 +39,7 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
-  saveProfile() {}
+  saveProfile() { }
 
   editAvatar(): void {
     const dialogRef = this.dialog.open(AvatarDialogOverview, {
@@ -60,7 +59,7 @@ export class AvatarDialogOverview {
   config = Config;
   username = btoa(localStorage.getItem('username'));
   password = localStorage.getItem('password');
-  constructor(public dialogRef: MatDialogRef<AvatarDialogOverview>) {}
+  constructor(public dialogRef: MatDialogRef<AvatarDialogOverview>) { }
   onNoClick(): void {
     this.dialogRef.close();
   }

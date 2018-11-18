@@ -9,6 +9,7 @@ export namespace Config {
   let http: HttpClient;
   let router: Router;
   const configMap: Map<string, string> = new Map<string, string>();
+  let triedLogin = false;
   export let login: boolean;
   export const baseUrl = environment.production
     ? '/'
@@ -46,18 +47,25 @@ export namespace Config {
     return http.post<any>(apiUrl + url, body);
   }
 
-  export function checkLogin(): boolean {
-    if (!Config.login) {
-      router.navigate(['/']);
+  export function setLogin(redirect: boolean) {
+    if (!triedLogin) {
+      Config.API('login', {
+        username: localStorage.getItem('username'),
+        password: localStorage.getItem('password')
+      }).subscribe(values => validateLogin(values, redirect));
+    } else {
+      if (redirect && !login) {
+        router.navigate(['/']);
+      }
     }
-    return Config.login;
   }
 
-  export function setLogin() {
-    Config.API('login', {
-      username: localStorage.getItem('username'),
-      password: localStorage.getItem('password')
-    }).subscribe(values => (login = values['valid']));
+  function validateLogin(values: any, redirect: boolean) {
+    login = values['valid'];
+    if (redirect && !login) {
+      router.navigate(['/']);
+    }
+    triedLogin = true;
   }
 
   export function setRouter(newRouter: Router) {
@@ -72,7 +80,6 @@ export namespace Config {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
     login = false;
-    console.log('logged out');
   }
 
   export function registeredDate(registered: Object): string {

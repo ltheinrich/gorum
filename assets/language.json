@@ -24,7 +24,13 @@
     "save": "Speichern",
     "editAvatar": "Profilbild ändern",
     "wrongData": "Die Daten sind fehlerhaft",
-    "noUsers": "Es existieren keine Benutzer"
+    "noUsers": "Es existieren keine Benutzer",
+    "changePassword": "Passwort ändern",
+    "newPassword": "Neues Passwort",
+    "repeatNewPassword": "Neues Passwort wiederholen",
+    "oldPassword": "Altes Passwort",
+    "wrongPassword": "Falsches Passwort",
+    "passwordChanged": "Passwort geändert"
   },
   "en": {},
   "ru": {}

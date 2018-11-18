@@ -9,13 +9,14 @@ import (
 var (
 	// Handlers map
 	Handlers = map[string]func(request map[string]interface{}, username string) interface{}{
-		"login":    Login,
-		"register": Register,
-		"lang":     Lang,
-		"conf":     Conf,
-		"users":    Users,
-		"user":     User,
-		"edituser": EditUser,
+		"login":          Login,
+		"register":       Register,
+		"lang":           Lang,
+		"conf":           Conf,
+		"users":          Users,
+		"user":           User,
+		"edituser":       EditUser,
+		"changepassword": ChangePassword,
 	}
 )
 
