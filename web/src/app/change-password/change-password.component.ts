@@ -28,7 +28,6 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(true);
-    this.title.setTitle(Language.get('changePassword') + ' - ' + Config.get('title'));
     Config.API('user', { username: localStorage.getItem('username') })
       .subscribe(values => this.initUser(values));
   }
@@ -36,7 +35,7 @@ export class ChangePasswordComponent implements OnInit {
   initUser(values: any) {
     this.user = new User(values['id'], values);
     this.title.setTitle(
-      this.user.data['username'] + ' - ' + Config.get('title')
+      Language.get('changePassword') + ' - ' + Config.get('title')
     );
   }
 

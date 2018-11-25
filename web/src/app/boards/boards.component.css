@@ -1,0 +1,10 @@
+.board-item:hover {
+    cursor: pointer;
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+
+.category-header {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: medium;
+}

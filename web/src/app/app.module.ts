@@ -26,6 +26,9 @@ import {
 } from './edit-profile/edit-profile.component';
 import { SafePipe } from './safepipe';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { BoardsComponent } from './boards/boards.component';
+import { ThreadComponent } from './thread/thread.component';
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     DashboardComponent,
     EditProfileComponent,
     SafePipe,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    BoardsComponent,
+    ThreadComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
@@ -65,4 +71,4 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
