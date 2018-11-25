@@ -11,7 +11,7 @@ import (
 )
 
 // Register handler
-func Register(request map[string]interface{}, username string) interface{} {
+func Register(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
 	// check if username and password are provided

@@ -2,23 +2,15 @@ package handlers
 
 import (
 	"database/sql"
-	"errors"
 
 	"github.com/lheinrichde/gorum/pkg/db"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // Login handler
-func Login(request map[string]interface{}, username string) interface{} {
-	// check if username and password are provided
-	password := GetString(request, "password")
-	if username == "" || password == "" {
-		// return not provided
-		return errors.New("400")
-	}
-
+func Login(request map[string]interface{}, username string, auth bool) interface{} {
 	// write
-	return map[string]interface{}{"valid": login(username, password)}
+	return map[string]interface{}{"valid": auth}
 }
 
 // verify login

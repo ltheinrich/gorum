@@ -8,7 +8,7 @@ import (
 )
 
 // Users handler
-func Users(request map[string]interface{}, username string) interface{} {
+func Users(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
 	// query db

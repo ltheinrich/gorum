@@ -3,9 +3,11 @@ import { User } from '../user/user.component';
 import { Config } from '../config';
 import { Language } from '../language';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { PrivateSite } from '../private-site';
+import { appInitializerFactory } from '@angular/platform-browser/src/browser/server-transition';
+import { appInstance } from '../app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -39,7 +41,30 @@ export class EditProfileComponent implements OnInit, PrivateSite {
     );
   }
 
-  saveProfile() { }
+  saveProfile() {
+    const newUsername = <string>this.user.data['username'];
+    if (this.username !== newUsername) {
+      if (newUsername === '') {
+        appInstance.openSnackBar(Language.get('emptyUsername'));
+      } else {
+        Config.API('editusername', {
+          username: this.username,
+          password: localStorage.getItem('password'),
+          newUsername: newUsername
+        }).subscribe(values => this.changedUsername(values, newUsername));
+      }
+    }
+  }
+
+  changedUsername(values: any, newUsername: string) {
+    if (values['success'] === true) {
+      localStorage.setItem('username', newUsername);
+      appInstance.openSnackBar(Language.get('changedUsername'));
+      this.router.navigate(['/user/' + this.user.id]);
+    } else {
+      appInstance.openSnackBar(values['error']);
+    }
+  }
 
   editAvatar(): void {
     const dialogRef = this.dialog.open(AvatarDialogOverview, {

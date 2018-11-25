@@ -48,7 +48,7 @@ export class ChangePasswordComponent implements OnInit {
     } else if (Config.hash(this.oldPassword) !== localStorage.getItem('password')) {
       appInstance.openSnackBar(Language.get('wrongPassword'));
     } else {
-      Config.API('changepassword', {
+      Config.API('editpassword', {
         username: localStorage.getItem('username'),
         password: localStorage.getItem('password'),
         newPassword: Config.hash(this.newPassword)

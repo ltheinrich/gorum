@@ -29,8 +29,10 @@
     "newPassword": "Neues Passwort",
     "repeatNewPassword": "Neues Passwort wiederholen",
     "oldPassword": "Altes Passwort",
-    "wrongPassword": "Falsches Passwort",
-    "passwordChanged": "Passwort geändert"
+    "wrongPassword": "Das Passwort ist nicht korrekt",
+    "passwordChanged": "Das Passwort wurde geändert",
+    "emptyUsername": "Der Benutzername ist leer",
+    "changedUsername": "Der Benutzername wurde geändert"
   },
   "en": {},
   "ru": {}

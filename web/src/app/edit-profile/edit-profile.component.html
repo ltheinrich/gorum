@@ -8,7 +8,7 @@
     <mat-card-subtitle>{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</mat-card-subtitle>
     <span class="fill-space"></span>
     <mat-card-actions>
-      <button mat-flat-button routerLink="/user/{{user.id}}" (click)="saveProfile()" color="primary">{{lang("save")}}</button>
+      <button mat-flat-button (click)="saveProfile()" color="primary">{{lang("save")}}</button>
       <button mat-button routerLink="/user/{{user.id}}" color="primary">{{lang("cancel")}}</button>
     </mat-card-actions>
   </mat-card-header>

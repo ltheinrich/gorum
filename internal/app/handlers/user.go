@@ -8,7 +8,7 @@ import (
 )
 
 // User handler
-func User(request map[string]interface{}, username string) interface{} {
+func User(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
 	// check if user data provided
