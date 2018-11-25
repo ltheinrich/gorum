@@ -6,7 +6,7 @@ var (
 )
 
 // Lang handler
-func Lang(request map[string]interface{}, username string) interface{} {
+func Lang(request map[string]interface{}, username string, auth bool) interface{} {
 	// write language bytes
 	return Language
 }

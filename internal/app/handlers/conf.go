@@ -7,7 +7,7 @@ import (
 )
 
 // Conf handler
-func Conf(request map[string]interface{}, username string) interface{} {
+func Conf(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
 	// check if confkeys are provided

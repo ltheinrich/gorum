@@ -8,21 +8,21 @@ import (
 	"github.com/lheinrichde/gorum/pkg/db"
 )
 
-// ChangePassword handler
-func ChangePassword(request map[string]interface{}, username string) interface{} {
+// EditPassword handler
+func EditPassword(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
-	// check if new- and password provided
-	newPassword, password := GetString(request, "newPassword"), GetString(request, "password")
-	if newPassword == "" || password == "" {
-		// both not provided
-		return errors.New("400")
+	// authenticate
+	if !auth {
+		// not authenticated
+		return errors.New("403")
 	}
 
-	// check login
-	if !login(username, password) {
-		// invalid login
-		return errors.New("403")
+	// check if new password provided
+	newPassword := GetString(request, "newPassword")
+	if newPassword == "" {
+		// not provided
+		return errors.New("400")
 	}
 
 	// generate new password hash

@@ -8,20 +8,20 @@ import (
 
 var (
 	// Handlers map
-	Handlers = map[string]func(request map[string]interface{}, username string) interface{}{
-		"login":          Login,
-		"register":       Register,
-		"lang":           Lang,
-		"conf":           Conf,
-		"users":          Users,
-		"user":           User,
-		"edituser":       EditUser,
-		"changepassword": ChangePassword,
+	Handlers = map[string]func(request map[string]interface{}, username string, auth bool) interface{}{
+		"login":        Login,
+		"register":     Register,
+		"lang":         Lang,
+		"conf":         Conf,
+		"users":        Users,
+		"user":         User,
+		"editusername": EditUsername,
+		"editpassword": EditPassword,
 	}
 )
 
 // GenerateHandler add custom variables to handler
-func GenerateHandler(handler func(request map[string]interface{}, username string) interface{}) func(http.ResponseWriter, *http.Request) {
+func GenerateHandler(handler func(request map[string]interface{}, username string, auth bool) interface{}) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// set headers for CORS
 		w.Header().Set("Content-Type", "application/json")
@@ -32,9 +32,21 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 		// set header code
 		w.WriteHeader(200)
 
-		// write response
+		// read request
 		request := read(r.Body, r.ContentLength)
-		response := handler(request, GetString(request, "username"))
+
+		// authenticate
+		var auth bool
+		username := GetString(request, "username")
+		password := GetString(request, "password")
+		if username != "" && password != "" {
+			auth = login(username, password)
+		}
+
+		// handle
+		response := handler(request, username, auth)
+
+		// write response
 		if err, isErr := response.(error); isErr {
 			// write error string
 			writeMap(w, map[string]interface{}{"error": err.Error()})
