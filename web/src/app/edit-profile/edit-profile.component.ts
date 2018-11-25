@@ -37,7 +37,7 @@ export class EditProfileComponent implements OnInit, PrivateSite {
   initUser(values: any) {
     this.user = new User(values['id'], values);
     this.title.setTitle(
-      this.user.data['username'] + ' - ' + Config.get('title')
+      Language.get('editProfile') + ' - ' + Config.get('title')
     );
   }
 

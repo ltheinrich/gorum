@@ -22,11 +22,24 @@ CREATE TABLE IF NOT EXISTS users (
     PRIMARY KEY (id)
 );
 
+-- Categories
+CREATE TABLE IF NOT EXISTS categories (
+    id SERIAL,
+    categoryname VARCHAR(255) NOT NULL,
+    sort INTEGER NOT NULL,
+    PRIMARY KEY (id)
+);
+
 -- Boards
 CREATE TABLE IF NOT EXISTS boards (
     id SERIAL,
-    boardname VARCHAR(255),
-    PRIMARY KEY (id)
+    boardname VARCHAR(255) NOT NULL,
+    boarddescription VARCHAR(255),
+    boardicon VARCHAR(255) DEFAULT 'forum',
+    sort INTEGER NOT NULL,
+    category INTEGER NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Threads

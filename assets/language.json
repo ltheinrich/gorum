@@ -32,7 +32,14 @@
     "wrongPassword": "Das Passwort ist nicht korrekt",
     "passwordChanged": "Das Passwort wurde geändert",
     "emptyUsername": "Der Benutzername ist leer",
-    "changedUsername": "Der Benutzername wurde geändert"
+    "changedUsername": "Der Benutzername wurde geändert",
+    "boards": "Foren",
+    "board": "Forum",
+    "threads": "Themen",
+    "thread": "Thema",
+    "posts": "Beiträge",
+    "post": "Beitrag",
+    "noBoards": "Es existieren keine Foren"
   },
   "en": {},
   "ru": {}

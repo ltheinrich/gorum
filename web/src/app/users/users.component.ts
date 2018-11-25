@@ -20,14 +20,16 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(false);
+    Config.API('users', {}).subscribe(values => this.listUsers(values));
+  }
+
+  listUsers(values: any) {
     this.title.setTitle(Language.get('users') + ' - ' + Config.get('title'));
-    Config.API('users', {}).subscribe(values =>
-      Object.entries(values).forEach(user =>
-        this.users.push(
-          new User(
-            <number>(<unknown>user[0]),
-            <{ [key: string]: Object }>user[1]
-          )
+    Object.entries(values).forEach(user =>
+      this.users.push(
+        new User(
+          <number>(<unknown>user[0]),
+          <{ [key: string]: Object }>user[1]
         )
       )
     );

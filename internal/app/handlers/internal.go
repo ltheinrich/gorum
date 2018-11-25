@@ -17,6 +17,7 @@ var (
 		"user":         User,
 		"editusername": EditUsername,
 		"editpassword": EditPassword,
+		"boards":       Boards,
 	}
 )
 
