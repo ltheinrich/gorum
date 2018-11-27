@@ -13,9 +13,9 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 	// query db
 	var rows *sql.Rows
 	rows, err = db.DB.Query(`SELECT boards.id, boards.boardname, boards.boarddescription,
-							boards.boardicon, categories.categoryname FROM boards
-							INNER JOIN categories ON boards.category = categories.id
-							ORDER BY boards.sort + categories.sort ASC;`)
+							boards.boardicon, categories.categoryname,
+							boards.sort + categories.sort FROM boards
+							INNER JOIN categories ON boards.category = categories.id;`)
 	if err != nil {
 		// return error
 		return err
@@ -27,9 +27,9 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 	// loop through users
 	for rows.Next() {
 		// scan
-		var id int
+		var id, sort int
 		var name, description, icon, category string
-		err = rows.Scan(&id, &name, &description, &icon, &category)
+		err = rows.Scan(&id, &name, &description, &icon, &category, &sort)
 		if err != nil {
 			// return error
 			return err
@@ -41,6 +41,7 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 		board["name"] = name
 		board["description"] = description
 		board["icon"] = icon
+		board["sort"] = sort
 
 		// append board to categories map
 		if categories[category] == nil {
