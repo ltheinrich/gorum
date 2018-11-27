@@ -37,6 +37,16 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(fileName))+"; charset=utf-8")
 	rw.Header().Set("Content-Encoding", "gzip")
 
+	// security headers
+	rw.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; style-src 'self' 'unsafe-inline';")
+
+	if origin := r.Header.Get("Origin"); origin != "" {
+		rw.Header().Set("Access-Control-Allow-Origin", origin)
+	}
+
+	rw.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST")
+
 	// gzip compression
 	w, _ := gzip.NewWriterLevel(rw, 2)
 	defer w.Close()
