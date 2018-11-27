@@ -53,6 +53,8 @@ export class EditProfileComponent implements OnInit, PrivateSite {
           newUsername: newUsername
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
+    } else {
+      this.router.navigate(['/user/' + this.user.id]);
     }
   }
 
