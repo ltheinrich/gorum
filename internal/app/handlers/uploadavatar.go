@@ -12,6 +12,16 @@ import (
 func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
 
+	// security headers
+	w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; style-src 'self' 'unsafe-inline';")
+
+	if origin := r.Header.Get("Origin"); origin != "" {
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+	}
+
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+
 	// get username and password
 	rawUsername, _ := base64.StdEncoding.DecodeString(r.FormValue("username"))
 	username, password := string(rawUsername), r.FormValue("password")
