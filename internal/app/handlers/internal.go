@@ -27,7 +27,11 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 	return func(w http.ResponseWriter, r *http.Request) {
 		// set headers for CORS
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
+
+		if origin := r.Header.Get("Origin"); origin != "" {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+		}
+
 		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 		w.Header().Set("Access-Control-Allow-Methods", "POST") // optional add: GET, PUT, DELETE
 
