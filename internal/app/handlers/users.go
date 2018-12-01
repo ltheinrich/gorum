@@ -2,8 +2,11 @@ package handlers
 
 import (
 	"database/sql"
+	"fmt"
+	"os"
 	"strconv"
 
+	"github.com/lheinrichde/gorum/pkg/config"
 	"github.com/lheinrichde/gorum/pkg/db"
 )
 
@@ -13,7 +16,7 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 
 	// query db
 	var rows *sql.Rows
-	rows, err = db.DB.Query("SELECT id, username, registered, avatar FROM users;")
+	rows, err = db.DB.Query("SELECT id, username, registered FROM users;")
 	if err != nil {
 		// return error
 		return err
@@ -26,8 +29,8 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 	for rows.Next() {
 		// scan
 		var id int
-		var username, registered, avatar string
-		err = rows.Scan(&id, &username, &registered, &avatar)
+		var queryUsername, registered string
+		err = rows.Scan(&id, &queryUsername, &registered)
 		if err != nil {
 			// return error
 			return err
@@ -35,9 +38,17 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 
 		// user map to append
 		user := map[string]interface{}{}
-		user["username"] = username
+		user["username"] = queryUsername
 		user["registered"] = registered
-		user["avatar"] = avatar
+
+		// add avatar
+		avatarPath := fmt.Sprintf("%s/%s", config.Get("data", "avatar"), queryUsername)
+		_, err = os.Open(avatarPath)
+		if os.IsNotExist(err) {
+			user["avatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
+		} else {
+			user["avatar"] = avatarPath
+		}
 
 		// append user to users map
 		users[strconv.Itoa(id)] = user

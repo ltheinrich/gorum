@@ -8,8 +8,8 @@ import (
 	"mime"
 	"net/http"
 	"os"
-	"path"
 	"path/filepath"
+	"strings"
 
 	"github.com/lheinrichde/gorum/pkg/config"
 )
@@ -22,30 +22,31 @@ var (
 func Web(rw http.ResponseWriter, r *http.Request) {
 	var err error
 
-	// get filename
-	_, fileName := path.Split(r.URL.Path)
-	if fileName == "" || fileName == "/" {
-		fileName = "index.html"
+	// check for malicious path
+	path := strings.Replace(r.URL.Path, "/", "", 1)
+	if strings.Contains(path, "..") {
+		rw.WriteHeader(400)
+		rw.Write([]byte{})
+		return
 	}
 
-	// open file
+	// define variables to open file
 	var file *os.File
-	file, err = os.Open(fmt.Sprintf("%s/%s", config.Get("https", "directory"), fileName))
+	filePath := fmt.Sprintf("%s/%s", config.Get("https", "directory"), path)
+
+	// open file
+	if path == "" {
+		filePath += "index.html"
+	}
+	file, err = os.Open(filePath)
 
 	// defer file close and set content-type and content-encoding
 	defer file.Close()
-	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(fileName))+"; charset=utf-8")
+	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
 	rw.Header().Set("Content-Encoding", "gzip")
 
 	// security headers
-	rw.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; style-src 'self' 'unsafe-inline';")
-
-	if origin := r.Header.Get("Origin"); origin != "" {
-		rw.Header().Set("Access-Control-Allow-Origin", origin)
-	}
-
-	rw.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	rw.Header().Set("Access-Control-Allow-Methods", "POST")
+	SecurityHeaders(rw, r)
 
 	// gzip compression
 	w, _ := gzip.NewWriterLevel(rw, 2)

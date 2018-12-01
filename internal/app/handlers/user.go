@@ -3,6 +3,10 @@ package handlers
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"os"
+
+	"github.com/lheinrichde/gorum/pkg/config"
 
 	"github.com/lheinrichde/gorum/pkg/db"
 )
@@ -20,15 +24,15 @@ func User(request map[string]interface{}, username string, auth bool) interface{
 
 	// define variables
 	var queryID int
-	var queryUsername, registered, avatar string
+	var queryUsername, registered string
 
 	// check what provided
 	if userID == 0 {
 		// query current user
-		err = db.DB.QueryRow("SELECT id, username, registered, avatar FROM users WHERE username = $1;", username).Scan(&queryID, &queryUsername, &registered, &avatar)
+		err = db.DB.QueryRow("SELECT id, username, registered FROM users WHERE username = $1;", username).Scan(&queryID, &queryUsername, &registered)
 	} else {
 		// query user by id
-		err = db.DB.QueryRow("SELECT id, username, registered, avatar FROM users WHERE id = $1;", userID).Scan(&queryID, &queryUsername, &registered, &avatar)
+		err = db.DB.QueryRow("SELECT id, username, registered FROM users WHERE id = $1;", userID).Scan(&queryID, &queryUsername, &registered)
 	}
 
 	// check not found
@@ -45,7 +49,15 @@ func User(request map[string]interface{}, username string, auth bool) interface{
 	user["id"] = queryID
 	user["username"] = queryUsername
 	user["registered"] = registered
-	user["avatar"] = avatar
+
+	// add avatar
+	avatarPath := fmt.Sprintf("%s/%s", config.Get("data", "avatar"), queryUsername)
+	_, err = os.Open(avatarPath)
+	if os.IsNotExist(err) {
+		user["avatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
+	} else {
+		user["avatar"] = avatarPath
+	}
 
 	// write map
 	return user

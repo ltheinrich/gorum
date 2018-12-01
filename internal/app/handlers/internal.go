@@ -25,19 +25,16 @@ var (
 // GenerateHandler add custom variables to handler
 func GenerateHandler(handler func(request map[string]interface{}, username string, auth bool) interface{}) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// security headers
+		// headers
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; style-src 'self' 'unsafe-inline';")
-
-		if origin := r.Header.Get("Origin"); origin != "" {
-			w.Header().Set("Access-Control-Allow-Origin", origin)
-		}
-
-		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-		w.Header().Set("Access-Control-Allow-Methods", "POST") // optional add: GET, PUT, DELETE
-
-		// set header code
+		SecurityHeaders(w, r)
 		w.WriteHeader(200)
+
+		// require POST request
+		if r.Method != "POST" {
+			w.Write([]byte{})
+			return
+		}
 
 		// read request
 		request := read(r.Body, r.ContentLength)
