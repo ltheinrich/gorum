@@ -86,7 +86,7 @@ func GetBool(request map[string]interface{}, name string) bool {
 func SecurityHeaders(w http.ResponseWriter, r *http.Request) {
 	// content-security-policy
 	w.Header().Set("Content-Security-Policy",
-		"default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; style-src 'self' 'unsafe-inline';")
+		"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';")
 
 	// access-control-allow-origin
 	if origin := r.Header.Get("Origin"); origin != "" {
