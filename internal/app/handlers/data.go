@@ -23,19 +23,19 @@ func Data(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// default paths
+	switch path {
+	case "data/avatar/default":
+		path = "assets/avatar.png"
+	}
+
 	// open file
 	var file *os.File
 	file, err = os.Open(path)
 	defer file.Close()
 
-	// get file extension
-	extension := mime.TypeByExtension(filepath.Ext(path))
-	if path == "/data/avatar/default" {
-		extension = "image/png"
-	}
-
 	// set content-type and content-encoding
-	rw.Header().Set("Content-Type", extension+"; charset=utf-8")
+	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
 	rw.Header().Set("Content-Encoding", "gzip")
 
 	// security headers
