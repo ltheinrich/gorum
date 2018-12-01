@@ -94,7 +94,8 @@ func SecurityHeaders(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// access-control-allow-headers
-	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	w.Header().Set("Access-Control-Allow-Headers",
+		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 
 	// access-control-allow-methods
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
