@@ -51,7 +51,7 @@ func User(request map[string]interface{}, username string, auth bool) interface{
 	user["registered"] = registered
 
 	// add avatar
-	avatarPath := fmt.Sprintf("%s/%s", config.Get("data", "avatar"), queryUsername)
+	avatarPath := fmt.Sprintf("%s/%s.png", config.Get("data", "avatar"), queryUsername)
 	_, err = os.Open(avatarPath)
 	if os.IsNotExist(err) {
 		user["avatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))

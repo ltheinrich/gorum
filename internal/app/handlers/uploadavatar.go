@@ -44,12 +44,24 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 
 			// open avatar file
 			var avatar *os.File
-			avatarName := fmt.Sprintf("%s/%s", config.Get("data", "avatar"), username)
-			avatar, err = os.Open(avatarName)
+			avatarName := fmt.Sprintf("%s/%s.png", config.Get("data", "avatar"), username)
+			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
 
-			// create avatar file
+			// create directories
 			if os.IsNotExist(err) {
-				avatar, err = os.Create(avatarName)
+				err = os.MkdirAll(config.Get("data", "avatar"), os.ModePerm)
+				if err != nil {
+					// write header
+					w.Header().Add("content-type", "text/html")
+					w.WriteHeader(200)
+
+					// write content
+					w.Write([]byte(err.Error()))
+					return
+				}
+
+				// open avatar file again
+				avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
 				if err != nil {
 					// write header
 					w.Header().Add("content-type", "text/html")
