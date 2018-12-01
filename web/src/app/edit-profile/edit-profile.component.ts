@@ -64,7 +64,8 @@ export class EditProfileComponent implements OnInit, PrivateSite {
       appInstance.openSnackBar(Language.get('changedUsername'));
       this.router.navigate(['/user/' + this.user.id]);
     } else {
-      appInstance.openSnackBar(values['error']);
+      const errorMessage = Language.get(values['error']);
+      appInstance.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
     }
   }
 

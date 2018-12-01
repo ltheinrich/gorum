@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/lheinrichde/gorum/pkg/config"
+	"github.com/lheinrichde/gorum/pkg/db"
 )
 
 // UploadAvatar http handler function
@@ -42,9 +43,22 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			file.Read(fileData)
 			defer file.Close()
 
+			// get user id
+			var userID int
+			err = db.DB.QueryRow("SELECT id from users WHERE username = $1;", username).Scan(&userID)
+			if err != nil {
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// write content
+				w.Write([]byte(err.Error()))
+				return
+			}
+
 			// open avatar file
 			var avatar *os.File
-			avatarName := fmt.Sprintf("%s/%s.png", config.Get("data", "avatar"), username)
+			avatarName := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), userID)
 			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
 
 			// create directories
