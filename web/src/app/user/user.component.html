@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <img mat-card-avatar width="50" height="50" src="data:image/png;base64,{{user.data['avatar']}}">
+    <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}">
     <mat-card-title>{{user.data['username']}}</mat-card-title>
     <mat-card-subtitle>{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</mat-card-subtitle>
     <span class="fill-space"></span>

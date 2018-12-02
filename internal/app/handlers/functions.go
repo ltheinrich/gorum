@@ -1,5 +1,7 @@
 package handlers
 
+import "net/http"
+
 // GetString get string or empty string
 func GetString(request map[string]interface{}, name string) string {
 	// cast
@@ -78,4 +80,23 @@ func GetBool(request map[string]interface{}, name string) bool {
 
 	// return false
 	return false
+}
+
+// SecurityHeaders write CORS and CSP headers
+func SecurityHeaders(w http.ResponseWriter, r *http.Request) {
+	// content-security-policy
+	w.Header().Set("Content-Security-Policy",
+		"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';")
+
+	// access-control-allow-origin
+	if origin := r.Header.Get("Origin"); origin != "" {
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+	}
+
+	// access-control-allow-headers
+	w.Header().Set("Access-Control-Allow-Headers",
+		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
+	// access-control-allow-methods
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
 }

@@ -85,7 +85,7 @@ export namespace Config {
   export function registeredDate(registered: Object): string {
     const date = new Date(<string>registered);
     return (
-      date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
+      (date.getDate() <= 9 ? '0' + date.getDate() : date.getDate()) + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     );
   }
 
