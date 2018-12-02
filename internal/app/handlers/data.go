@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"compress/gzip"
-	"fmt"
 	"io"
 	"log"
 	"mime"
@@ -10,16 +9,10 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/lheinrichde/gorum/pkg/config"
 )
 
-var (
-	webFiles = map[string][]byte{}
-)
-
-// Web serve web/dist/gorum files
-func Web(rw http.ResponseWriter, r *http.Request) {
+// Data serve data files
+func Data(rw http.ResponseWriter, r *http.Request) {
 	var err error
 
 	// check for malicious path
@@ -30,18 +23,18 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// define variables to open file
-	var file *os.File
-	filePath := fmt.Sprintf("%s/%s", config.Get("https", "directory"), path)
+	// default paths
+	switch path {
+	case "data/avatar/default":
+		path = "assets/avatar.png"
+	}
 
 	// open file
-	if path == "" {
-		filePath += "index.html"
-	}
-	file, err = os.Open(filePath)
-
-	// defer file close and set content-type and content-encoding
+	var file *os.File
+	file, err = os.Open(path)
 	defer file.Close()
+
+	// set content-type and content-encoding
 	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
 	rw.Header().Set("Content-Encoding", "gzip")
 
@@ -52,17 +45,8 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 	w, _ := gzip.NewWriterLevel(rw, 2)
 	defer w.Close()
 
-	// check if file exists
-	if os.IsNotExist(err) {
-		// get index file
-		file, err = os.Open(fmt.Sprintf("%s/index.html", config.Get("https", "directory")))
-		if err != nil {
-			// unknown error
-			log.Println(err)
-			w.Write([]byte(err.Error()))
-			return
-		}
-	} else if err != nil {
+	// check for error
+	if err != nil {
 		// unknown error
 		log.Println(err)
 		w.Write([]byte(err.Error()))

@@ -14,6 +14,6 @@
     "directory": "web/dist/gorum"
   },
   "data": {
-    "images": "data/images"
+    "avatar": "data/avatar"
   }
 }

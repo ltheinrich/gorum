@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"errors"
 
 	"github.com/lheinrichde/gorum/pkg/db"
@@ -23,10 +24,19 @@ func EditUsername(request map[string]interface{}, username string, auth bool) in
 		return errors.New("400")
 	}
 
+	// check if new username already exists
+	var trash int
+	err = db.DB.QueryRow("SELECT id from users WHERE username = $1;", newUsername).Scan(&trash)
+	if err != sql.ErrNoRows {
+		// username already exists
+		return errors.New("usernameExists")
+	} else if err != nil && err != sql.ErrNoRows {
+		// return error
+		return err
+	}
+
 	// update username
 	_, err = db.DB.Exec("UPDATE users SET username = $1 WHERE username = $2;", newUsername, username)
-
-	// check error
 	if err != nil {
 		// return error
 		return err

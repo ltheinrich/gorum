@@ -2,9 +2,12 @@ package handlers
 
 import (
 	"encoding/base64"
+	"fmt"
 	"mime/multipart"
 	"net/http"
+	"os"
 
+	"github.com/lheinrichde/gorum/pkg/config"
 	"github.com/lheinrichde/gorum/pkg/db"
 )
 
@@ -13,14 +16,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
 
 	// security headers
-	w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; style-src 'self' 'unsafe-inline';")
-
-	if origin := r.Header.Get("Origin"); origin != "" {
-		w.Header().Set("Access-Control-Allow-Origin", origin)
-	}
-
-	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	SecurityHeaders(w, r)
 
 	// get username and password
 	rawUsername, _ := base64.StdEncoding.DecodeString(r.FormValue("username"))
@@ -47,13 +43,71 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			file.Read(fileData)
 			defer file.Close()
 
-			// encode and update db
-			image := base64.StdEncoding.EncodeToString(fileData)
-			_, err = db.DB.Exec("UPDATE users SET avatar = $1 WHERE username = $2;", image, username)
+			// get user id
+			var userID int
+			err = db.DB.QueryRow("SELECT id from users WHERE username = $1;", username).Scan(&userID)
 			if err != nil {
-				// write error
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// write content
 				w.Write([]byte(err.Error()))
+				return
 			}
+
+			// open avatar file
+			var avatar *os.File
+			avatarName := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), userID)
+			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
+
+			// create directories
+			if os.IsNotExist(err) {
+				err = os.MkdirAll(config.Get("data", "avatar"), os.ModePerm)
+				if err != nil {
+					// write header
+					w.Header().Add("content-type", "text/html")
+					w.WriteHeader(200)
+
+					// write content
+					w.Write([]byte(err.Error()))
+					return
+				}
+
+				// open avatar file again
+				avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
+				if err != nil {
+					// write header
+					w.Header().Add("content-type", "text/html")
+					w.WriteHeader(200)
+
+					// write content
+					w.Write([]byte(err.Error()))
+					return
+				}
+			} else if err != nil {
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// write content
+				w.Write([]byte(err.Error()))
+				return
+			}
+
+			// write avatar file
+			_, err := avatar.Write(fileData)
+			if err != nil {
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// write content
+				w.Write([]byte(err.Error()))
+				return
+			}
+
+			// redirect
 			http.Redirect(w, r, r.Referer(), http.StatusSeeOther)
 		}
 	}

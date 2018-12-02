@@ -48,6 +48,7 @@ func Init() error {
 func handle() {
 	// web files (Angular)
 	http.HandleFunc("/", handlers.Web)
+	http.HandleFunc("/data/", handlers.Data)
 	http.HandleFunc("/uploadavatar", handlers.UploadAvatar)
 
 	// register all handlers in map

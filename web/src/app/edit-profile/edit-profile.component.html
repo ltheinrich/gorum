@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <img mat-card-avatar width="50" height="50" (click)="editAvatar()" src="data:image/png;base64,{{user.data['avatar']}}">
+    <img mat-card-avatar width="50" height="50" (click)="editAvatar()" src="{{config.baseUrl}}{{user.data['avatar']}}">
     <mat-card-title>
       <input placeholder="{{lang('Name')}}" [(ngModel)]="user.data['username']">
       <button mat-button routerLink="/change-password" color="primary">{{lang("changePassword")}}</button>

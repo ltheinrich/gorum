@@ -17,6 +17,7 @@ GOOS=linux GOARCH=386 go build -o bin/gorum-linux-386 cmd/gorum/gorum.go
 
 # build web-app
 cd web
+npm install
 ng build --prod
 cd ..
 
