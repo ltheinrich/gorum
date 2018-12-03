@@ -26,6 +26,10 @@ export class Board {
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
+  config = Config;
+  conf = Config.get;
+  lang = Language.get;
+
   id = +this.route.snapshot.paramMap.get('id');
 
   constructor(private route: ActivatedRoute,

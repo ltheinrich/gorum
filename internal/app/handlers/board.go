@@ -19,10 +19,11 @@ func Board(request map[string]interface{}, username string, auth bool) interface
 	}
 
 	// define variables
-	var name, board, author, created string
+	var sort, category int
+	var name, description, icon string
 
 	// query user by id
-	err = db.DB.QueryRow("SELECT threadname, board, author, created FROM boards WHERE id = $1;", boardID).Scan(&name, &board, &author, &created)
+	err = db.DB.QueryRow("SELECT boardname, boarddescription, boardicon, sort, category FROM boards WHERE id = $1;", boardID).Scan(&name, &description, &icon, &sort, &category)
 
 	// check not found
 	if err == sql.ErrNoRows {
@@ -37,9 +38,10 @@ func Board(request map[string]interface{}, username string, auth bool) interface
 	thread := map[string]interface{}{}
 	thread["id"] = boardID
 	thread["name"] = name
-	thread["board"] = board
-	thread["author"] = author
-	thread["created"] = created
+	thread["description"] = description
+	thread["icon"] = icon
+	thread["sort"] = sort
+	thread["category"] = category
 
 	// write map
 	return thread

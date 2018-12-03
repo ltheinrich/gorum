@@ -40,7 +40,11 @@
     "posts": "Beiträge",
     "post": "Beitrag",
     "noBoards": "Es existieren keine Foren",
-    "usernameExists": "Der Benutzername existiert bereits"
+    "usernameExists": "Der Benutzername existiert bereits",
+    "newThread": "Neues Thema",
+    "title": "Titel",
+    "content": "Inhalt",
+    "publish": "Veröffentlichen"
   },
   "en": {},
   "ru": {}
