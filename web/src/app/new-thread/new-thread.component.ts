@@ -4,6 +4,7 @@ import { Config } from '../config';
 import { ActivatedRoute } from '@angular/router';
 import { Board } from '../board/board.component';
 import { Title } from '@angular/platform-browser';
+import { AngularEditorConfig, AngularEditorToolbarComponent } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-new-thread',
@@ -19,6 +20,15 @@ export class NewThreadComponent implements OnInit {
   board: Board;
   threadTitle: string;
   content: string;
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    minHeight: '6rem',
+    placeholder: Language.get('content'),
+    translate: 'no',
+    // TODO: Upload URL
+  };
 
   constructor(private route: ActivatedRoute,
     private title: Title) { }

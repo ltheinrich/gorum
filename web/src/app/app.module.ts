@@ -29,8 +29,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { BoardsComponent } from './boards/boards.component';
 import { ThreadComponent } from './thread/thread.component';
 import { BoardComponent } from './board/board.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { NewThreadComponent } from './new-thread/new-thread.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -55,8 +55,7 @@ import { NewThreadComponent } from './new-thread/new-thread.component';
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
+    AngularEditorModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
