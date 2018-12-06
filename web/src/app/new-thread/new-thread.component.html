@@ -3,7 +3,7 @@
 <br><br>
 <form>
     <input #content id="content" type="hidden">
-    <trix-editor input="content" placeholder="{{lang('content')}}"></trix-editor>
+    <trix-editor input="content"></trix-editor>
 </form>
 <br>
 <button mat-flat-button color="primary" (click)="publish(content.value)">{{lang('publish')}}</button>
