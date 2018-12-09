@@ -34,7 +34,8 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 		}
 
 		// insert into database
-		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, mail, registered) VALUES ($1, $2, $3, $4);", username, string(passwordHash), mail, time.Now().Format("2006-01-02T15:04:05"))
+		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, mail, registered) VALUES ($1, $2, $3, $4);",
+			username, string(passwordHash), mail, time.Now().Format("2006-01-02T15:04:05"))
 		if err != nil {
 			// return error
 			return err

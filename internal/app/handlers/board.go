@@ -22,8 +22,9 @@ func Board(request map[string]interface{}, username string, auth bool) interface
 	var sort, category int
 	var name, description, icon string
 
-	// query user by id
-	err = db.DB.QueryRow("SELECT boardname, boarddescription, boardicon, sort, category FROM boards WHERE id = $1;", boardID).Scan(&name, &description, &icon, &sort, &category)
+	// query board by id
+	err = db.DB.QueryRow("SELECT boardname, boarddescription, boardicon, sort, category FROM boards WHERE id = $1;", boardID).
+		Scan(&name, &description, &icon, &sort, &category)
 
 	// check not found
 	if err == sql.ErrNoRows {
@@ -35,14 +36,14 @@ func Board(request map[string]interface{}, username string, auth bool) interface
 	}
 
 	// board map to write
-	thread := map[string]interface{}{}
-	thread["id"] = boardID
-	thread["name"] = name
-	thread["description"] = description
-	thread["icon"] = icon
-	thread["sort"] = sort
-	thread["category"] = category
+	board := map[string]interface{}{}
+	board["id"] = boardID
+	board["name"] = name
+	board["description"] = description
+	board["icon"] = icon
+	board["sort"] = sort
+	board["category"] = category
 
 	// write map
-	return thread
+	return board
 }

@@ -19,6 +19,9 @@ var (
 		"editpassword": EditPassword,
 		"boards":       Boards,
 		"board":        Board,
+		"threads":      Threads,
+		"thread":       Thread,
+		"posts":        Posts,
 	}
 )
 
