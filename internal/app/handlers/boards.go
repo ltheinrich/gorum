@@ -24,7 +24,7 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 	// boards list to write
 	categories := map[string]interface{}{}
 
-	// loop through users
+	// loop through boards
 	for rows.Next() {
 		// scan
 		var id, sort int
