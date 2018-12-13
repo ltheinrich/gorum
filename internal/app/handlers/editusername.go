@@ -19,7 +19,7 @@ func EditUsername(request map[string]interface{}, username string, auth bool) in
 
 	// check if new username and password is provided
 	newUsername := GetString(request, "newUsername")
-	if newUsername == "" {
+	if newUsername == "" || len(newUsername) > 32 {
 		// both not provided
 		return errors.New("400")
 	}

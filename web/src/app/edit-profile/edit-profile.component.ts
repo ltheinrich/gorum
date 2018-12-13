@@ -46,6 +46,8 @@ export class EditProfileComponent implements OnInit, PrivateSite {
     if (this.username !== newUsername) {
       if (newUsername === '') {
         appInstance.openSnackBar(Language.get('emptyUsername'));
+      } else if (newUsername.length > 32) {
+        appInstance.openSnackBar(Language.get('usernameMaxLength'));
       } else {
         Config.API('editusername', {
           username: this.username,

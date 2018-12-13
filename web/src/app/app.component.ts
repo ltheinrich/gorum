@@ -84,6 +84,12 @@ export class AppComponent implements OnInit, OnDestroy {
     if (result.username === undefined || result.password === undefined) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
+    } else if (result.username.length > 32) {
+      this.openSnackBar(Language.get('usernameMaxLength'));
+      return;
+    } else if (result.password.length < 8) {
+      this.openSnackBar(Language.get('passwordMinLength'));
+      return;
     } else {
       const hashed = Config.hash(result.password);
       Config.API('login', {
@@ -112,6 +118,12 @@ export class AppComponent implements OnInit, OnDestroy {
       result.password === undefined || result.repeat === undefined
     ) {
       this.openSnackBar(Language.get('fillAllFields'));
+      return;
+    } else if (result.username.length > 32) {
+      this.openSnackBar(Language.get('usernameMaxLength'));
+      return;
+    } else if (result.password.length < 8) {
+      this.openSnackBar(Language.get('passwordMinLength'));
       return;
     } else if (result.password === result.repeat) {
       const hashed = Config.hash(result.password);
