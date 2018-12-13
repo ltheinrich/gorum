@@ -16,7 +16,7 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 
 	// check if username and password are provided
 	mail, password := GetString(request, "mail"), GetString(request, "password")
-	if username == "" || mail == "" || password == "" || !tools.MailRegEx.MatchString(mail) {
+	if username == "" || mail == "" || password == "" || len(username) > 32 || !tools.MailRegEx.MatchString(mail) {
 		// return not provided
 		return errors.New("400")
 	}
