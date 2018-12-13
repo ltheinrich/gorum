@@ -37,11 +37,7 @@ func Init() error {
 	fmt.Println("Gorum (c) 2018 Lennart Heinrich")
 
 	// https listen
-	if err := listen(); err != nil {
-		return err
-	}
-
-	return nil
+	return listen()
 }
 
 // register handlers
