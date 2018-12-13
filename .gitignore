@@ -15,6 +15,7 @@
 
 # IDE - VSCode
 .vscode/*
+**/.vscode/*
 
 # System Files
 .DS_Store
