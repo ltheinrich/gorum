@@ -10,6 +10,11 @@
     <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="data.password" (keyup.enter)="doLogin()"
       required />
   </mat-form-field>
+
+  <img src="{{config.baseUrl}}captcha/{{config.captcha}}.png" width="240" height="80">
+  <mat-form-field>
+    <input matInput placeholder="{{lang('captcha')}}" [(ngModel)]="data.captcha" (keyup.enter)="doLogin()" required />
+  </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
