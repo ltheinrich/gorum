@@ -16,8 +16,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Language } from './language';
 import { Title } from '@angular/platform-browser';
-import { Router, ActivatedRoute, RouterState } from '@angular/router';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 export let appInstance: AppComponent;
 
@@ -68,6 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openLogin(): void {
+    Config.getCaptcha();
     const dialogRef = this.dialog.open(LoginDialogOverview, {
       width: '300px',
       data: {}
@@ -76,12 +76,12 @@ export class AppComponent implements OnInit, OnDestroy {
       if (result === undefined) {
         return;
       }
-      this.login(result, dialogRef);
+      this.login(result, dialogRef, null);
     });
   }
 
-  public login(result: any, dialogRef: MatDialogRef<any>): void {
-    if (result.username === undefined || result.password === undefined) {
+  public login(result: any, dialogRef: MatDialogRef<any>, data: any): void {
+    if (result.username === undefined || result.password === undefined || result.captcha === undefined) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
     } else if (result.username.length > 32) {
@@ -94,12 +94,15 @@ export class AppComponent implements OnInit, OnDestroy {
       const hashed = Config.hash(result.password);
       Config.API('login', {
         username: result.username,
-        password: hashed
-      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef));
+        password: hashed,
+        captcha: Config.captcha,
+        captchaValue: result.captcha
+      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
     }
   }
 
   openRegister(): void {
+    Config.getCaptcha();
     const dialogRef = this.dialog.open(RegisterDialogOverview, {
       width: '300px',
       data: {}
@@ -108,14 +111,14 @@ export class AppComponent implements OnInit, OnDestroy {
       if (result === undefined) {
         return;
       }
-      this.register(result, dialogRef);
+      this.register(result, dialogRef, null);
     });
   }
 
-  public register(result: any, dialogRef: MatDialogRef<any>): void {
+  public register(result: any, dialogRef: MatDialogRef<any>, data: any): void {
     if (
       result.username === undefined || result.mail === undefined ||
-      result.password === undefined || result.repeat === undefined
+      result.password === undefined || result.repeat === undefined || result.captcha === undefined
     ) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
@@ -130,27 +133,35 @@ export class AppComponent implements OnInit, OnDestroy {
       Config.API('register', {
         username: result.username,
         mail: result.mail,
-        password: hashed
-      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef));
+        password: hashed,
+        captcha: Config.captcha,
+        captchaValue: result.captcha
+      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
     } else {
       this.openSnackBar(Language.get('passwordsNotMatch'));
     }
   }
 
-  closeDialogOnLogin(values: any, username: string, hashed: string, dialogRef: MatDialogRef<any>): void {
+  closeDialogOnLogin(values: any, username: string, hashed: string, dialogRef: MatDialogRef<any>, data: any): void {
     if (values['valid'] === true) {
       this.setLogin(username, hashed, Language.get('loginSuccess'));
       dialogRef.close();
+      return;
     } else if (values['valid'] === false) {
       this.openSnackBar(Language.get('loginWrong'));
     } else if (values['done'] === true) {
       this.setLogin(username, hashed, Language.get('userCreated'));
       dialogRef.close();
+      return;
     } else if (values['error'] === '400') {
       this.openSnackBar(Language.get('wrongData'));
+    } else if (values['error'] === '403 captcha') {
+      this.openSnackBar(Language.get('wrongCaptcha'));
     } else {
       this.openSnackBar(Language.get('userAlreadyExists'));
     }
+    Config.getCaptcha();
+    data.captcha = '';
   }
 
   doLogout(): void {
@@ -166,6 +177,7 @@ export class AppComponent implements OnInit, OnDestroy {
 export interface LoginDialogData {
   username: string;
   password: string;
+  captcha: string;
 }
 
 @Component({
@@ -175,6 +187,7 @@ export interface LoginDialogData {
 })
 // tslint:disable-next-line:component-class-suffix
 export class LoginDialogOverview {
+  config = Config;
   conf = Config.get;
   lang = Language.get;
   constructor(
@@ -185,7 +198,7 @@ export class LoginDialogOverview {
     this.dialogRef.close();
   }
   doLogin(): void {
-    appInstance.login(this.data, this.dialogRef);
+    appInstance.login(this.data, this.dialogRef, this.data);
   }
 }
 
@@ -194,6 +207,7 @@ export interface RegisterDialogData {
   mail: string;
   password: string;
   repeat: string;
+  captcha: string;
 }
 
 @Component({
@@ -203,6 +217,7 @@ export interface RegisterDialogData {
 })
 // tslint:disable-next-line:component-class-suffix
 export class RegisterDialogOverview {
+  config = Config;
   conf = Config.get;
   lang = Language.get;
   constructor(
@@ -213,6 +228,6 @@ export class RegisterDialogOverview {
     this.dialogRef.close();
   }
   doRegister(): void {
-    appInstance.register(this.data, this.dialogRef);
+    appInstance.register(this.data, this.dialogRef, this.data);
   }
 }

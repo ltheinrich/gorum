@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/dchest/captcha"
+
 	"github.com/lheinrichde/gorum/internal/app/handlers"
 	"github.com/lheinrichde/gorum/pkg/config"
 	"github.com/lheinrichde/gorum/pkg/db"
@@ -50,6 +52,7 @@ func handle() {
 
 	// custom handlers
 	http.HandleFunc("/uploadavatar", handlers.UploadAvatar)
+	http.Handle("/captcha/", captcha.Server(240, 80))
 
 	// register all handlers in map
 	for url, handler := range handlers.Handlers {

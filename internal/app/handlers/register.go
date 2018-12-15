@@ -5,6 +5,8 @@ import (
 	"errors"
 	"time"
 
+	"github.com/dchest/captcha"
+
 	"github.com/lheinrichde/gorum/pkg/db"
 	"github.com/lheinrichde/gorum/pkg/tools"
 	"golang.org/x/crypto/bcrypt"
@@ -14,11 +16,22 @@ import (
 func Register(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
+	// get strings from request
+	mail := GetString(request, "mail")
+	password := GetString(request, "password")
+	cap := GetString(request, "captcha")
+	capVal := GetString(request, "captchaValue")
+
 	// check if username and password are provided
-	mail, password := GetString(request, "mail"), GetString(request, "password")
 	if username == "" || mail == "" || password == "" || len(username) > 32 || !tools.MailRegEx.MatchString(mail) {
 		// return not provided
 		return errors.New("400")
+	}
+
+	// verify captcha
+	if !captcha.VerifyString(cap, capVal) {
+		// invalid captcha
+		return errors.New("403 captcha")
 	}
 
 	// query db

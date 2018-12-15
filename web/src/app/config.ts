@@ -11,6 +11,7 @@ export namespace Config {
   const configMap: Map<string, string> = new Map<string, string>();
   let triedLogin = false;
   export let login: boolean;
+  export let captcha: string;
   export const baseUrl = environment.production
     ? '/'
     : 'https://localhost:1813/';
@@ -18,6 +19,12 @@ export namespace Config {
 
   export function get(key: string): string {
     return configMap.get(key);
+  }
+
+  export function getCaptcha() {
+    API('newcaptcha', {}).subscribe(values =>
+      captcha = values['captcha']
+    );
   }
 
   export function load(keys: string[]) {
@@ -74,6 +81,10 @@ export namespace Config {
 
   export function getUsername(): string {
     return localStorage.getItem('username');
+  }
+
+  export function getPassword(): string {
+    return localStorage.getItem('password');
   }
 
   export function logout() {

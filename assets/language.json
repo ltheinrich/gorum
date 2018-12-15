@@ -46,7 +46,9 @@
     "content": "Inhalt",
     "publish": "Veröffentlichen",
     "usernameMaxLength": "Der Benutzername ist länger als 32 Zeichen",
-    "passwordMinLength": "Das Passwort ist kürzer als 8 Zeichen"
+    "passwordMinLength": "Das Passwort ist kürzer als 8 Zeichen",
+    "captcha": "Captcha",
+    "wrongCaptcha": "Das Captcha-Validierung ist ungültig"
   },
   "en": {},
   "ru": {}
