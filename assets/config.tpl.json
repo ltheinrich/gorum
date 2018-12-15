@@ -11,7 +11,8 @@
     "address": ":1813",
     "certificate": "assets/crt.pem",
     "key": "assets/key.pem",
-    "directory": "web/dist/gorum"
+    "directory": "web/dist/gorum",
+    "captcha": "true"
   },
   "data": {
     "avatar": "data/avatar"
