@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/dchest/captcha"
+	"github.com/lheinrichde/gorum/pkg/config"
 	"github.com/lheinrichde/gorum/pkg/db"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -16,7 +17,7 @@ func Login(request map[string]interface{}, username string, auth bool) interface
 	capVal := GetString(request, "captchaValue")
 
 	// verify captcha
-	if !captcha.VerifyString(cap, capVal) {
+	if config.Get("https", "captcha") == "true" && !captcha.VerifyString(cap, capVal) {
 		// invalid captcha
 		return errors.New("403 captcha")
 	}

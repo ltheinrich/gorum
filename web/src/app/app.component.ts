@@ -81,7 +81,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public login(result: any, dialogRef: MatDialogRef<any>, data: any): void {
-    if (result.username === undefined || result.password === undefined || result.captcha === undefined) {
+    if (result.username === undefined || result.password === undefined ||
+      (result.captcha === undefined && Config.captcha !== undefined)) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
     } else if (result.username.length > 32) {
@@ -118,8 +119,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public register(result: any, dialogRef: MatDialogRef<any>, data: any): void {
     if (
       result.username === undefined || result.mail === undefined ||
-      result.password === undefined || result.repeat === undefined || result.captcha === undefined
-    ) {
+      result.password === undefined || result.repeat === undefined ||
+      (result.captcha === undefined && Config.captcha !== undefined)) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
     } else if (result.username.length > 32) {
