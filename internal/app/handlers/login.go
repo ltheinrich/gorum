@@ -2,26 +2,13 @@ package handlers
 
 import (
 	"database/sql"
-	"errors"
 
-	"github.com/dchest/captcha"
-	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // Login handler
 func Login(request map[string]interface{}, username string, auth bool) interface{} {
-	// get strings from request
-	cap := GetString(request, "captcha")
-	capVal := GetString(request, "captchaValue")
-
-	// verify captcha
-	if config.Get("https", "captcha") == "true" && !captcha.VerifyString(cap, capVal) {
-		// invalid captcha
-		return errors.New("403 captcha")
-	}
-
 	// write
 	return map[string]interface{}{"valid": auth}
 }

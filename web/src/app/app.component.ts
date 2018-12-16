@@ -67,7 +67,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openLogin(): void {
-    Config.getCaptcha();
     const dialogRef = this.dialog.open(LoginDialogOverview, {
       width: '300px',
       data: {}
@@ -81,8 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public login(result: any, dialogRef: MatDialogRef<any>, data: any): void {
-    if (result.username === undefined || result.password === undefined ||
-      (result.captcha === undefined && Config.captcha !== undefined)) {
+    if (result.username === undefined || result.password === undefined) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
     } else if (result.username.length > 32) {
@@ -95,9 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const hashed = Config.hash(result.password);
       Config.API('login', {
         username: result.username,
-        password: hashed,
-        captcha: Config.captcha,
-        captchaValue: result.captcha
+        password: hashed
       }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
     }
   }
