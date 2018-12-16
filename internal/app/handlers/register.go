@@ -7,9 +7,9 @@ import (
 
 	"github.com/dchest/captcha"
 
-	"github.com/lheinrichde/gorum/pkg/config"
-	"github.com/lheinrichde/gorum/pkg/db"
-	"github.com/lheinrichde/gorum/pkg/tools"
+	"github.com/ltheinrich/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/tools"
 	"golang.org/x/crypto/bcrypt"
 )
 

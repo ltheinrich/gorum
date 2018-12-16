@@ -6,8 +6,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/lheinrichde/gorum/pkg/config"
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // Users handler

@@ -3,7 +3,7 @@ package handlers
 import (
 	"errors"
 
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // Conf handler

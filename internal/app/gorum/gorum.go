@@ -7,9 +7,9 @@ import (
 
 	"github.com/dchest/captcha"
 
-	"github.com/lheinrichde/gorum/internal/app/handlers"
-	"github.com/lheinrichde/gorum/pkg/config"
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/internal/app/handlers"
+	"github.com/ltheinrich/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // Init startup

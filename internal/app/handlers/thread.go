@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // Thread handler
