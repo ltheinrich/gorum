@@ -28,4 +28,5 @@ if [ "$1" != "" ]; then
         tar xfvz resources.tar.gz
 else
     echo "use ./installer.sh VERSION(x.y.z)"
+    exit
 fi
