@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/lheinrichde/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/pkg/config"
 )
 
 var (

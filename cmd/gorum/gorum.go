@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/lheinrichde/gorum/internal/app/gorum"
+	"github.com/ltheinrich/gorum/internal/app/gorum"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // EditPassword handler

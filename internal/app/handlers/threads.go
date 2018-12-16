@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // Threads handler

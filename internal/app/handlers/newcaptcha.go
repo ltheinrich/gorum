@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/dchest/captcha"
-	"github.com/lheinrichde/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/pkg/config"
 )
 
 // NewCaptcha handler

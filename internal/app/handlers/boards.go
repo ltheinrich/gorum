@@ -3,7 +3,7 @@ package handlers
 import (
 	"database/sql"
 
-	"github.com/lheinrichde/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/db"
 )
 
 // Boards handler

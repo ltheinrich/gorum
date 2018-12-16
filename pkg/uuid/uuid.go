@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 
-	"github.com/lheinrichde/gorum/pkg/crypter"
+	"github.com/ltheinrich/gorum/pkg/crypter"
 )
 
 // Generate return UUID as string (with hashing)
