@@ -1,8 +1,8 @@
 # Gorum
 Open source forum software written in Go(lang) and Angular
 
-### Demo
-https://gorum.lheinrich.de
+## Discord
+[Gorum Project Discord](https://discord.gg/jjRruxx)
 
-### Discord
-https://discord.gg/jjRruxx
+## Demo
+[Gorum Demo Forum](https://gorum.lheinrich.de)
