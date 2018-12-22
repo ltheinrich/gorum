@@ -58,6 +58,13 @@ func LoadConfig(fileName string) error {
 		return err
 	}
 
+	return ProcessConfig(data)
+}
+
+// ProcessConfig load configuration from []byte
+func ProcessConfig(data []byte) error {
+	var err error
+
 	// unmarshal data to temporary config
 	var tempConfig map[string]map[string]string
 	err = json.Unmarshal(data, &tempConfig)
