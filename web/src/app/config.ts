@@ -14,7 +14,7 @@ export namespace Config {
   export let captcha: string;
   export const baseUrl = environment.production
     ? '/'
-    : 'https://localhost:1813/';
+    : 'http://localhost:1813/';
   export const apiUrl = baseUrl + 'api/';
 
   export function get(key: string): string {

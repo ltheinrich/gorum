@@ -9,8 +9,8 @@
   },
   "https": {
     "address": ":1813",
-    "certificate": "assets/crt.pem",
-    "key": "assets/key.pem",
+    "certificate": "",
+    "key": "",
     "directory": "web/dist/gorum",
     "captcha": "true"
   },

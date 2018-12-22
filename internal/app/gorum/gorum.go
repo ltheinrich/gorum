@@ -2,12 +2,12 @@ package gorum
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
-	"github.com/dchest/captcha"
+	"github.com/ltheinrich/captcha"
 
 	"github.com/ltheinrich/gorum/internal/app/handlers"
+	"github.com/ltheinrich/gorum/internal/pkg/assets"
 	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
 )
@@ -20,9 +20,7 @@ func Init() error {
 	}
 
 	// load language
-	if err := loadLanguage(); err != nil {
-		return err
-	}
+	loadLanguage()
 
 	// connect to postgresql database
 	if err := connectDB(); err != nil {
@@ -68,7 +66,8 @@ func RegisterHandler(url string, handler func(request map[string]interface{}, us
 // load config template and overwrite with custom
 func loadConfig() error {
 	// load template config
-	if err := config.LoadConfig("assets/config.tpl.json"); err != nil {
+	templateConfig := assets.MustAsset("config.tpl.json")
+	if err := config.ProcessConfig(templateConfig); err != nil {
 		return err
 	}
 
@@ -77,19 +76,10 @@ func loadConfig() error {
 }
 
 // load language file
-func loadLanguage() error {
-	var err error
-
-	// load language file
-	var language []byte
-	language, err = ioutil.ReadFile("assets/language.json")
-	if err != nil {
-		return err
-	}
-
-	// set language and return
+func loadLanguage() {
+	// load language file and set
+	language := assets.MustAsset("language.json")
 	handlers.Language = language
-	return nil
 }
 
 // connect to postgresql database
@@ -111,24 +101,26 @@ func setupDB() error {
 	var err error
 
 	// get file
-	var query []byte
-	query, err = ioutil.ReadFile("assets/setup.sql")
-	if err != nil {
-		return err
-	}
+	query := assets.MustAsset("setup.sql")
 
 	// return error
 	_, err = db.DB.Exec(string(query))
 	return err
 }
 
-// listen to address (https)
+// listen to address
 func listen() error {
-	// define https variable
+	// define http(s) variable
 	address := config.Get("https", "address")
 	certificate := config.Get("https", "certificate")
 	key := config.Get("https", "key")
 
-	// return error
-	return http.ListenAndServeTLS(address, certificate, key, nil)
+	// check if certicate and key file provided
+	if certificate == "" || key == "" {
+		// http server
+		return http.ListenAndServe(address, nil)
+	} else {
+		// https/tls server
+		return http.ListenAndServeTLS(address, certificate, key, nil)
+	}
 }

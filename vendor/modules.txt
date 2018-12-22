@@ -1,8 +1,8 @@
-# github.com/dchest/captcha v0.0.0-20170622155422-6a29415a8364
-github.com/dchest/captcha
 # github.com/lib/pq v1.0.0
 github.com/lib/pq
 github.com/lib/pq/oid
+# github.com/ltheinrich/captcha v0.0.0-20170622155422-6a29415a8364
+github.com/ltheinrich/captcha
 # golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/sha3
