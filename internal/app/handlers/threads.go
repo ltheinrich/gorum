@@ -55,7 +55,7 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		thread["authorName"] = username
 
 		// add avatar
-		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), id)
+		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), author)
 		_, err = os.Open(avatarPath)
 		if os.IsNotExist(err) {
 			thread["authorAvatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
