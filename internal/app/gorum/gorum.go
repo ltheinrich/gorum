@@ -119,8 +119,8 @@ func listen() error {
 	if certificate == "" || key == "" {
 		// http server
 		return http.ListenAndServe(address, nil)
-	} else {
-		// https/tls server
-		return http.ListenAndServeTLS(address, certificate, key, nil)
 	}
+
+	// https/tls server
+	return http.ListenAndServeTLS(address, certificate, key, nil)
 }
