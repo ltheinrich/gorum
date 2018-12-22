@@ -73,11 +73,7 @@ func loadConfig() error {
 	}
 
 	// load custom config
-	if err := config.LoadConfig("config.json"); err != nil {
-		return err
-	}
-
-	return nil
+	return config.LoadConfig("config.json")
 }
 
 // load language file

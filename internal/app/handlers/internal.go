@@ -66,7 +66,7 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 			writeMap(w, resp)
 		} else {
 			// unknown response type
-			write(w, []byte(`{"error": "unknwon response type"}`))
+			write(w, []byte(`{"error": "unknown response type"}`))
 		}
 	}
 }
