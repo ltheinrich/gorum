@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Language } from '../language';
 import { Config } from '../config';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Board } from '../board/board.component';
 import { Title } from '@angular/platform-browser';
+import { appInstance } from '../app.component';
 
 @Component({
   selector: 'app-new-thread',
@@ -18,14 +19,16 @@ export class NewThreadComponent implements OnInit {
   id = +this.route.snapshot.paramMap.get('id');
   board: Board;
   threadTitle: string;
+  captcha: string;
 
   constructor(private route: ActivatedRoute,
-    private title: Title) { }
+    private title: Title, private router: Router) { }
 
   ngOnInit() {
     Config.setLogin(true);
     Config.API('board', { boardID: this.id })
       .subscribe(values => this.initBoard(values));
+    Config.getCaptcha();
   }
 
   initBoard(values: any) {
@@ -36,6 +39,26 @@ export class NewThreadComponent implements OnInit {
   }
 
   publish(content: string) {
+    Config.API('newthread', {
+      username: Config.getUsername(), password: Config.getPassword(),
+      title: this.threadTitle, board: this.id, content: content,
+      captcha: Config.captcha, captchaValue: this.captcha
+    }).subscribe(values => this.proccessResponse(values));
+  }
 
+  proccessResponse(values: any) {
+    if (values['error'] === '400') {
+      appInstance.openSnackBar(Language.get('fillAllFields'));
+    } else if (values['error'] === '403') {
+      appInstance.openSnackBar(Language.get('wrongLogin'));
+    } else if (values['error'] === '403 captcha') {
+      appInstance.openSnackBar(Language.get('wrongCaptcha'));
+    } else if (values['error'] !== undefined) {
+      appInstance.openSnackBar(values['error']);
+    } else {
+      this.router.navigate(['/thread/' + values['id']]);
+      return;
+    }
+    Config.getCaptcha();
   }
 }

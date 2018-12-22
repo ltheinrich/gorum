@@ -1,6 +1,10 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/ltheinrich/gorum/pkg/db"
+)
 
 // GetString get string or empty string
 func GetString(request map[string]interface{}, name string) string {
@@ -99,4 +103,24 @@ func SecurityHeaders(w http.ResponseWriter, r *http.Request) {
 
 	// access-control-allow-methods
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
+}
+
+// GetUserID user id from username
+func GetUserID(username string) int {
+	// query db
+	var id int
+	db.DB.QueryRow("SELECT id FROM users WHERE username = $1;", username).Scan(&id)
+
+	// return
+	return id
+}
+
+// GetUsername username from user id
+func GetUsername(id int) string {
+	// query db
+	var username string
+	db.DB.QueryRow("SELECT username FROM users WHERE id = $1;", id).Scan(&username)
+
+	// return
+	return username
 }

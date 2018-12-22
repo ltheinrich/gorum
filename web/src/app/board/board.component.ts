@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, setTestabilityGetter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Language } from '../language';
 import { Config } from '../config';
+import { Thread } from '../thread/thread.component';
 
 export class Board {
   id: number;
@@ -30,6 +31,7 @@ export class BoardComponent implements OnInit {
   conf = Config.get;
   lang = Language.get;
 
+  threads: Thread[] = [];
   id = +this.route.snapshot.paramMap.get('id');
 
   constructor(private route: ActivatedRoute,
@@ -37,7 +39,25 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(false);
-    this.title.setTitle(/* TODO: board title */ Language.get('board') + ' - ' + Config.get('title'));
+    this.setTitle();
+    Config.API('threads', { boardID: this.id }).subscribe(values => this.listThreads(values));
   }
 
+  setTitle() {
+    Config.API('board', { boardID: this.id }).subscribe(values => this.title.setTitle(values['name'] + ' - ' + Config.get('title')));
+  }
+
+  listThreads(values: any) {
+    Object.entries(values).forEach(thread =>
+      this.threads.push(
+        new Thread(
+          <number>thread[1]['id'], <string>thread[1]['name'],
+          <string>thread[1]['board'], <number>thread[1]['author'],
+          <number>thread[1]['created'], <string>thread[1]['content'],
+          <string>thread[1]['authorName'], <string>thread[1]['authorAvatar']
+        )
+      )
+    );
+    this.threads.sort((a, b) => a.created - b.created);
+  }
 }
