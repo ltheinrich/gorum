@@ -1,8 +1,8 @@
 # Custom
 /bin/
 /data/
-/assets/config.json
 /web/package-lock.json
+/config.json
 
 # IDEs and editors
 /.idea
