@@ -1,3 +1,7 @@
 input, trix-editor {
     width: 100%;
 }
+
+form > #threadTitle {
+    width: 100%;
+}

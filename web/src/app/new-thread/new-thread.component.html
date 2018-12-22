@@ -1,9 +1,19 @@
 <br>
-<input matInput [(ngModel)]="threadTitle" placeholder="{{lang('title')}}">
-<br><br>
 <form>
+    <mat-form-field id="threadTitle">
+        <input matInput placeholder="{{lang('title')}}" name="threadTitle" [(ngModel)]="threadTitle" required />
+    </mat-form-field>
+    <br>
     <input #content id="content" type="hidden">
     <trix-editor input="content"></trix-editor>
+    <br>
+    <div *ngIf="config.captcha !== undefined">
+        <img src="{{config.baseUrl}}captcha/{{config.captcha}}.png" width="240" height="80">
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="{{lang('captcha')}}" name="captcha" [(ngModel)]="captcha" required />
+        </mat-form-field>
+    </div>
+    <br>
+    <button mat-flat-button color="primary" (click)="publish(content.value)">{{lang('publish')}}</button>
 </form>
-<br>
-<button mat-flat-button color="primary" (click)="publish(content.value)">{{lang('publish')}}</button>

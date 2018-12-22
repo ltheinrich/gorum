@@ -3,8 +3,11 @@ package handlers
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"os"
 	"strconv"
 
+	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
 )
 
@@ -21,7 +24,8 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 
 	// query db
 	var rows *sql.Rows
-	rows, err = db.DB.Query(`SELECT id, threadname, author, created FROM threads WHERE board = $1;`, boardID)
+	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.author, threads.created, users.username
+							FROM threads INNER JOIN users ON threads.author = users.id WHERE threads.board = $1;`, boardID)
 	if err != nil {
 		// return error
 		return err
@@ -35,8 +39,8 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		// scan
 		var id, author int
 		var created int64
-		var name string
-		err = rows.Scan(&id, &name, &author, &created)
+		var name, username string
+		err = rows.Scan(&id, &name, &author, &created, &username)
 		if err != nil {
 			// return error
 			return err
@@ -48,6 +52,16 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		thread["name"] = name
 		thread["created"] = created
 		thread["author"] = author
+		thread["authorName"] = username
+
+		// add avatar
+		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), id)
+		_, err = os.Open(avatarPath)
+		if os.IsNotExist(err) {
+			thread["authorAvatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
+		} else {
+			thread["authorAvatar"] = avatarPath
+		}
 
 		// append thread to threads map
 		threads[strconv.Itoa(id)] = thread

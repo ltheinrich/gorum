@@ -23,6 +23,7 @@ var (
 		"thread":       Thread,
 		"posts":        Posts,
 		"newcaptcha":   NewCaptcha,
+		"newthread":    NewThread,
 	}
 )
 
