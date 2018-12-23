@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# build web-app
+cd web
+npm install
+ng build --prod
+cd ..
+
+# files as binary data
+./update.sh
+
 # linux amd64
 GOOS=linux GOARCH=amd64 go build -o bin/gorum-linux-amd64 cmd/gorum/gorum.go
 
@@ -14,12 +23,3 @@ GOOS=linux GOARCH=arm GOARM=7 go build -o bin/gorum-linux-armv7 cmd/gorum/gorum.
 
 # linux 386
 GOOS=linux GOARCH=386 go build -o bin/gorum-linux-386 cmd/gorum/gorum.go
-
-# build web-app
-cd web
-npm install
-ng build --prod
-cd ..
-
-# archive resources
-tar cfvz bin/resources.tar.gz assets web/dist
