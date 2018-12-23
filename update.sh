@@ -2,7 +2,7 @@
 
 # npm
 cd web
-ng update --all --force
+ng update --all
 npm install
 cd ..
 
