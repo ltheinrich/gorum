@@ -2,16 +2,13 @@ package handlers
 
 import (
 	"compress/gzip"
-	"fmt"
-	"io"
 	"log"
 	"mime"
 	"net/http"
-	"os"
 	"path/filepath"
 	"strings"
 
-	"github.com/ltheinrich/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/webassets"
 )
 
 var (
@@ -30,18 +27,7 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// define variables to open file
-	var file *os.File
-	filePath := fmt.Sprintf("%s/%s", config.Get("https", "directory"), path)
-
-	// open file
-	if path == "" {
-		filePath += "index.html"
-	}
-	file, err = os.Open(filePath)
-
-	// defer file close and set content-type and content-encoding
-	defer file.Close()
+	// set content-type and content-encoding
 	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
 	rw.Header().Set("Content-Encoding", "gzip")
 
@@ -52,25 +38,17 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 	w, _ := gzip.NewWriterLevel(rw, 2)
 	defer w.Close()
 
-	// check if file exists
-	if os.IsNotExist(err) {
-		// get index file
-		file, err = os.Open(fmt.Sprintf("%s/index.html", config.Get("https", "directory")))
-		if err != nil {
-			// unknown error
-			log.Println(err)
-			w.Write([]byte(err.Error()))
-			return
-		}
-	} else if err != nil {
-		// unknown error
-		log.Println(err)
-		w.Write([]byte(err.Error()))
-		return
+	// get file
+	var file []byte
+	file, err = webassets.Asset(path)
+
+	// if not exists load index.html
+	if err != nil {
+		file = webassets.MustAsset("index.html")
 	}
 
 	// write file
-	_, err = io.Copy(w, file)
+	_, err = w.Write(file)
 	if err != nil {
 		log.Println(err)
 		w.Write([]byte(err.Error()))

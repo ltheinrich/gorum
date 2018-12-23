@@ -4,7 +4,12 @@
 go get -u ./...
 go mod vendor
 
-# binary data
+# assets binary data
 cd assets
 go-bindata -o ../internal/pkg/assets/assets.go -pkg assets .
 cd ..
+
+# web assets files binary data
+cd web/dist/gorum
+go-bindata -o ../../../internal/pkg/webassets/webassets.go -pkg webassets .
+cd ../../..
