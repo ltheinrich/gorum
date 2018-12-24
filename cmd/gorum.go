@@ -1,4 +1,4 @@
-package gorum
+package cmd
 
 import (
 	"fmt"
