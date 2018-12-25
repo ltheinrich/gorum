@@ -19,7 +19,7 @@ func login(username, password string) bool {
 
 	// query db
 	var passwordHash string
-	err = db.DB.QueryRow("SELECT passwordhash FROM users WHERE username = $1 OR mail = $1;", username).Scan(&passwordHash)
+	err = db.DB.QueryRow("SELECT passwordhash FROM users WHERE username = $1;", username).Scan(&passwordHash)
 	if err == sql.ErrNoRows {
 		// not exists, but due to security return invalid
 		return false

@@ -114,8 +114,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public register(result: any, dialogRef: MatDialogRef<any>, data: any): void {
     if (
-      result.username === undefined || result.mail === undefined ||
-      result.password === undefined || result.repeat === undefined ||
+      result.username === undefined || result.password === undefined || result.repeat === undefined ||
       (result.captcha === undefined && Config.captcha !== undefined)) {
       this.openSnackBar(Language.get('fillAllFields'));
       return;
@@ -129,7 +128,6 @@ export class AppComponent implements OnInit, OnDestroy {
       const hashed = Config.hash(result.password);
       Config.API('register', {
         username: result.username,
-        mail: result.mail,
         password: hashed,
         captcha: Config.captcha,
         captchaValue: result.captcha
@@ -201,7 +199,6 @@ export class LoginDialogOverview {
 
 export interface RegisterDialogData {
   username: string;
-  mail: string;
   password: string;
   repeat: string;
   captcha: string;
