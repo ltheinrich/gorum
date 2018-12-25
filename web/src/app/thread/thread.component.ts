@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Language } from '../language';
 import { Config } from '../config';
+import { appInstance } from '../app.component';
 
 export class Thread {
   id: number;
@@ -40,7 +41,7 @@ export class ThreadComponent implements OnInit {
   thread = new Thread(0, null, null, null, null, null, null, null);
   id = +this.route.snapshot.paramMap.get('id');
 
-  constructor(private route: ActivatedRoute, private title: Title) { }
+  constructor(private router: Router, private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
     Config.setLogin(false);
@@ -54,4 +55,17 @@ export class ThreadComponent implements OnInit {
     this.title.setTitle(this.thread.name + ' - ' + Config.get('title'));
   }
 
+  deleteThread() {
+    Config.API('deletethread', { username: Config.getUsername(), password: Config.getPassword(), threadID: this.id })
+      .subscribe(values => this.afterDeleteThread(values));
+  }
+
+  afterDeleteThread(values: any) {
+    if (values['done'] === true) {
+      appInstance.openSnackBar(Language.get('threadDeleted'));
+      this.router.navigate(['/board/' + this.thread.board]);
+    } else if (values['error'] !== undefined) {
+      appInstance.openSnackBar(values['error']);
+    }
+  }
 }

@@ -47,11 +47,13 @@
     "usernameMaxLength": "Der Benutzername ist länger als 32 Zeichen",
     "passwordMinLength": "Das Passwort ist kürzer als 8 Zeichen",
     "captcha": "Captcha",
-    "wrongCaptcha": "Das Captcha-Validierung ist ungültig",
+    "wrongCaptcha": "Die Captcha-Validierung ist ungültig",
     "createdOn": "Erstellt am",
     "noThreads": "Es existieren keine Themen",
     "by": "von",
-    "editThread": "Thema bearbeiten"
+    "editThread": "Thema bearbeiten",
+    "deleteThread": "Thema löschen",
+    "threadDeleted": "Thema gelöscht"
   },
   "en": {},
   "ru": {}
