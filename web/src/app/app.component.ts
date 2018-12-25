@@ -33,14 +33,9 @@ export class AppComponent implements OnInit, OnDestroy {
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
 
-  constructor(
-    private http: HttpClient,
-    private title: Title,
-    public dialog: MatDialog,
-    public snackBar: MatSnackBar,
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
-    private router: Router
+  constructor(private http: HttpClient,
+    private title: Title, public dialog: MatDialog, public snackBar: MatSnackBar,
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -67,10 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openLogin(): void {
-    const dialogRef = this.dialog.open(LoginDialogOverview, {
-      width: '300px',
-      data: {}
-    });
+    const dialogRef = this.dialog.open(LoginDialogOverview, { width: '300px', data: {} });
     dialogRef.afterClosed().subscribe(result => {
       if (result === undefined) {
         return;
@@ -91,19 +83,14 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     } else {
       const hashed = Config.hash(result.password);
-      Config.API('login', {
-        username: result.username,
-        password: hashed
-      }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
+      Config.API('login', { username: result.username, password: hashed })
+        .subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
     }
   }
 
   openRegister(): void {
     Config.getCaptcha();
-    const dialogRef = this.dialog.open(RegisterDialogOverview, {
-      width: '300px',
-      data: {}
-    });
+    const dialogRef = this.dialog.open(RegisterDialogOverview, { width: '300px', data: {} });
     dialogRef.afterClosed().subscribe(result => {
       if (result === undefined) {
         return;
@@ -127,10 +114,7 @@ export class AppComponent implements OnInit, OnDestroy {
     } else if (result.password === result.repeat) {
       const hashed = Config.hash(result.password);
       Config.API('register', {
-        username: result.username,
-        password: hashed,
-        captcha: Config.captcha,
-        captchaValue: result.captcha
+        username: result.username, password: hashed, captcha: Config.captcha, captchaValue: result.captcha
       }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
     } else {
       this.openSnackBar(Language.get('passwordsNotMatch'));
@@ -170,9 +154,7 @@ export class AppComponent implements OnInit, OnDestroy {
 }
 
 export interface LoginDialogData {
-  username: string;
-  password: string;
-  captcha: string;
+  username: string; password: string; captcha: string;
 }
 
 @Component({
@@ -185,10 +167,8 @@ export class LoginDialogOverview {
   config = Config;
   conf = Config.get;
   lang = Language.get;
-  constructor(
-    public dialogRef: MatDialogRef<LoginDialogOverview>,
-    @Inject(MAT_DIALOG_DATA) public data: LoginDialogData
-  ) { }
+  constructor(public dialogRef: MatDialogRef<LoginDialogOverview>,
+    @Inject(MAT_DIALOG_DATA) public data: LoginDialogData) { }
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -198,10 +178,7 @@ export class LoginDialogOverview {
 }
 
 export interface RegisterDialogData {
-  username: string;
-  password: string;
-  repeat: string;
-  captcha: string;
+  username: string; password: string; repeat: string; captcha: string;
 }
 
 @Component({
@@ -214,10 +191,8 @@ export class RegisterDialogOverview {
   config = Config;
   conf = Config.get;
   lang = Language.get;
-  constructor(
-    public dialogRef: MatDialogRef<RegisterDialogOverview>,
-    @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData
-  ) { }
+  constructor(public dialogRef: MatDialogRef<RegisterDialogOverview>,
+    @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData) { }
   onNoClick(): void {
     this.dialogRef.close();
   }

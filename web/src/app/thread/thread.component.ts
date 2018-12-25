@@ -33,13 +33,25 @@ export class Thread {
   styleUrls: ['./thread.component.css']
 })
 export class ThreadComponent implements OnInit {
+  config = Config;
+  conf = Config.get;
+  lang = Language.get;
+
+  thread = new Thread(0, null, null, null, null, null, null, null);
   id = +this.route.snapshot.paramMap.get('id');
 
-  constructor(private route: ActivatedRoute,
-    private title: Title) { }
+  constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
-    this.title.setTitle(/* TODO: board title */ Language.get('board') + ' - ' + Config.get('title'));
+    Config.setLogin(false);
+    Config.API('thread', { threadID: this.id }).subscribe(values => this.initThread(values));
+  }
+
+  initThread(values: any) {
+    this.thread = new Thread(
+      <number>values['id'], <string>values['name'], <string>values['board'], <number>values['author'],
+      <number>values['created'], <string>values['content'], <string>values['authorName'], <string>values['authorAvatar']);
+    this.title.setTitle(this.thread.name + ' - ' + Config.get('title'));
   }
 
 }

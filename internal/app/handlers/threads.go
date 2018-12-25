@@ -39,8 +39,8 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		// scan
 		var id, author int
 		var created int64
-		var name, username string
-		err = rows.Scan(&id, &name, &author, &created, &username)
+		var name, authorName string
+		err = rows.Scan(&id, &name, &author, &created, &authorName)
 		if err != nil {
 			// return error
 			return err
@@ -52,7 +52,7 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		thread["name"] = name
 		thread["created"] = created
 		thread["author"] = author
-		thread["authorName"] = username
+		thread["authorName"] = authorName
 
 		// add avatar
 		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), author)

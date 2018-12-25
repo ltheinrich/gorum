@@ -8,7 +8,7 @@
       <button mat-flat-button *ngIf="config.getUsername() === user.data['username'] && config.login; else reportButton"
         routerLink="/edit-profile" color="primary">{{lang("editProfile")}}</button>
       <ng-template #reportButton>
-        <button mat-button #reportButton color="primary">{{lang("report")}}</button>
+        <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
       </ng-template>
     </mat-card-actions>
   </mat-card-header>

@@ -9,9 +9,7 @@ export namespace Language {
 
   export function loadLanguage(language: string) {
     Config.API('lang', {}).subscribe(values =>
-      Object.entries(values[language]).forEach(([key, value]) =>
-        languageMap.set(key, value as string)
-      )
+      Object.entries(values[language]).forEach(([key, value]) => languageMap.set(key, value as string))
     );
   }
 }
