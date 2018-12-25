@@ -7,7 +7,7 @@
     <span class="fill-space"></span>
     <mat-card-actions>
       <button mat-flat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
-        routerLink="/edit-thread/{{thread.id}}" color="primary">{{lang("editThread")}}</button>
+        color="primary" (click)="deleteThread()">{{lang("deleteThread")}}</button>
       <ng-template #reportButton>
         <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
       </ng-template>
