@@ -9,7 +9,6 @@ import (
 
 	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
-	"github.com/ltheinrich/gorum/pkg/tools"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -18,13 +17,12 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 	var err error
 
 	// get strings from request
-	mail := GetString(request, "mail")
 	password := GetString(request, "password")
 	cap := GetString(request, "captcha")
 	capVal := GetString(request, "captchaValue")
 
 	// check if username and password are provided
-	if username == "" || mail == "" || password == "" || len(username) > 32 || !tools.MailRegEx.MatchString(mail) {
+	if username == "" || password == "" || len(username) > 32 {
 		// return not provided
 		return errors.New("400")
 	}
@@ -37,7 +35,7 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 
 	// query db
 	var id int
-	err = db.DB.QueryRow("SELECT id FROM users WHERE username = $1 OR mail = $2;", username, mail).Scan(&id)
+	err = db.DB.QueryRow("SELECT id FROM users WHERE username = $1;", username).Scan(&id)
 	if err == sql.ErrNoRows {
 		// not exists
 		var passwordHash []byte
@@ -48,8 +46,8 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 		}
 
 		// insert into database
-		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, mail, registered) VALUES ($1, $2, $3, $4);",
-			username, string(passwordHash), mail, time.Now().Format("2006-01-02T15:04:05"))
+		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, registered) VALUES ($1, $2, $3);",
+			username, string(passwordHash), time.Now().Format("2006-01-02T15:04:05"))
 		if err != nil {
 			// return error
 			return err
