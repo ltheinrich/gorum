@@ -31,15 +31,11 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(false);
-    Config.API('user', { userID: this.id }).subscribe(values =>
-      this.initUser(values)
-    );
+    Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
     this.user = new User(this.id, values);
-    this.title.setTitle(
-      this.user.data['username'] + ' - ' + Config.get('title')
-    );
+    this.title.setTitle(this.user.data['username'] + ' - ' + Config.get('title'));
   }
 }

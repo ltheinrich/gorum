@@ -4,7 +4,6 @@ import { Config } from '../config';
 import { Language } from '../language';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { PrivateSite } from '../private-site';
 import { appInitializerFactory } from '@angular/platform-browser/src/browser/server-transition';
 import { appInstance } from '../app.component';
 import { Router } from '@angular/router';
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit, PrivateSite {
+export class EditProfileComponent implements OnInit {
   config = Config;
   conf = Config.get;
   lang = Language.get;
@@ -30,15 +29,12 @@ export class EditProfileComponent implements OnInit, PrivateSite {
 
   ngOnInit() {
     Config.setLogin(true);
-    Config.API('user', { username: localStorage.getItem('username') })
-      .subscribe(values => this.initUser(values));
+    Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
-    this.title.setTitle(
-      Language.get('editProfile') + ' - ' + Config.get('title')
-    );
+    this.title.setTitle(Language.get('editProfile') + ' - ' + Config.get('title'));
   }
 
   saveProfile() {
@@ -50,9 +46,8 @@ export class EditProfileComponent implements OnInit, PrivateSite {
         appInstance.openSnackBar(Language.get('usernameMaxLength'));
       } else {
         Config.API('editusername', {
-          username: this.username,
-          password: localStorage.getItem('password'),
-          newUsername: newUsername
+          username: this.username, newUsername: newUsername,
+          password: localStorage.getItem('password')
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
     } else {
@@ -72,10 +67,7 @@ export class EditProfileComponent implements OnInit, PrivateSite {
   }
 
   editAvatar(): void {
-    const dialogRef = this.dialog.open(AvatarDialogOverview, {
-      width: '400px',
-      data: {}
-    });
+    const dialogRef = this.dialog.open(AvatarDialogOverview, { width: '400px', data: {} });
   }
 }
 

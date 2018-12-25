@@ -50,7 +50,8 @@
     "wrongCaptcha": "Das Captcha-Validierung ist ungültig",
     "createdOn": "Erstellt am",
     "noThreads": "Es existieren keine Themen",
-    "by": "von"
+    "by": "von",
+    "editThread": "Thema bearbeiten"
   },
   "en": {},
   "ru": {}

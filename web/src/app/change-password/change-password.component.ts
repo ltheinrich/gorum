@@ -21,22 +21,16 @@ export class ChangePasswordComponent implements OnInit {
   repeatPassword = '';
   oldPassword = '';
 
-  constructor(
-    private title: Title,
-    private router: Router
-  ) { }
+  constructor(private title: Title, private router: Router) { }
 
   ngOnInit() {
     Config.setLogin(true);
-    Config.API('user', { username: localStorage.getItem('username') })
-      .subscribe(values => this.initUser(values));
+    Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
-    this.title.setTitle(
-      Language.get('changePassword') + ' - ' + Config.get('title')
-    );
+    this.title.setTitle(Language.get('changePassword') + ' - ' + Config.get('title'));
   }
 
   changePassword() {
@@ -50,9 +44,7 @@ export class ChangePasswordComponent implements OnInit {
       appInstance.openSnackBar(Language.get('passwordMinLength'));
     } else {
       Config.API('editpassword', {
-        username: localStorage.getItem('username'),
-        password: localStorage.getItem('password'),
-        newPassword: Config.hash(this.newPassword)
+        username: localStorage.getItem('username'), password: localStorage.getItem('password'), newPassword: Config.hash(this.newPassword)
       }).subscribe(values => values['success'] === true ? this.passwordChanged() :
         values['error'] === '403' ? appInstance.openSnackBar(Language.get('wrongPassword')) : appInstance.openSnackBar('error'));
     }

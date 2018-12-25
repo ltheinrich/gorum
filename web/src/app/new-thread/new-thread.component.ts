@@ -26,16 +26,13 @@ export class NewThreadComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(true);
-    Config.API('board', { boardID: this.id })
-      .subscribe(values => this.initBoard(values));
+    Config.API('board', { boardID: this.id }).subscribe(values => this.initBoard(values));
     Config.getCaptcha();
   }
 
   initBoard(values: any) {
     this.board = new Board(values['id'], values['name'], values['description'], values['icon'], values['sort']);
-    this.title.setTitle(
-      Language.get('newThread') + ' - ' + Config.get('title')
-    );
+    this.title.setTitle(Language.get('newThread') + ' - ' + Config.get('title'));
   }
 
   publish(content: string) {

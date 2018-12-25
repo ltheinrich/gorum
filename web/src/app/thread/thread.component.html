@@ -1,3 +1,20 @@
-<p>
-  thread works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}">
+    <mat-card-title>{{thread.name}}</mat-card-title>
+    <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(thread.created)}}
+      {{lang('by')}} {{thread.authorName}}</mat-card-subtitle>
+    <span class="fill-space"></span>
+    <mat-card-actions>
+      <button mat-flat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
+        routerLink="/edit-thread/{{thread.id}}" color="primary">{{lang("editThread")}}</button>
+      <ng-template #reportButton>
+        <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
+      </ng-template>
+    </mat-card-actions>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p [innerHTML]="thread.content"></p>
+  </mat-card-content>
+</mat-card>

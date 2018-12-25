@@ -22,24 +22,18 @@ export namespace Config {
   }
 
   export function getCaptcha() {
-    API('newcaptcha', {}).subscribe(values =>
-      captcha = values['captcha']
-    );
+    API('newcaptcha', {}).subscribe(values => captcha = values['captcha']);
   }
 
   export function load(keys: string[]) {
     API('conf', { confkeys: keys }).subscribe(values =>
-      Object.entries(values).forEach(([key, value]) =>
-        configMap.set(key, value as string)
-      )
+      Object.entries(values).forEach(([key, value]) => configMap.set(key, value as string))
     );
   }
 
   export function loadFirst(keys: string[], title: Title) {
     API('conf', { confkeys: keys }).subscribe(values =>
-      Object.entries(values).forEach(([key, value]) =>
-        loadFirstSet(key, value as string, title)
-      )
+      Object.entries(values).forEach(([key, value]) => loadFirstSet(key, value as string, title))
     );
   }
 
@@ -56,10 +50,8 @@ export namespace Config {
 
   export function setLogin(redirect: boolean) {
     if (!triedLogin) {
-      Config.API('login', {
-        username: localStorage.getItem('username'),
-        password: localStorage.getItem('password')
-      }).subscribe(values => validateLogin(values, redirect));
+      Config.API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
+        .subscribe(values => validateLogin(values, redirect));
     } else {
       if (redirect && !login) {
         router.navigate(['/']);
