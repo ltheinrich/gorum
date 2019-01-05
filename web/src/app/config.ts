@@ -97,6 +97,12 @@ export namespace Config {
       ((date.getMonth() + 1) <= 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '.' + date.getFullYear();
   }
 
+  export function time(created: Object): string {
+    const date = new Date(<number>created * 1000);
+    return (date.getHours() <= 9 ? '0' + date.getHours() : date.getHours()) + ':' +
+      (date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes());
+  }
+
   export function setHttp(httpClient: HttpClient) {
     http = httpClient;
   }

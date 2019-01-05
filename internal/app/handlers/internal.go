@@ -25,6 +25,8 @@ var (
 		"newcaptcha":   NewCaptcha,
 		"newthread":    NewThread,
 		"deletethread": DeleteThread,
+		"newpost":      NewPost,
+		"deletepost":   DeletePost,
 	}
 )
 
