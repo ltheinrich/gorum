@@ -1,16 +1,3 @@
--- Config
-CREATE TABLE IF NOT EXISTS config (
-    confkey VARCHAR(255),
-    confvalue VARCHAR(255),
-    PRIMARY KEY (confkey)
-);
-
--- Fill Config
-INSERT INTO config (confkey, confvalue)
-SELECT 'title', 'Gorum' WHERE NOT EXISTS (
-    SELECT confkey FROM config WHERE confkey = 'title'
-);
-
 -- Users
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL,

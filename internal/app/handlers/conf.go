@@ -3,13 +3,11 @@ package handlers
 import (
 	"errors"
 
-	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/pkg/config"
 )
 
 // Conf handler
 func Conf(request map[string]interface{}, username string, auth bool) interface{} {
-	var err error
-
 	// check if confkeys are provided
 	confkeys := GetStringArray(request, "confkeys")
 	if confkeys == nil {
@@ -22,16 +20,8 @@ func Conf(request map[string]interface{}, username string, auth bool) interface{
 
 	// loop through confkeys
 	for _, confkey := range confkeys {
-		// query db
-		var confvalue string
-		err = db.DB.QueryRow("SELECT confvalue FROM config WHERE confkey = $1;", confkey).Scan(&confvalue)
-		if err != nil {
-			// return error
-			return err
-		}
-
 		// set confvalue in map
-		confvalues[confkey] = confvalue
+		confvalues[confkey] = config.Get("public", confkey)
 	}
 
 	// return map
