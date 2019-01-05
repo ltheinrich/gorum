@@ -15,5 +15,8 @@
   },
   "data": {
     "avatar": "data/avatar"
+  },
+  "public": {
+    "title": "Gorum"
   }
 }
