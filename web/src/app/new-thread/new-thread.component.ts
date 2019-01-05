@@ -50,12 +50,15 @@ export class NewThreadComponent implements OnInit {
       appInstance.openSnackBar(Language.get('wrongLogin'));
     } else if (values['error'] === '403 captcha') {
       appInstance.openSnackBar(Language.get('wrongCaptcha'));
+      Config.getCaptcha();
+      this.captcha = '';
     } else if (values['error'] !== undefined) {
       appInstance.openSnackBar(values['error']);
+      Config.getCaptcha();
+      this.captcha = '';
     } else {
+      appInstance.openSnackBar(Language.get('threadCreated'));
       this.router.navigate(['/thread/' + values['id']]);
-      return;
     }
-    Config.getCaptcha();
   }
 }

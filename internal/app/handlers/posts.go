@@ -3,8 +3,11 @@ package handlers
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"os"
 	"strconv"
 
+	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
 )
 
@@ -13,7 +16,7 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 	var err error
 
 	// get thread id and check if provided
-	threadID := GetInt(request, "boardID")
+	threadID := GetInt(request, "threadID")
 	if threadID == 0 {
 		// no thread id provided
 		return errors.New("400")
@@ -21,7 +24,8 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 
 	// query db
 	var rows *sql.Rows
-	rows, err = db.DB.Query(`SELECT id, author, created, content WHERE thread = $1;`, threadID)
+	rows, err = db.DB.Query(`SELECT posts.id, posts.author, posts.created, posts.content, users.username FROM posts
+							INNER JOIN users ON posts.author = users.id WHERE posts.thread = $1;`, threadID)
 	if err != nil {
 		// return error
 		return err
@@ -35,8 +39,8 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 		// scan
 		var id, author int
 		var created int64
-		var content string
-		err = rows.Scan(&id, &author, &created, &content)
+		var content, authorName string
+		err = rows.Scan(&id, &author, &created, &content, &authorName)
 		if err != nil {
 			// return error
 			return err
@@ -46,8 +50,18 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 		post := map[string]interface{}{}
 		post["id"] = id
 		post["author"] = author
+		post["authorName"] = authorName
 		post["created"] = created
 		post["content"] = content
+
+		// add avatar
+		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), author)
+		_, err = os.Open(avatarPath)
+		if os.IsNotExist(err) {
+			post["authorAvatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
+		} else {
+			post["authorAvatar"] = avatarPath
+		}
 
 		// append post to posts map
 		posts[strconv.Itoa(id)] = post

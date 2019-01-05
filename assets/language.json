@@ -53,7 +53,14 @@
     "by": "von",
     "editThread": "Thema bearbeiten",
     "deleteThread": "Thema löschen",
-    "threadDeleted": "Thema gelöscht"
+    "threadDeleted": "Thema gelöscht",
+    "postDeleted": "Beitrag gelöscht",
+    "deletePost": "Beitrag löschen",
+    "postCreated": "Beitrag erstellt",
+    "createPost": "Beitrag erstellen",
+    "atTime": "um",
+    "timeExtension": "Uhr",
+    "threadCreated": "Thema erstellt"
   },
   "en": {},
   "ru": {}
