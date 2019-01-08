@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
-import { Language } from '../language';
 import { User } from '../user/user.component';
-import { appInstance } from '../app.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +12,7 @@ import { Router } from '@angular/router';
 export class ChangePasswordComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   user = new User(0, {});
   newPassword = '';
@@ -30,29 +28,29 @@ export class ChangePasswordComponent implements OnInit {
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
-    this.title.setTitle(Language.get('changePassword') + ' - ' + Config.get('title'));
+    this.title.setTitle(Config.lang('changePassword') + ' - ' + Config.get('title'));
   }
 
   changePassword() {
     if (this.oldPassword.trim() === '' || this.newPassword.trim() === '' || this.repeatPassword.trim() === '') {
-      appInstance.openSnackBar(Language.get('fillAllFields'));
+      Config.openSnackBar(Config.lang('fillAllFields'));
     } else if (this.newPassword !== this.repeatPassword) {
-      appInstance.openSnackBar(Language.get('passwordsNotMatch'));
+      Config.openSnackBar(Config.lang('passwordsNotMatch'));
     } else if (Config.hash(this.oldPassword) !== localStorage.getItem('password')) {
-      appInstance.openSnackBar(Language.get('wrongPassword'));
+      Config.openSnackBar(Config.lang('wrongPassword'));
     } else if (this.newPassword.length < 8) {
-      appInstance.openSnackBar(Language.get('passwordMinLength'));
+      Config.openSnackBar(Config.lang('passwordMinLength'));
     } else {
       Config.API('editpassword', {
         username: localStorage.getItem('username'), password: localStorage.getItem('password'), newPassword: Config.hash(this.newPassword)
       }).subscribe(values => values['success'] === true ? this.passwordChanged() :
-        values['error'] === '403' ? appInstance.openSnackBar(Language.get('wrongPassword')) : appInstance.openSnackBar('error'));
+        values['error'] === '403' ? Config.openSnackBar(Config.lang('wrongPassword')) : Config.openSnackBar('error'));
     }
   }
 
   passwordChanged() {
     localStorage.setItem('password', Config.hash(this.newPassword));
-    appInstance.openSnackBar(Language.get('passwordChanged'));
+    Config.openSnackBar(Config.lang('passwordChanged'));
     this.router.navigate(['/edit-profile']);
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user/user.component';
 import { Config } from '../config';
-import { Language } from '../language';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -12,7 +11,7 @@ import { Title } from '@angular/platform-browser';
 export class UsersComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   users: User[] = [];
 
@@ -24,7 +23,7 @@ export class UsersComponent implements OnInit {
   }
 
   listUsers(values: any) {
-    this.title.setTitle(Language.get('users') + ' - ' + Config.get('title'));
+    this.title.setTitle(Config.lang('users') + ' - ' + Config.get('title'));
     Object.entries(values).forEach(user => this.users.push(
       new User(<number>(<unknown>user[0]), <{ [key: string]: Object }>user[1])
     ));

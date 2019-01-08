@@ -1,20 +1,8 @@
-import {
-  Component,
-  ChangeDetectorRef,
-  OnDestroy,
-  Inject,
-  OnInit
-} from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy, Inject, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Config } from './config';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatSnackBar
-} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
-import { Language } from './language';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -28,7 +16,7 @@ export let appInstance: AppComponent;
 export class AppComponent implements OnInit, OnDestroy {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
@@ -37,16 +25,18 @@ export class AppComponent implements OnInit, OnDestroy {
     private title: Title, public dialog: MatDialog, public snackBar: MatSnackBar,
     changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router
   ) {
+    appInstance = this;
+    Config.snackBar = this.snackBar;
+    Config.openSnackBar = this.openSnackBar;
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
-    appInstance = this;
   }
 
   ngOnInit(): void {
     Config.setHttp(this.http);
     Config.loadFirst(['title'], this.title);
-    Language.loadLanguage('de');
+    Config.loadLanguage('de');
     Config.setRouter(this.router);
   }
 
@@ -58,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
     Config.login = true;
-    this.openSnackBar(message);
+    Config.openSnackBar(message);
   }
 
   openLogin(): void {
@@ -73,13 +63,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public login(result: any, dialogRef: MatDialogRef<any>, data: any): void {
     if (result.username === undefined || result.password === undefined) {
-      this.openSnackBar(Language.get('fillAllFields'));
+      Config.openSnackBar(Config.lang('fillAllFields'));
       return;
     } else if (result.username.length > 32) {
-      this.openSnackBar(Language.get('usernameMaxLength'));
+      Config.openSnackBar(Config.lang('usernameMaxLength'));
       return;
     } else if (result.password.length < 8) {
-      this.openSnackBar(Language.get('passwordMinLength'));
+      Config.openSnackBar(Config.lang('passwordMinLength'));
       return;
     } else {
       const hashed = Config.hash(result.password);
@@ -103,13 +93,13 @@ export class AppComponent implements OnInit, OnDestroy {
     if (
       result.username === undefined || result.password === undefined || result.repeat === undefined ||
       (result.captcha === undefined && Config.captcha !== undefined)) {
-      this.openSnackBar(Language.get('fillAllFields'));
+      Config.openSnackBar(Config.lang('fillAllFields'));
       return;
     } else if (result.username.length > 32) {
-      this.openSnackBar(Language.get('usernameMaxLength'));
+      Config.openSnackBar(Config.lang('usernameMaxLength'));
       return;
     } else if (result.password.length < 8) {
-      this.openSnackBar(Language.get('passwordMinLength'));
+      Config.openSnackBar(Config.lang('passwordMinLength'));
       return;
     } else if (result.password === result.repeat) {
       const hashed = Config.hash(result.password);
@@ -117,27 +107,27 @@ export class AppComponent implements OnInit, OnDestroy {
         username: result.username, password: hashed, captcha: Config.captcha, captchaValue: result.captcha
       }).subscribe(values => this.closeDialogOnLogin(values, result.username, hashed, dialogRef, data));
     } else {
-      this.openSnackBar(Language.get('passwordsNotMatch'));
+      Config.openSnackBar(Config.lang('passwordsNotMatch'));
     }
   }
 
   closeDialogOnLogin(values: any, username: string, hashed: string, dialogRef: MatDialogRef<any>, data: any): void {
     if (values['valid'] === true) {
-      this.setLogin(username, hashed, Language.get('loginSuccess'));
+      this.setLogin(username, hashed, Config.lang('loginSuccess'));
       dialogRef.close();
       return;
     } else if (values['valid'] === false) {
-      this.openSnackBar(Language.get('loginWrong'));
+      Config.openSnackBar(Config.lang('loginWrong'));
     } else if (values['done'] === true) {
-      this.setLogin(username, hashed, Language.get('userCreated'));
+      this.setLogin(username, hashed, Config.lang('userCreated'));
       dialogRef.close();
       return;
     } else if (values['error'] === '400') {
-      this.openSnackBar(Language.get('wrongData'));
+      Config.openSnackBar(Config.lang('wrongData'));
     } else if (values['error'] === '403 captcha') {
-      this.openSnackBar(Language.get('wrongCaptcha'));
+      Config.openSnackBar(Config.lang('wrongCaptcha'));
     } else {
-      this.openSnackBar(Language.get('userAlreadyExists'));
+      Config.openSnackBar(Config.lang('userAlreadyExists'));
     }
     Config.getCaptcha();
     data.captcha = '';
@@ -145,11 +135,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   doLogout(): void {
     Config.logout();
-    this.openSnackBar(Language.get('loggedOut'));
+    Config.openSnackBar(Config.lang('loggedOut'));
   }
 
   openSnackBar(message: string) {
-    this.snackBar.open(message, Language.get('close'), { duration: 4000 });
+    Config.snackBar.open(message, Config.lang('close'), { duration: 4000 });
   }
 }
 
@@ -166,7 +156,7 @@ export interface LoginDialogData {
 export class LoginDialogOverview {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
   constructor(public dialogRef: MatDialogRef<LoginDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: LoginDialogData) { }
   onNoClick(): void {
@@ -190,7 +180,7 @@ export interface RegisterDialogData {
 export class RegisterDialogOverview {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
   constructor(public dialogRef: MatDialogRef<RegisterDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData) { }
   onNoClick(): void {

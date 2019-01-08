@@ -60,7 +60,8 @@
     "createPost": "Beitrag erstellen",
     "atTime": "um",
     "timeExtension": "Uhr",
-    "threadCreated": "Thema erstellt"
+    "threadCreated": "Thema erstellt",
+    "loginRequired": "Zugriff ist nur angemeldeten Benutzern möglich"
   },
   "en": {},
   "ru": {}

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Language } from '../language';
 import { Config } from '../config';
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,7 +21,7 @@ export class User {
 export class UserComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   user = new User(0, {});
   id = +this.route.snapshot.paramMap.get('id');

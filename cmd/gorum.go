@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"strings"
 
 	"github.com/ltheinrich/captcha"
 
@@ -115,12 +117,20 @@ func listen() error {
 	certificate := config.Get("https", "certificate")
 	key := config.Get("https", "key")
 
+	// address as usable url
+	url := address
+	if strings.HasPrefix(address, ":") {
+		url = "localhost" + address
+	}
+
 	// check if certicate and key file provided
 	if certificate == "" || key == "" {
 		// http server
+		log.Printf("Webserver listening at http://%v/\n", url)
 		return http.ListenAndServe(address, nil)
 	}
 
 	// https/tls server
+	log.Printf("Webserver listening at https://%v/\n", url)
 	return http.ListenAndServeTLS(address, certificate, key, nil)
 }

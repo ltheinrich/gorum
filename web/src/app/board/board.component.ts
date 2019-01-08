@@ -1,7 +1,6 @@
-import { Component, OnInit, setTestabilityGetter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Language } from '../language';
 import { Config } from '../config';
 import { Thread } from '../thread/thread.component';
 
@@ -29,7 +28,7 @@ export class Board {
 export class BoardComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   threads: Thread[] = [];
   id = +this.route.snapshot.paramMap.get('id');

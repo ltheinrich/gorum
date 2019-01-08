@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
-import { Language } from '../language';
 import { Title } from '@angular/platform-browser';
 import { Board } from '../board/board.component';
-import { iteratorToArray } from '@angular/animations/browser/src/util';
 
 @Component({
   selector: 'app-boards',
@@ -13,7 +11,7 @@ import { iteratorToArray } from '@angular/animations/browser/src/util';
 export class BoardsComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   categoryNames: string[] = [];
   categories: Map<string, Board[]> = new Map<string, Board[]>();
@@ -36,7 +34,7 @@ export class BoardsComponent implements OnInit {
 
   addBoard(category: string, board: Board) {
     if (!this.titleSet) {
-      this.title.setTitle(Language.get('boards') + ' - ' + Config.get('title'));
+      this.title.setTitle(Config.lang('boards') + ' - ' + Config.get('title'));
       this.titleSet = true;
     }
 
