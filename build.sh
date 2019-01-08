@@ -2,6 +2,9 @@
 
 # build web-app
 cd web
+rm -rf dist
+rm -rf node_modules
+rm -f package-lock.json
 npm install
 ng build --prod
 cd ..
