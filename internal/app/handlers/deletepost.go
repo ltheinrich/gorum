@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"errors"
-	"fmt"
+	"log"
 
 	"github.com/ltheinrich/gorum/pkg/db"
 )
@@ -30,7 +30,7 @@ func DeletePost(request map[string]interface{}, username string, auth bool) inte
 	_, err = db.DB.Exec(`DELETE FROM posts USING users WHERE posts.author = users.id
 						AND posts.id = $1 AND users.username = $2;`, postID, username)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return err
 	}
 
