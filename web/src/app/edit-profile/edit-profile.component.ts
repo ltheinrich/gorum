@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user/user.component';
 import { Config } from '../config';
-import { Language } from '../language';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { appInitializerFactory } from '@angular/platform-browser/src/browser/server-transition';
-import { appInstance } from '../app.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +13,7 @@ import { Router } from '@angular/router';
 export class EditProfileComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   user = new User(0, {});
   username = localStorage.getItem('username');
@@ -34,16 +31,16 @@ export class EditProfileComponent implements OnInit {
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
-    this.title.setTitle(Language.get('editProfile') + ' - ' + Config.get('title'));
+    this.title.setTitle(Config.lang('editProfile') + ' - ' + Config.get('title'));
   }
 
   saveProfile() {
     const newUsername = <string>this.user.data['username'];
     if (this.username !== newUsername) {
       if (newUsername === '') {
-        appInstance.openSnackBar(Language.get('emptyUsername'));
+        Config.openSnackBar(Config.lang('emptyUsername'));
       } else if (newUsername.length > 32) {
-        appInstance.openSnackBar(Language.get('usernameMaxLength'));
+        Config.openSnackBar(Config.lang('usernameMaxLength'));
       } else {
         Config.API('editusername', {
           username: this.username, newUsername: newUsername,
@@ -58,11 +55,11 @@ export class EditProfileComponent implements OnInit {
   changedUsername(values: any, newUsername: string) {
     if (values['success'] === true) {
       localStorage.setItem('username', newUsername);
-      appInstance.openSnackBar(Language.get('changedUsername'));
+      Config.openSnackBar(Config.lang('changedUsername'));
       this.router.navigate(['/user/' + this.user.id]);
     } else {
-      const errorMessage = Language.get(values['error']);
-      appInstance.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
+      const errorMessage = Config.lang(values['error']);
+      Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
     }
   }
 

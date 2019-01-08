@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Language } from '../language';
 import { Config } from '../config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Board } from '../board/board.component';
 import { Title } from '@angular/platform-browser';
-import { appInstance } from '../app.component';
 
 @Component({
   selector: 'app-new-thread',
@@ -14,7 +12,7 @@ import { appInstance } from '../app.component';
 export class NewThreadComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   id = +this.route.snapshot.paramMap.get('id');
   board: Board;
@@ -32,7 +30,7 @@ export class NewThreadComponent implements OnInit {
 
   initBoard(values: any) {
     this.board = new Board(values['id'], values['name'], values['description'], values['icon'], values['sort']);
-    this.title.setTitle(Language.get('newThread') + ' - ' + Config.get('title'));
+    this.title.setTitle(Config.lang('newThread') + ' - ' + Config.get('title'));
   }
 
   publish(content: string) {
@@ -45,19 +43,19 @@ export class NewThreadComponent implements OnInit {
 
   proccessResponse(values: any) {
     if (values['error'] === '400') {
-      appInstance.openSnackBar(Language.get('fillAllFields'));
+      Config.openSnackBar(Config.lang('fillAllFields'));
     } else if (values['error'] === '403') {
-      appInstance.openSnackBar(Language.get('wrongLogin'));
+      Config.openSnackBar(Config.lang('wrongLogin'));
     } else if (values['error'] === '403 captcha') {
-      appInstance.openSnackBar(Language.get('wrongCaptcha'));
+      Config.openSnackBar(Config.lang('wrongCaptcha'));
       Config.getCaptcha();
       this.captcha = '';
     } else if (values['error'] !== undefined) {
-      appInstance.openSnackBar(values['error']);
+      Config.openSnackBar(values['error']);
       Config.getCaptcha();
       this.captcha = '';
     } else {
-      appInstance.openSnackBar(Language.get('threadCreated'));
+      Config.openSnackBar(Config.lang('threadCreated'));
       this.router.navigate(['/thread/' + values['id']]);
     }
   }

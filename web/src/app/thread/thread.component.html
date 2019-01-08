@@ -40,7 +40,7 @@
   </mat-card-content>
 </mat-card>
 <br>
-<form>
+<form *ngIf="config.login">
   <input #content id="content" type="hidden">
   <trix-editor input="content"></trix-editor>
   <br>

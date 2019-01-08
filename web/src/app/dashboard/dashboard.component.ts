@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Config } from '../config';
-import { Language } from '../language';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +10,7 @@ import { Language } from '../language';
 export class DashboardComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   constructor(private title: Title) { }
 

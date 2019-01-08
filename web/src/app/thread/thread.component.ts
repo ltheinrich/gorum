@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Language } from '../language';
 import { Config } from '../config';
-import { appInstance } from '../app.component';
 
 export class Thread {
   id: number;
@@ -54,7 +52,7 @@ export class Post {
 export class ThreadComponent implements OnInit {
   config = Config;
   conf = Config.get;
-  lang = Language.get;
+  lang = Config.lang;
 
   thread = new Thread(0, null, null, null, null, null, null, null);
   posts: Post[] = [];
@@ -103,18 +101,18 @@ export class ThreadComponent implements OnInit {
   afterDeletePost(values: any) {
     if (values['done'] === true) {
       Config.API('posts', { threadID: this.id }).subscribe(valuesPosts => this.listPosts(valuesPosts));
-      appInstance.openSnackBar(Language.get('postDeleted'));
+      Config.openSnackBar(Config.lang('postDeleted'));
     } else if (values['error'] !== undefined) {
-      appInstance.openSnackBar(values['error']);
+      Config.openSnackBar(values['error']);
     }
   }
 
   afterDeleteThread(values: any) {
     if (values['done'] === true) {
-      appInstance.openSnackBar(Language.get('threadDeleted'));
+      Config.openSnackBar(Config.lang('threadDeleted'));
       this.router.navigate(['/board/' + this.thread.board]);
     } else if (values['error'] !== undefined) {
-      appInstance.openSnackBar(values['error']);
+      Config.openSnackBar(values['error']);
     }
   }
 
@@ -128,19 +126,19 @@ export class ThreadComponent implements OnInit {
 
   proccessResponse(values: any) {
     if (values['error'] === '400') {
-      appInstance.openSnackBar(Language.get('fillAllFields'));
+      Config.openSnackBar(Config.lang('fillAllFields'));
     } else if (values['error'] === '403') {
-      appInstance.openSnackBar(Language.get('wrongLogin'));
+      Config.openSnackBar(Config.lang('wrongLogin'));
     } else if (values['error'] === '403 captcha') {
-      appInstance.openSnackBar(Language.get('wrongCaptcha'));
+      Config.openSnackBar(Config.lang('wrongCaptcha'));
       Config.getCaptcha();
       this.captcha = '';
     } else if (values['error'] !== undefined) {
-      appInstance.openSnackBar(values['error']);
+      Config.openSnackBar(values['error']);
       Config.getCaptcha();
       this.captcha = '';
     } else {
-      appInstance.openSnackBar(Language.get('postCreated'));
+      Config.openSnackBar(Config.lang('postCreated'));
       window.location.reload();
     }
   }

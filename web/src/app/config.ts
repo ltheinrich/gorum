@@ -4,14 +4,18 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 export namespace Config {
-  let http: HttpClient;
   let router: Router;
-  const configMap: Map<string, string> = new Map<string, string>();
+  let http: HttpClient;
   let triedLogin = false;
+  const configMap: Map<string, string> = new Map<string, string>();
+  const languageMap: Map<string, string> = new Map<string, string>();
+  export let openSnackBar;
   export let login: boolean;
   export let captcha: string;
+  export let snackBar: MatSnackBar;
   export const baseUrl = environment.production
     ? '/'
     : 'http://localhost:1813/';
@@ -20,6 +24,20 @@ export namespace Config {
   export function get(key: string): string {
     return configMap.get(key);
   }
+
+  export function lang(name: string): string {
+    return languageMap.get(name);
+  }
+
+  export function loadLanguage(language: string) {
+    API('lang', {}).subscribe(values =>
+      Object.entries(values[language]).forEach(([key, value]) => languageMap.set(key, value as string))
+    );
+  }
+
+  /*export function openSnackBar(message: string) {
+    snackBar.open(message, lang('close'), { duration: 4000 });
+  }*/
 
   export function getCaptcha() {
     API('newcaptcha', {}).subscribe(values => captcha = values['captcha']);
@@ -50,11 +68,12 @@ export namespace Config {
 
   export function setLogin(redirect: boolean) {
     if (!triedLogin) {
-      Config.API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
+      API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
         .subscribe(values => validateLogin(values, redirect));
     } else {
       if (redirect && !login) {
         router.navigate(['/']);
+        openSnackBar(lang('loginRequired'));
       }
     }
   }
@@ -87,8 +106,7 @@ export namespace Config {
 
   export function registeredDate(registered: Object): string {
     const date = new Date(<string>registered);
-    return (date.getDate() <= 9 ? '0' + date.getDate() : date.getDate()) + '.' +
-      (date.getMonth() <= 9 ? '0' + date.getMonth() : date.getMonth()) + '.' + date.getFullYear();
+    return createdDate(date.getTime() / 1000);
   }
 
   export function createdDate(created: Object): string {
