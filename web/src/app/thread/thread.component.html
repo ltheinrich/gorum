@@ -9,7 +9,9 @@
       <button mat-flat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
         color="primary" (click)="deleteThread()">{{lang("deleteThread")}}</button>
       <ng-template #reportButton>
+        <!-- TODO
         <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
+        -->
       </ng-template>
     </mat-card-actions>
   </mat-card-header>
@@ -19,28 +21,33 @@
   </mat-card-content>
 </mat-card>
 <br>
-<mat-card *ngFor="let post of posts">
-  <mat-card-header>
-    <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{post.authorAvatar}}">
-    <mat-card-title>{{post.authorName}}</mat-card-title>
-    <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(post.created)}} {{lang('atTime')}}
-      {{config.time(post.created)}} {{lang('timeExtension')}}</mat-card-subtitle>
-    <span class="fill-space"></span>
-    <mat-card-actions>
-      <button mat-flat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton" color="primary"
-        (click)="deletePost(post.id)">{{lang("deletePost")}}</button>
-      <ng-template #reportButton>
-        <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
-      </ng-template>
-    </mat-card-actions>
-  </mat-card-header>
+<div *ngFor="let post of posts">
+  <br>
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{post.authorAvatar}}">
+      <mat-card-title>{{post.authorName}}</mat-card-title>
+      <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(post.created)}} {{lang('atTime')}}
+        {{config.time(post.created)}} {{lang('timeExtension')}}</mat-card-subtitle>
+      <span class="fill-space"></span>
+      <mat-card-actions>
+        <button mat-flat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton"
+          color="primary" (click)="deletePost(post.id)">{{lang("deletePost")}}</button>
+        <ng-template #reportButton>
+          <!-- TODO
+          <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
+          -->
+        </ng-template>
+      </mat-card-actions>
+    </mat-card-header>
 
-  <mat-card-content>
-    <p [innerHTML]="post.content"></p>
-  </mat-card-content>
-</mat-card>
+    <mat-card-content>
+      <p [innerHTML]="post.content"></p>
+    </mat-card-content>
+  </mat-card>
+</div>
 <br>
-<form *ngIf="config.login">
+<form *ngIf="config.login; else loginToPost">
   <input #content id="content" type="hidden">
   <trix-editor input="content"></trix-editor>
   <br>
@@ -54,3 +61,6 @@
   <br>
   <button mat-flat-button color="primary" (click)="post(content.value)">{{lang('createPost')}}</button>
 </form>
+<ng-template #loginToPost>
+  <p>{{lang('loginToPost')}}</p><br>
+</ng-template>

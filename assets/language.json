@@ -61,7 +61,8 @@
     "atTime": "um",
     "timeExtension": "Uhr",
     "threadCreated": "Thema erstellt",
-    "loginRequired": "Zugriff ist nur angemeldeten Benutzern möglich"
+    "loginRequired": "Zugriff ist nur angemeldeten Benutzern möglich",
+    "loginToPost": "Melde dich an, um Beiträge zu erstellen"
   },
   "en": {},
   "ru": {}
