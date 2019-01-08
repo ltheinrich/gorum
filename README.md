@@ -3,7 +3,7 @@
 [![](https://img.shields.io/github/license/ltheinrich/gorum.svg)](https://github.com/ltheinrich/gorum/blob/master/LICENSE)
 
 # Gorum
-Open source forum software written in Go(lang) and Angular
+Lightweight forum software written in Go and Angular
 
 ## Discord
 [Gorum Project Discord](https://discord.gg/jjRruxx)
