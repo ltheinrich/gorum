@@ -27,6 +27,7 @@ var (
 		"deletethread": DeleteThread,
 		"newpost":      NewPost,
 		"deletepost":   DeletePost,
+		"lastthreads":  LastThreads,
 	}
 )
 

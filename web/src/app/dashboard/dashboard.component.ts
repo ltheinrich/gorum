@@ -17,5 +17,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     Config.setLogin(false);
     this.title.setTitle(Config.get('title'));
+    Config.API('lastthreads', { username: Config.getUsername(), password: Config.getPassword() }).subscribe(values => console.log(values));
   }
 }
