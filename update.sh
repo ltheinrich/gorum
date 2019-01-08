@@ -9,18 +9,3 @@ cd ..
 # dependencies
 go get -u ./...
 go mod vendor
-
-# assets binary data
-cd assets
-go-bindata -o ../internal/pkg/assets/assets.go -pkg assets .
-cd ..
-
-# compile web files
-cd web
-ng build --prod
-cd ..
-
-# web assets binary data
-cd web/dist/gorum
-go-bindata -o ../../../internal/pkg/webassets/webassets.go -pkg webassets .
-cd ../../..
