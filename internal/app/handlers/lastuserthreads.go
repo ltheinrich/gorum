@@ -3,8 +3,11 @@ package handlers
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"os"
 	"strconv"
 
+	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
 )
 
@@ -28,8 +31,9 @@ func LastUserThreads(request map[string]interface{}, username string, auth bool)
 
 	// query db
 	var rows *sql.Rows
-	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.board, threads.created, posts.created
-							FROM threads LEFT JOIN posts ON threads.id = posts.thread AND posts.author = $1
+	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.author, threads.board, threads.created, users.username, posts.created
+							FROM threads INNER JOIN users ON threads.author = users.id
+							LEFT JOIN posts ON threads.id = posts.thread AND posts.author = $1
 							WHERE posts.author = $1 OR threads.author = $1 ORDER BY posts.created DESC;`, userID)
 	if err != nil {
 		// return error
@@ -43,11 +47,11 @@ func LastUserThreads(request map[string]interface{}, username string, auth bool)
 	// loop through threads
 	for rows.Next() {
 		// scan
-		var id, board int
+		var id, board, author int
 		var created int64
-		var name string
+		var name, authorName string
 		var answer interface{}
-		err = rows.Scan(&id, &name, &board, &created, &answer)
+		err = rows.Scan(&id, &name, &author, &board, &created, &authorName, &answer)
 		if err != nil {
 			// return error
 			return err
@@ -67,7 +71,17 @@ func LastUserThreads(request map[string]interface{}, username string, auth bool)
 		thread["name"] = name
 		thread["created"] = created
 		thread["board"] = board
-		thread["answer"] = answer
+		thread["authorName"] = authorName
+
+		// get avatar path
+		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), author)
+		_, err = os.Open(avatarPath)
+		if os.IsNotExist(err) {
+			thread["authorAvatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
+		} else {
+			thread["authorAvatar"] = avatarPath
+		}
+
 		// check if post exists
 		if val, ok := answer.(int64); ok {
 			thread["answer"] = val
