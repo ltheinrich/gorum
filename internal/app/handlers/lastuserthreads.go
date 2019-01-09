@@ -2,16 +2,14 @@ package handlers
 
 import (
 	"database/sql"
-	"fmt"
-	"os"
+	"errors"
 	"strconv"
 
-	"github.com/ltheinrich/gorum/pkg/config"
 	"github.com/ltheinrich/gorum/pkg/db"
 )
 
-// LastThreads handler
-func LastThreads(request map[string]interface{}, username string, auth bool) interface{} {
+// LastUserThreads handler
+func LastUserThreads(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
 	// get limit
@@ -21,11 +19,18 @@ func LastThreads(request map[string]interface{}, username string, auth bool) int
 		limit = 10
 	}
 
+	// get user id and check if provided
+	userID := GetInt(request, "userID")
+	if userID == 0 {
+		// not provided
+		return errors.New("400")
+	}
+
 	// query db
 	var rows *sql.Rows
-	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.author, threads.board, threads.created, users.username, posts.created
-							FROM threads INNER JOIN users ON threads.author = users.id
-							LEFT JOIN posts ON threads.id = posts.thread ORDER BY posts.created DESC;`)
+	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.board, threads.created, posts.created
+							FROM threads LEFT JOIN posts ON threads.id = posts.thread AND posts.author = $1
+							WHERE posts.author = $1 OR threads.author = $1 ORDER BY posts.created DESC;`, userID)
 	if err != nil {
 		// return error
 		return err
@@ -38,11 +43,11 @@ func LastThreads(request map[string]interface{}, username string, auth bool) int
 	// loop through threads
 	for rows.Next() {
 		// scan
-		var id, author, board int
+		var id, board int
 		var created int64
-		var name, authorName string
+		var name string
 		var answer interface{}
-		err = rows.Scan(&id, &name, &author, &board, &created, &authorName, &answer)
+		err = rows.Scan(&id, &name, &board, &created, &answer)
 		if err != nil {
 			// return error
 			return err
@@ -62,23 +67,12 @@ func LastThreads(request map[string]interface{}, username string, auth bool) int
 		thread["name"] = name
 		thread["created"] = created
 		thread["board"] = board
-		thread["author"] = author
-		thread["authorName"] = authorName
-
+		thread["answer"] = answer
 		// check if post exists
 		if val, ok := answer.(int64); ok {
 			thread["answer"] = val
 		} else {
 			thread["answer"] = created
-		}
-
-		// add avatar
-		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), author)
-		_, err = os.Open(avatarPath)
-		if os.IsNotExist(err) {
-			thread["authorAvatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))
-		} else {
-			thread["authorAvatar"] = avatarPath
 		}
 
 		// append thread to threads map

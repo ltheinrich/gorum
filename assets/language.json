@@ -62,7 +62,11 @@
     "timeExtension": "Uhr",
     "threadCreated": "Thema erstellt",
     "loginRequired": "Zugriff ist nur angemeldeten Benutzern möglich",
-    "loginToPost": "Melde dich an, um Beiträge zu erstellen"
+    "loginToPost": "Melde dich an, um Beiträge zu erstellen",
+    "lastThreads": "Letzte Themen",
+    "lastThreadsDescription": "Die Themen mit den neuesten Beiträgen",
+    "show": "Anzeigen",
+    "hide": "Verstecken"
   },
   "en": {},
   "ru": {}

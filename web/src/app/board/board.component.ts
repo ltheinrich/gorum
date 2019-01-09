@@ -33,8 +33,7 @@ export class BoardComponent implements OnInit {
   threads: Thread[] = [];
   id = +this.route.snapshot.paramMap.get('id');
 
-  constructor(private route: ActivatedRoute,
-    private title: Title) { }
+  constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
     Config.setLogin(false);
@@ -50,7 +49,8 @@ export class BoardComponent implements OnInit {
     Object.entries(values).forEach(thread =>
       this.threads.push(
         new Thread(<number>thread[1]['id'], <string>thread[1]['name'], <string>thread[1]['board'], <number>thread[1]['author'],
-          <number>thread[1]['created'], <string>thread[1]['content'], <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'])));
-    this.threads.sort((a, b) => a.created - b.created);
+          <number>thread[1]['created'], <string>thread[1]['content'], <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'],
+          null)));
+    this.threads.sort((a, b) => b.created - a.created);
   }
 }

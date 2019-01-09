@@ -17,6 +17,7 @@
     "avatar": "data/avatar"
   },
   "public": {
-    "title": "Gorum"
+    "title": "Gorum",
+    "description": "Lightweight forum software written in Go and Angular"
   }
 }
