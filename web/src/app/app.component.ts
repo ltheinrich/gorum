@@ -21,10 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
 
-  constructor(private http: HttpClient,
-    private title: Title, public dialog: MatDialog, public snackBar: MatSnackBar,
-    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router
-  ) {
+  constructor(private http: HttpClient, private title: Title, public dialog: MatDialog, public snackBar: MatSnackBar,
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
     appInstance = this;
     Config.snackBar = this.snackBar;
     Config.openSnackBar = this.openSnackBar;
@@ -34,10 +32,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    Config.setHttp(this.http);
+    Config.http = this.http;
     Config.loadFirst(this.title);
     Config.loadLanguage('de');
-    Config.setRouter(this.router);
+    Config.router = this.router;
   }
 
   ngOnDestroy(): void {

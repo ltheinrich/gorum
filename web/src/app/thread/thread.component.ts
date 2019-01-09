@@ -71,8 +71,7 @@ export class ThreadComponent implements OnInit {
   }
 
   initThread(values: any) {
-    this.thread = new Thread(
-      <number>values['id'], <string>values['name'], <string>values['board'], <number>values['author'],
+    this.thread = new Thread(<number>values['id'], <string>values['name'], <string>values['board'], <number>values['author'],
       <number>values['created'], <string>values['content'], <string>values['authorName'], <string>values['authorAvatar'], null);
     this.title.setTitle(this.thread.name + ' - ' + Config.get('title'));
   }
@@ -120,8 +119,7 @@ export class ThreadComponent implements OnInit {
 
   post(content: string) {
     Config.API('newpost', {
-      username: Config.getUsername(), password: Config.getPassword(),
-      thread: this.id, content: content,
+      username: Config.getUsername(), password: Config.getPassword(), thread: this.id, content: content,
       captcha: Config.captcha, captchaValue: this.captcha
     }).subscribe(values => this.proccessResponse(values));
   }

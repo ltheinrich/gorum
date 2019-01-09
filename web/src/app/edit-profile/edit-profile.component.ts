@@ -18,11 +18,7 @@ export class EditProfileComponent implements OnInit {
   user = new User(0, {});
   username = localStorage.getItem('username');
 
-  constructor(
-    private router: Router,
-    private title: Title,
-    public dialog: MatDialog
-  ) { }
+  constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
   ngOnInit() {
     Config.setLogin(true);

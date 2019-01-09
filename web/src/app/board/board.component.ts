@@ -37,20 +37,14 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(false);
-    this.setTitle();
+    Config.API('board', { boardID: this.id }).subscribe(values => this.title.setTitle(values['name'] + ' - ' + Config.get('title')));
     Config.API('threads', { boardID: this.id }).subscribe(values => this.listThreads(values));
   }
 
-  setTitle() {
-    Config.API('board', { boardID: this.id }).subscribe(values => this.title.setTitle(values['name'] + ' - ' + Config.get('title')));
-  }
-
   listThreads(values: any) {
-    Object.entries(values).forEach(thread =>
-      this.threads.push(
-        new Thread(<number>thread[1]['id'], <string>thread[1]['name'], <string>thread[1]['board'], <number>thread[1]['author'],
-          <number>thread[1]['created'], <string>thread[1]['content'], <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'],
-          null)));
+    Object.entries(values).forEach(thread => this.threads.push(new Thread(<number>thread[1]['id'], <string>thread[1]['name'],
+      <string>thread[1]['board'], <number>thread[1]['author'], <number>thread[1]['created'], <string>thread[1]['content'],
+      <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'], null)));
     this.threads.sort((a, b) => b.created - a.created);
   }
 }

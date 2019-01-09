@@ -22,8 +22,5 @@ export const routes: Routes = [
   { path: 'new-thread/:id', component: NewThreadComponent }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
+@NgModule({ imports: [RouterModule.forRoot(routes)], exports: [RouterModule] })
 export class AppRoutingModule { }
