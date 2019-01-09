@@ -53,5 +53,4 @@ export class ChangePasswordComponent implements OnInit {
     Config.openSnackBar(Config.lang('passwordChanged'));
     this.router.navigate(['/edit-profile']);
   }
-
 }

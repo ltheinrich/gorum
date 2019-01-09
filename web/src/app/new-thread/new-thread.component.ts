@@ -19,8 +19,7 @@ export class NewThreadComponent implements OnInit {
   threadTitle: string;
   captcha: string;
 
-  constructor(private route: ActivatedRoute,
-    private title: Title, private router: Router) { }
+  constructor(private route: ActivatedRoute, private title: Title, private router: Router) { }
 
   ngOnInit() {
     Config.setLogin(true);
@@ -35,9 +34,8 @@ export class NewThreadComponent implements OnInit {
 
   publish(content: string) {
     Config.API('newthread', {
-      username: Config.getUsername(), password: Config.getPassword(),
-      title: this.threadTitle, board: this.id, content: content,
-      captcha: Config.captcha, captchaValue: this.captcha
+      username: Config.getUsername(), password: Config.getPassword(), title: this.threadTitle, board: this.id,
+      content: content, captcha: Config.captcha, captchaValue: this.captcha
     }).subscribe(values => this.proccessResponse(values));
   }
 

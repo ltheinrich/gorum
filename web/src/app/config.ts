@@ -7,14 +7,14 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
 export namespace Config {
-  let router: Router;
-  let http: HttpClient;
   let triedLogin = false;
   const configMap: Map<string, string> = new Map<string, string>();
   const languageMap: Map<string, string> = new Map<string, string>();
   export let openSnackBar;
   export let login: boolean;
+  export let router: Router;
   export let captcha: string;
+  export let http: HttpClient;
   export let snackBar: MatSnackBar;
   export const baseUrl = environment.production
     ? '/'
@@ -34,10 +34,6 @@ export namespace Config {
       Object.entries(values[language]).forEach(([key, value]) => languageMap.set(key, value as string))
     );
   }
-
-  /*export function openSnackBar(message: string) {
-    snackBar.open(message, lang('close'), { duration: 4000 });
-  }*/
 
   export function getCaptcha() {
     API('newcaptcha', {}).subscribe(values => captcha = values['captcha']);
@@ -80,10 +76,6 @@ export namespace Config {
     triedLogin = true;
   }
 
-  export function setRouter(newRouter: Router) {
-    router = newRouter;
-  }
-
   export function getUsername(): string {
     return localStorage.getItem('username');
   }
@@ -113,10 +105,6 @@ export namespace Config {
     const date = new Date(<number>created * 1000);
     return (date.getHours() <= 9 ? '0' + date.getHours() : date.getHours()) + ':' +
       (date.getMinutes() <= 9 ? '0' + date.getMinutes() : date.getMinutes());
-  }
-
-  export function setHttp(httpClient: HttpClient) {
-    http = httpClient;
   }
 
   export function hash(text: string): string {

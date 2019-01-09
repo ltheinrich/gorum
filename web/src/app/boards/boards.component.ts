@@ -25,9 +25,8 @@ export class BoardsComponent implements OnInit {
   }
 
   addBoards(values: any) {
-    Object.entries(values).forEach(category =>
-      Object.entries(category[1]).forEach(board => this.addBoard(<string><unknown>category[0],
-        new Board(board[1]['id'], board[1]['name'], board[1]['description'], board[1]['icon'], board[1]['sort']))));
+    Object.entries(values).forEach(category => Object.entries(category[1]).forEach(board => this.addBoard(<string><unknown>category[0],
+      new Board(board[1]['id'], board[1]['name'], board[1]['description'], board[1]['icon'], board[1]['sort']))));
     this.categories.forEach(boards => boards.sort((a, b) => a.sort - b.sort));
     this.categoryNames.sort((a, b) => Array.from(this.categories.get(a))[0].sort - Array.from(this.categories.get(b))[0].sort);
   }
@@ -37,12 +36,10 @@ export class BoardsComponent implements OnInit {
       this.title.setTitle(Config.lang('boards') + ' - ' + Config.get('title'));
       this.titleSet = true;
     }
-
     if (!this.categories.has(category)) {
       this.categoryNames.push(category);
       this.categories.set(category, []);
     }
     this.categories.get(category).push(board);
   }
-
 }
