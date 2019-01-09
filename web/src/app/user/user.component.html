@@ -14,12 +14,20 @@
       </ng-template>
     </mat-card-actions>
   </mat-card-header>
-
+  <br>
   <mat-card-content>
+    <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
+    <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
     <mat-list *ngFor="let thread of threads">
       <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}">
+        <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
         <h4 mat-line>{{ thread.name }}</h4>
-        <p mat-line class="gray">{{ lang('createdOn') }} {{ config.createdDate(thread.created) }}</p>
+        <p mat-line class="gray">
+          {{ lang('createdOn') }}
+          {{ config.createdDate(thread.created) }}
+          {{ lang('by') }}
+          {{ thread.authorName }}
+        </p>
       </mat-list-item>
     </mat-list>
     <p *ngIf="threads.length == 0">{{ lang('noThreads') }}</p>
