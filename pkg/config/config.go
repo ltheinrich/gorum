@@ -14,6 +14,11 @@ var (
 	file string
 )
 
+// Sub configuration map
+func Sub(parent string) map[string]string {
+	return config[parent]
+}
+
 // Get configuration value
 func Get(parent, child string) string {
 	return config[parent][child]

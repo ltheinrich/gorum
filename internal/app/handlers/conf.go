@@ -1,29 +1,34 @@
 package handlers
 
 import (
-	"errors"
+	"encoding/json"
 
 	"github.com/ltheinrich/gorum/pkg/config"
 )
 
+var (
+	configMap []byte
+)
+
 // Conf handler
 func Conf(request map[string]interface{}, username string, auth bool) interface{} {
-	// check if confkeys are provided
-	confkeys := GetStringArray(request, "confkeys")
-	if confkeys == nil {
-		// return not provided
-		return errors.New("400")
+	var err error
+
+	// check if config map is loaded
+	if configMap == nil {
+		// cast map
+		confMap := map[string]interface{}{}
+		for key, value := range config.Sub("public") {
+			confMap[key] = value
+		}
+
+		// marshal map
+		configMap, err = json.Marshal(confMap)
+		if err != nil {
+			return err
+		}
 	}
 
-	// map to write
-	confvalues := map[string]interface{}{}
-
-	// loop through confkeys
-	for _, confkey := range confkeys {
-		// set confvalue in map
-		confvalues[confkey] = config.Get("public", confkey)
-	}
-
-	// return map
-	return confvalues
+	// return public config map bytes
+	return configMap
 }

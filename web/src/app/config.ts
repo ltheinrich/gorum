@@ -43,14 +43,8 @@ export namespace Config {
     API('newcaptcha', {}).subscribe(values => captcha = values['captcha']);
   }
 
-  export function load(keys: string[]) {
-    API('conf', { confkeys: keys }).subscribe(values =>
-      Object.entries(values).forEach(([key, value]) => configMap.set(key, value as string))
-    );
-  }
-
-  export function loadFirst(keys: string[], title: Title) {
-    API('conf', { confkeys: keys }).subscribe(values =>
+  export function loadFirst(title: Title) {
+    API('conf', {}).subscribe(values =>
       Object.entries(values).forEach(([key, value]) => loadFirstSet(key, value as string, title))
     );
   }
