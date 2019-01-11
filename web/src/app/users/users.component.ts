@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   constructor(private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(false);
+    Config.setLogin(this.title, 'users', false);
     Config.API('users', {}).subscribe(values => this.listUsers(values));
   }
 

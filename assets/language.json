@@ -66,7 +66,8 @@
     "lastThreads": "Letzte Themen",
     "lastThreadsDescription": "Die Themen mit den neuesten Beiträgen",
     "show": "Anzeigen",
-    "hide": "Verstecken"
+    "hide": "Verstecken",
+    "language": "Sprache"
   },
   "en": {
     "login": "Login",
@@ -135,7 +136,8 @@
     "lastThreads": "Last threads",
     "lastThreadsDescription": "The threads with the newest posts",
     "show": "Show",
-    "hide": "Hide"
+    "hide": "Hide",
+    "language": "Language"
   },
   "ru": {
     "login": "логин",
@@ -204,6 +206,7 @@
     "lastThreads": "Последние темы",
     "lastThreadsDescription": "Темы с последними сообщениями",
     "show": "показывать",
-    "hide": "Скрыть"
+    "hide": "Скрыть",
+    "language": "язык"
   }
 }

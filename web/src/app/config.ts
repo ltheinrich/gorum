@@ -8,8 +8,6 @@ import { MatSnackBar } from '@angular/material';
 
 export namespace Config {
   let triedLogin = false;
-  const configMap: Map<string, string> = new Map<string, string>();
-  const languageMap: Map<string, string> = new Map<string, string>();
   export let openSnackBar;
   export let login: boolean;
   export let router: Router;
@@ -20,6 +18,8 @@ export namespace Config {
     ? '/'
     : 'http://localhost:1813/';
   export const apiUrl = baseUrl + 'api/';
+  const configMap: Map<string, string> = new Map<string, string>();
+  const languageMap: Map<string, string> = new Map<string, string>();
 
   export function get(key: string): string {
     return configMap.get(key);
@@ -29,26 +29,40 @@ export namespace Config {
     return languageMap.get(name);
   }
 
-  export function loadLanguage(language: string) {
-    API('lang', {}).subscribe(values =>
-      Object.entries(values[language]).forEach(([key, value]) => languageMap.set(key, value as string))
-    );
+  export function loadLanguage(title: Title, site: string) {
+    let language = localStorage.getItem('language');
+    if (language === null) {
+      language = get('language');
+    }
+    API('lang', {}).subscribe(values => Object.entries(values[language]).forEach(([key, value]) => setLang(key, value as string, title, site)));
+    if (site === null) {
+      title.setTitle(get('title'));
+    }
+  }
+
+  function setLang(key: string, value: string, title: Title, site: string) {
+    languageMap.set(key, value);
+    if (key === site) {
+      title.setTitle(value + ' - ' + get('title'));
+    }
   }
 
   export function getCaptcha() {
     API('newcaptcha', {}).subscribe(values => captcha = values['captcha']);
   }
 
-  export function loadFirst(title: Title) {
-    API('conf', {}).subscribe(values =>
-      Object.entries(values).forEach(([key, value]) => loadFirstSet(key, value as string, title))
-    );
+  export function loadFirst(title: Title, site: string) {
+    API('conf', {}).subscribe(values => Object.entries(values).forEach(([key, value]) => loadFirstSet(key, value as string, title, site)));
   }
 
-  function loadFirstSet(key: string, value: string, title: Title) {
+  let langOrTitleSet = false;
+  function loadFirstSet(key: string, value: string, title: Title, site: string) {
     configMap.set(key, value);
-    if (key === 'title') {
-      title.setTitle(value);
+    if (key === 'title' || key === 'language') {
+      if (langOrTitleSet) {
+        loadLanguage(title, site);
+      }
+      langOrTitleSet = true;
     }
   }
 
@@ -56,11 +70,13 @@ export namespace Config {
     return http.post<any>(apiUrl + url, body);
   }
 
-  export function setLogin(redirect: boolean) {
+  export function setLogin(title: Title, site: string, redirect: boolean) {
     if (!triedLogin) {
+      loadFirst(title, site);
       API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
         .subscribe(values => validateLogin(values, redirect));
     } else {
+      title.setTitle(lang(site) + ' - ' + get('title'));
       if (redirect && !login) {
         router.navigate(['/']);
         openSnackBar(lang('loginRequired'));
@@ -91,8 +107,7 @@ export namespace Config {
   }
 
   export function registeredDate(registered: Object): string {
-    const date = new Date(<string>registered);
-    return createdDate(date.getTime() / 1000);
+    return createdDate((new Date(<string>registered)).getTime() / 1000);
   }
 
   export function createdDate(created: Object): string {

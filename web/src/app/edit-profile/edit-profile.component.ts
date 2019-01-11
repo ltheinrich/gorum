@@ -21,7 +21,7 @@ export class EditProfileComponent implements OnInit {
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
   ngOnInit() {
-    Config.setLogin(true);
+    Config.setLogin(this.title, 'editProfile', true);
     Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
   }
 
@@ -60,7 +60,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   editAvatar(): void {
-    const dialogRef = this.dialog.open(AvatarDialogOverview, { width: '400px', data: {} });
+    this.dialog.open(AvatarDialogOverview, { width: '400px', data: {} });
   }
 }
 

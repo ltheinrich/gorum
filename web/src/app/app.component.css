@@ -33,3 +33,8 @@ h1.app-name {
 .sidenav-container {
   flex: 1 0 auto;
 }
+
+.language {
+  padding-left: 10%;
+  padding-right: 10%;
+}
