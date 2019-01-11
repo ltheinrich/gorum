@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {
   MatButtonModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule,
-  MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule
+  MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule, MatSelectModule
 } from '@angular/material';
 import { LoginDialogOverview } from './app.component';
 import { UsersComponent } from './users/users.component';
@@ -26,7 +26,7 @@ import { NewThreadComponent } from './new-thread/new-thread.component';
     EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule,
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,
     MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule
   ],
   entryComponents: [LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview],

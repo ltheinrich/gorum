@@ -31,25 +31,28 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     Config.http = this.http;
-    Config.loadFirst(this.title);
-    Config.loadLanguage('de');
     Config.router = this.router;
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
-  private setLogin(username: string, password: string, message: string): void {
+  private setLogin(username: string, password: string, message: string) {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
     Config.login = true;
     Config.openSnackBar(message);
   }
 
-  openLogin(): void {
+  changeLanguage(language: string) {
+    localStorage.setItem('language', language);
+    Config.loadLanguage(this.title, undefined);
+  }
+
+  openLogin() {
     const dialogRef = this.dialog.open(LoginDialogOverview, { width: '300px', data: {} });
     dialogRef.afterClosed().subscribe(result => {
       if (result === undefined) {
@@ -59,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  public login(result: any, dialogRef: MatDialogRef<any>, data: any): void {
+  public login(result: any, dialogRef: MatDialogRef<any>, data: any) {
     if (result.username === undefined || result.password === undefined) {
       Config.openSnackBar(Config.lang('fillAllFields'));
       return;
@@ -76,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  openRegister(): void {
+  openRegister() {
     Config.getCaptcha();
     const dialogRef = this.dialog.open(RegisterDialogOverview, { width: '300px', data: {} });
     dialogRef.afterClosed().subscribe(result => {
@@ -87,7 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  public register(result: any, dialogRef: MatDialogRef<any>, data: any): void {
+  public register(result: any, dialogRef: MatDialogRef<any>, data: any) {
     if (
       result.username === undefined || result.password === undefined || result.repeat === undefined ||
       (result.captcha === undefined && Config.captcha !== undefined)) {
@@ -109,7 +112,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeDialogOnLogin(values: any, username: string, hashed: string, dialogRef: MatDialogRef<any>, data: any): void {
+  closeDialogOnLogin(values: any, username: string, hashed: string, dialogRef: MatDialogRef<any>, data: any) {
     if (values['valid'] === true) {
       this.setLogin(username, hashed, Config.lang('loginSuccess'));
       dialogRef.close();
@@ -131,7 +134,7 @@ export class AppComponent implements OnInit, OnDestroy {
     data.captcha = '';
   }
 
-  doLogout(): void {
+  doLogout() {
     Config.logout();
     Config.openSnackBar(Config.lang('loggedOut'));
   }
@@ -157,10 +160,10 @@ export class LoginDialogOverview {
   lang = Config.lang;
   constructor(public dialogRef: MatDialogRef<LoginDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: LoginDialogData) { }
-  onNoClick(): void {
+  onNoClick() {
     this.dialogRef.close();
   }
-  doLogin(): void {
+  doLogin() {
     appInstance.login(this.data, this.dialogRef, this.data);
   }
 }
@@ -181,10 +184,10 @@ export class RegisterDialogOverview {
   lang = Config.lang;
   constructor(public dialogRef: MatDialogRef<RegisterDialogOverview>,
     @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData) { }
-  onNoClick(): void {
+  onNoClick() {
     this.dialogRef.close();
   }
-  doRegister(): void {
+  doRegister() {
     appInstance.register(this.data, this.dialogRef, this.data);
   }
 }

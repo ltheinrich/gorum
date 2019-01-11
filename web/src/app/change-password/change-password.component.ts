@@ -22,7 +22,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(private title: Title, private router: Router) { }
 
   ngOnInit() {
-    Config.setLogin(true);
+    Config.setLogin(this.title, 'changePassword', true);
     Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
   }
 

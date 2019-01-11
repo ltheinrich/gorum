@@ -18,6 +18,7 @@
   },
   "public": {
     "title": "Gorum",
-    "description": "Lightweight forum software written in Go and Angular"
+    "description": "Lightweight forum software written in Go and Angular",
+    "language": "de"
   }
 }

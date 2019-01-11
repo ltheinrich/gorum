@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Board } from '../board/board.component';
@@ -22,7 +22,7 @@ export class NewThreadComponent implements OnInit {
   constructor(private route: ActivatedRoute, private title: Title, private router: Router) { }
 
   ngOnInit() {
-    Config.setLogin(true);
+    Config.setLogin(this.title, 'createThread', true);
     Config.API('board', { boardID: this.id }).subscribe(values => this.initBoard(values));
     Config.getCaptcha();
   }

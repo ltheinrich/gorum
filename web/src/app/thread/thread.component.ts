@@ -64,7 +64,7 @@ export class ThreadComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(false);
+    Config.setLogin(this.title, 'thread', false);
     Config.API('thread', { threadID: this.id }).subscribe(values => this.initThread(values));
     Config.API('posts', { threadID: this.id }).subscribe(values => this.listPosts(values));
     Config.getCaptcha();

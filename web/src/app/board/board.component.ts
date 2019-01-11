@@ -36,7 +36,7 @@ export class BoardComponent implements OnInit {
   constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(false);
+    Config.setLogin(this.title, 'board', false);
     Config.API('board', { boardID: this.id }).subscribe(values => this.title.setTitle(values['name'] + ' - ' + Config.get('title')));
     Config.API('threads', { boardID: this.id }).subscribe(values => this.listThreads(values));
   }

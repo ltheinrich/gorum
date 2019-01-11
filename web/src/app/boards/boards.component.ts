@@ -20,7 +20,7 @@ export class BoardsComponent implements OnInit {
   constructor(private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(false);
+    Config.setLogin(this.title, 'boards', false);
     Config.API('boards', {}).subscribe(values => this.addBoards(values));
   }
 
