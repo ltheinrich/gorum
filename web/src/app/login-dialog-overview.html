@@ -2,13 +2,11 @@
 
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput placeholder="{{lang('username')}}" [(ngModel)]="data.username" (keyup.enter)="doLogin()"
-      [maxLength]="32" required />
+    <input matInput placeholder="{{lang('username')}}" [(ngModel)]="data.username" (keyup.enter)="doLogin()" [maxLength]="32" required />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="data.password" (keyup.enter)="doLogin()"
-      required />
+    <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="data.password" (keyup.enter)="doLogin()" required />
   </mat-form-field>
 </div>
 

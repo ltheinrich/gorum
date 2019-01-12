@@ -40,7 +40,7 @@ func Data(rw http.ResponseWriter, r *http.Request) {
 	switch path {
 	case "data/avatar/default":
 		// write default avatar
-		_, err := w.Write(assets.MustAsset("avatar.png"))
+		_, err = w.Write(assets.MustAsset("avatar.png"))
 
 		// check for error
 		if err != nil {

@@ -6,8 +6,7 @@
       {{lang('by')}} {{thread.authorName}}</mat-card-subtitle>
     <span class="fill-space"></span>
     <mat-card-actions>
-      <button mat-flat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
-        color="primary" (click)="deleteThread()">{{lang("deleteThread")}}</button>
+      <button mat-flat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton" color="primary" (click)="deleteThread()">{{lang("deleteThread")}}</button>
       <ng-template #reportButton>
         <!-- TODO
         <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
@@ -31,8 +30,7 @@
         {{config.time(post.created)}} {{lang('timeExtension')}}</mat-card-subtitle>
       <span class="fill-space"></span>
       <mat-card-actions>
-        <button mat-flat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton"
-          color="primary" (click)="deletePost(post.id)">{{lang("deletePost")}}</button>
+        <button mat-flat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton" color="primary" (click)="deletePost(post.id)">{{lang("deletePost")}}</button>
         <ng-template #reportButton>
           <!-- TODO
           <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>
