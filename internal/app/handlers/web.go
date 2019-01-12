@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"compress/gzip"
+	"io/ioutil"
 	"log"
 	"mime"
 	"net/http"
@@ -12,7 +13,10 @@ import (
 )
 
 var (
-	webFiles = map[string][]byte{}
+	webFiles         = map[string][]byte{}
+	customFavicon    []byte
+	customFaviconPNG []byte
+	customTouchIcon  []byte
 )
 
 // Web serve web/dist/gorum files
@@ -27,6 +31,12 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// data to respond with
+	var file []byte
+
+	// deliver custom images
+	file = customImages(path)
+
 	// set content-type and content-encoding
 	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
 	rw.Header().Set("Content-Encoding", "gzip")
@@ -38,13 +48,14 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 	w, _ := gzip.NewWriterLevel(rw, 2)
 	defer w.Close()
 
-	// get file
-	var file []byte
-	file, err = webassets.Asset(path)
+	if file == nil {
+		// get file
+		file, err = webassets.Asset(path)
 
-	// if not exists load index.html
-	if err != nil {
-		file = webassets.MustAsset("index.html")
+		// if not exists load index.html
+		if err != nil {
+			file = webassets.MustAsset("index.html")
+		}
 	}
 
 	// write file
@@ -53,4 +64,64 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		w.Write([]byte(err.Error()))
 	}
+}
+
+// custom images to deliver
+func customImages(path string) (file []byte) {
+	if path == "favicon.ico" {
+		// check if exists
+		if customFavicon == nil {
+			// read file
+			file, err := ioutil.ReadFile(path)
+			if err == nil {
+				// set custom icon and return file
+				customFavicon = file
+				return customFavicon
+			}
+
+			// set not exists and return null
+			customFavicon = []byte{0}
+			return nil
+		} else if len(customFavicon) > 2 {
+			// already exists, return
+			return customFavicon
+		}
+	} else if path == "apple-touch-icon.png" {
+		// check if exists
+		if customFaviconPNG == nil {
+			// read file
+			file, err := ioutil.ReadFile(path)
+			if err == nil {
+				// set custom icon and return file
+				customFaviconPNG = file
+				return customFaviconPNG
+			}
+			// set not exists and return null
+			customFaviconPNG = []byte{0}
+			return nil
+		} else if len(customFaviconPNG) > 2 {
+			// already exists, return
+			return customFaviconPNG
+		}
+	} else if path == "favicon.png" {
+		// check if exists
+		if customTouchIcon == nil {
+			// read file
+			file, err := ioutil.ReadFile(path)
+			if err == nil {
+				// set custom icon and return file
+				customTouchIcon = file
+				return customTouchIcon
+			}
+
+			// set not exists and return null
+			customTouchIcon = []byte{0}
+			return nil
+		} else if len(customTouchIcon) > 2 {
+			// already exists, return
+			return customTouchIcon
+		}
+	}
+
+	return nil
 }
