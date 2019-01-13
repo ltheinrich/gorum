@@ -1,4 +1,3 @@
 #!/bin/bash
 
-clear
-ng serve
+clear && ng serve
