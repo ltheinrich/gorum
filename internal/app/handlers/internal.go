@@ -83,7 +83,7 @@ func read(reader io.Reader, length int64) map[string]interface{} {
 
 	// read
 	buffer := make([]byte, length)
-	reader.Read(buffer)
+	io.ReadAtLeast(reader, buffer, int(length))
 
 	// unmarshal json
 	var request map[string]interface{}
