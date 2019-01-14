@@ -2,7 +2,7 @@
 /gorum
 /gorum.asc
 /data/
-/web/package-lock.json
+/web/yarn.lock
 /config.json
 
 # IDEs and editors

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cd web
-rm -rf dist; rm -rf node_modules; rm -f package-lock.json
-npm install && ng build --prod
+rm -rf dist; rm -rf node_modules; rm -f yarn.lock
+yarn install && ng build --prod
 
 cd dist/gorum && go-bindata -o ../../../internal/pkg/webassets/webassets.go -pkg webassets .
 cd ../../../assets && go-bindata -o ../internal/pkg/assets/assets.go -pkg assets .

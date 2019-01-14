@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "gorum"
+  "defaultProject": "gorum",
+  "cli": {
+    "packageManager": "yarn"
+  }
 }
