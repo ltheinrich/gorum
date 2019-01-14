@@ -1,5 +1,6 @@
 # Custom
-/bin/
+/gorum
+/gorum.asc
 /data/
 /web/package-lock.json
 /config.json
