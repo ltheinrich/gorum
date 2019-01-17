@@ -17,13 +17,8 @@ import (
 func Data(rw http.ResponseWriter, r *http.Request) {
 	var err error
 
-	// check for malicious path
+	// get path without slash
 	path := strings.Replace(r.URL.Path, "/", "", 1)
-	if strings.Contains(path, "..") {
-		rw.WriteHeader(400)
-		rw.Write([]byte{})
-		return
-	}
 
 	// set content-type and content-encoding
 	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
