@@ -10,8 +10,8 @@ import (
 
 	"github.com/ltheinrich/gorum/internal/app/handlers"
 	"github.com/ltheinrich/gorum/internal/pkg/assets"
-	"github.com/ltheinrich/gorum/pkg/config"
-	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
 // Init startup

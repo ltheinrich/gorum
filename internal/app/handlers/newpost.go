@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/ltheinrich/captcha"
-	"github.com/ltheinrich/gorum/pkg/config"
-	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
 // NewPost handler
@@ -32,7 +32,7 @@ func NewPost(request map[string]interface{}, username string, auth bool) interfa
 	}
 
 	// verify captcha
-	if config.Get("https", "captcha") == "true" && !captcha.VerifyString(cap, capVal) {
+	if config.Get("https", "captcha") == TRUE && !captcha.VerifyString(cap, capVal) {
 		// invalid captcha
 		return errors.New("403 captcha")
 	}

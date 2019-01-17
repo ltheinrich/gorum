@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	// Import postgresql library
+	// Import PostgreSQL library
 	_ "github.com/lib/pq"
 )
 
