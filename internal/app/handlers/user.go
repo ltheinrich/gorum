@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ltheinrich/gorum/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/config"
 
-	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
 // User handler

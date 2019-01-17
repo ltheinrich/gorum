@@ -4,7 +4,7 @@ import (
 	"errors"
 	"log"
 
-	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
 // DeleteThread handler

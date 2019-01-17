@@ -3,7 +3,15 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/ltheinrich/gorum/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
+)
+
+const (
+	// TRUE string ("true")
+	TRUE = "true"
+
+	// FALSE string ("false")
+	FALSE = "false"
 )
 
 // GetString get string or empty string
