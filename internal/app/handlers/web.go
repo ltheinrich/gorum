@@ -23,18 +23,11 @@ var (
 func Web(rw http.ResponseWriter, r *http.Request) {
 	var err error
 
-	// check for malicious path
-	path := strings.Replace(r.URL.Path, "/", "", 1)
-	if strings.Contains(path, "..") {
-		rw.WriteHeader(400)
-		rw.Write([]byte{})
-		return
-	}
-
 	// data to respond with
 	var file []byte
 
 	// deliver custom images
+	path := strings.Replace(r.URL.Path, "/", "", 1)
 	file = customImages(path)
 
 	// set content-type and content-encoding
