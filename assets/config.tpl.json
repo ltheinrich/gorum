@@ -22,6 +22,8 @@
     "language": "de"
   },
   "limit": {
-    "avatar": "1000000"
+    "avatar": "1000000",
+    "thread": "1000000",
+    "post": "1000000"
   }
 }

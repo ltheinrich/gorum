@@ -31,6 +31,12 @@ func NewThread(request map[string]interface{}, username string, auth bool) inter
 		return errors.New("400")
 	}
 
+	// check limit
+	if len(content) > config.GetInt("limit", "thread") {
+		// return too long
+		return errors.New("411")
+	}
+
 	// verify captcha
 	if config.Get("https", "captcha") == TRUE && !captcha.VerifyString(cap, capVal) {
 		// invalid captcha
@@ -40,7 +46,8 @@ func NewThread(request map[string]interface{}, username string, auth bool) inter
 	// insert into database
 	var id int
 	var row *sql.Row
-	row = db.DB.QueryRow("INSERT INTO threads (threadname, board, author, created, content) VALUES ($1, $2, $3, $4, $5) RETURNING id;",
+	row = db.DB.QueryRow(`INSERT INTO threads (threadname, board, author, created, content)
+												VALUES ($1, $2, $3, $4, $5) RETURNING id;`,
 		title, board, GetUserID(username), time.Now().Unix(), content)
 	row.Scan(&id)
 

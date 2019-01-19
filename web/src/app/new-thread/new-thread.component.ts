@@ -52,6 +52,8 @@ export class NewThreadComponent implements OnInit {
       Config.openSnackBar(Config.lang('wrongCaptcha'));
       Config.getCaptcha();
       this.captcha = '';
+    } else if (values['error'] === '411') {
+      Config.openSnackBar(Config.lang('contentMaxLength'));
     } else if (values['error'] !== undefined) {
       Config.openSnackBar(values['error']);
       Config.getCaptcha();

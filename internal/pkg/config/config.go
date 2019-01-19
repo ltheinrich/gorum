@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+	"strconv"
 )
 
 var (
@@ -22,6 +23,19 @@ func Sub(parent string) map[string]string {
 // Get configuration value
 func Get(parent, child string) string {
 	return config[parent][child]
+}
+
+// GetInt configuration value as integer
+func GetInt(parent, child string) int {
+	// get and parse
+	num, err := strconv.Atoi(config[parent][child])
+	if err != nil {
+		// not an integer, return zero
+		return 0
+	}
+
+	// return integer value
+	return num
 }
 
 // Set configuration value and save
