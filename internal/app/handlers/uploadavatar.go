@@ -3,9 +3,11 @@ package handlers
 import (
 	"encoding/base64"
 	"fmt"
+	"io"
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"
@@ -36,11 +38,24 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(200)
 
 			// write content
-			w.Write([]byte(`<form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept="image/*"><button type="submit">Avatar</button></form>`))
+			w.Write([]byte(`<form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept="image/png"><button type="submit">Avatar Upload</button></form>`))
 		} else {
+			// check avatar size limit
+			var avatarSizeLimit int
+			avatarSizeLimit, _ = strconv.Atoi(config.Get("limit", "avatar"))
+			if int(header.Size) > avatarSizeLimit {
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// write content and return
+				w.Write([]byte(`<h3>Avatar size limit exceeded</h3><form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept="image/png"><button type="submit">Avatar Upload</button></form>`))
+				return
+			}
+
 			// read file
 			fileData := make([]byte, header.Size)
-			file.Read(fileData)
+			io.ReadAtLeast(file, fileData, int(header.Size))
 			defer file.Close()
 
 			// get user id
@@ -108,7 +123,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			}
 
 			// redirect
-			http.Redirect(w, r, r.Referer(), http.StatusSeeOther)
+			http.Redirect(w, r, "/edit-profile", http.StatusSeeOther)
 		}
 	}
 }
