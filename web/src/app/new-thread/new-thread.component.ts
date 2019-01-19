@@ -34,7 +34,7 @@ export class NewThreadComponent implements OnInit {
 
   publish(content: string) {
     if (this.threadTitle.length > 32) {
-      Config.openSnackBar(Config.lang('fillAllFields'));
+      Config.openSnackBar(Config.lang('titleMaxLength'));
     } else {
       Config.API('newthread', {
         username: Config.getUsername(), password: Config.getPassword(), title: this.threadTitle, board: this.id,
