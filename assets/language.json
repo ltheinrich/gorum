@@ -67,7 +67,8 @@
     "lastThreadsDescription": "Die Themen mit den neuesten Beiträgen",
     "show": "Anzeigen",
     "hide": "Verstecken",
-    "language": "Sprache"
+    "language": "Sprache",
+    "titleMaxLength": "Der Titel ist länger als 32 Zeichen"
   },
   "en": {
     "login": "Login",
@@ -137,7 +138,8 @@
     "lastThreadsDescription": "The threads with the newest posts",
     "show": "Show",
     "hide": "Hide",
-    "language": "Language"
+    "language": "Language",
+    "titleMaxLength": "Title is longer than 32 characters"
   },
   "ru": {
     "login": "логин",
@@ -207,6 +209,7 @@
     "lastThreadsDescription": "Темы с последними сообщениями",
     "show": "показывать",
     "hide": "Скрыть",
-    "language": "язык"
+    "language": "язык",
+    "titleMaxLength": "название длиннее 32 символов слишком долг"
   }
 }

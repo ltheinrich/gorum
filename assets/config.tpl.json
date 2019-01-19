@@ -20,5 +20,8 @@
     "title": "Gorum",
     "description": "Lightweight forum software written in Go and Angular",
     "language": "de"
+  },
+  "limit": {
+    "avatar": "1000000"
   }
 }
