@@ -68,7 +68,8 @@
     "show": "Anzeigen",
     "hide": "Verstecken",
     "language": "Sprache",
-    "titleMaxLength": "Der Titel ist länger als 32 Zeichen"
+    "titleMaxLength": "Der Titel ist länger als 32 Zeichen",
+    "contentMaxLength": "Der Inhalt ist länger als erlaubt"
   },
   "en": {
     "login": "Login",
@@ -139,7 +140,8 @@
     "show": "Show",
     "hide": "Hide",
     "language": "Language",
-    "titleMaxLength": "Title is longer than 32 characters"
+    "titleMaxLength": "Title is longer than 32 characters",
+    "contentMaxLength": "Content is longer than allowed"
   },
   "ru": {
     "login": "логин",
@@ -210,6 +212,7 @@
     "show": "показывать",
     "hide": "Скрыть",
     "language": "язык",
-    "titleMaxLength": "название длиннее 32 символов слишком долг"
+    "titleMaxLength": "название длиннее 32 символов слишком долг",
+    "contentMaxLength": "Содержание длиннее допустимого"
   }
 }

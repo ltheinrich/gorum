@@ -31,6 +31,12 @@ func NewPost(request map[string]interface{}, username string, auth bool) interfa
 		return errors.New("400")
 	}
 
+	// check limit
+	if len(content) > config.GetInt("limit", "post") {
+		// return too long
+		return errors.New("411")
+	}
+
 	// verify captcha
 	if config.Get("https", "captcha") == TRUE && !captcha.VerifyString(cap, capVal) {
 		// invalid captcha
