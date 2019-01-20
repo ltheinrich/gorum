@@ -21,6 +21,7 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 		// return error
 		return err
 	}
+	defer rows.Close()
 
 	// users map to write
 	users := map[string]interface{}{}

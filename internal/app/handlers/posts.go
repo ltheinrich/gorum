@@ -30,6 +30,7 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 		// return error
 		return err
 	}
+	defer rows.Close()
 
 	// posts list to write
 	posts := map[string]interface{}{}

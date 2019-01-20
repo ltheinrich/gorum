@@ -20,6 +20,7 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 		// return error
 		return err
 	}
+	defer rows.Close()
 
 	// boards list to write
 	categories := map[string]interface{}{}
