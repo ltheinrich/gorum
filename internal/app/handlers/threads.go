@@ -30,6 +30,7 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		// return error
 		return err
 	}
+	defer rows.Close()
 
 	// threads list to write
 	threads := map[string]interface{}{}

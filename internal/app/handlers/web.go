@@ -7,7 +7,6 @@ import (
 	"mime"
 	"net/http"
 	"path/filepath"
-	"strings"
 
 	"github.com/ltheinrich/gorum/internal/pkg/webassets"
 )
@@ -27,7 +26,7 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 	var file []byte
 
 	// deliver custom images
-	path := strings.Replace(r.URL.Path, "/", "", 1)
+	path := r.URL.Path[1:]
 	file = customImages(path)
 
 	// set content-type and content-encoding
@@ -54,8 +53,8 @@ func Web(rw http.ResponseWriter, r *http.Request) {
 	// write file
 	_, err = w.Write(file)
 	if err != nil {
+		// print unknown error
 		log.Println(err)
-		w.Write([]byte(err.Error()))
 	}
 }
 

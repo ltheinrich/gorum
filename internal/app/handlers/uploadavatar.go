@@ -31,6 +31,9 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 		var header *multipart.FileHeader
 		file, header, err = r.FormFile("avatar")
 
+		// close file
+		defer file.Close()
+
 		// check if file provided
 		if err != nil || file == nil || header == nil {
 			// write header
@@ -56,7 +59,6 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			// read file
 			fileData := make([]byte, header.Size)
 			io.ReadAtLeast(file, fileData, int(header.Size))
-			defer file.Close()
 
 			// get user id
 			var userID int
@@ -75,6 +77,9 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			var avatar *os.File
 			avatarName := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), userID)
 			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
+
+			// close avatar file
+			defer avatar.Close()
 
 			// create directories
 			if os.IsNotExist(err) {

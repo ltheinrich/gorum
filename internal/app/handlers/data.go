@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/ltheinrich/gorum/internal/pkg/assets"
 )
@@ -18,7 +17,7 @@ func Data(rw http.ResponseWriter, r *http.Request) {
 	var err error
 
 	// get path without slash
-	path := strings.Replace(r.URL.Path, "/", "", 1)
+	path := r.URL.Path[1:]
 
 	// set content-type and content-encoding
 	rw.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(path))+"; charset=utf-8")
@@ -39,9 +38,8 @@ func Data(rw http.ResponseWriter, r *http.Request) {
 
 		// check for error
 		if err != nil {
-			// unknown error
+			// print unknown error
 			log.Println(err)
-			w.Write([]byte(err.Error()))
 		}
 
 		// return
@@ -55,16 +53,15 @@ func Data(rw http.ResponseWriter, r *http.Request) {
 
 	// check for error
 	if err != nil {
-		// unknown error
+		// print unknown error
 		log.Println(err)
-		w.Write([]byte(err.Error()))
 		return
 	}
 
 	// write file
 	_, err = io.Copy(w, file)
 	if err != nil {
+		// print unknown error
 		log.Println(err)
-		w.Write([]byte(err.Error()))
 	}
 }
