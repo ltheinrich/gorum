@@ -49,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   changeLanguage(language: string) {
     localStorage.setItem('language', language);
-    Config.loadLanguage(this.title, undefined);
+    Config.loadLanguage(this.title, undefined, null);
   }
 
   openLogin() {

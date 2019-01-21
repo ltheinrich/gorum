@@ -43,12 +43,14 @@ export namespace Config {
   }
 
   function setTitle(title: Title, site: string, customTitle: string) {
-    if (customTitle !== null) {
-      title.setTitle(customTitle + ' - ' + lang(site) + ' - ' + get('title'));
-    } else if (site === 'dashboard') {
-      title.setTitle(get('title'));
-    } else {
-      title.setTitle(lang(site) + ' - ' + get('title'));
+    if (site !== undefined) {
+      if (customTitle !== null) {
+        title.setTitle(customTitle + ' - ' + lang(site) + ' - ' + get('title'));
+      } else if (site === 'dashboard') {
+        title.setTitle(get('title'));
+      } else {
+        title.setTitle(lang(site) + ' - ' + get('title'));
+      }
     }
   }
 
