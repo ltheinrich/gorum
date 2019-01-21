@@ -37,7 +37,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     Config.API('board', { boardID: this.id }).subscribe(values =>
-      Config.setLogin(this.title, values['name'], false, 'board'));
+      Config.setLogin(this.title, 'board', false, values['name']));
     Config.API('threads', { boardID: this.id }).subscribe(values => this.listThreads(values));
   }
 
