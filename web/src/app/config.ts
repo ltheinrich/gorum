@@ -71,13 +71,19 @@ export namespace Config {
     return http.post<any>(apiUrl + url, body);
   }
 
-  export function setLogin(title: Title, site: string, redirect: boolean) {
+  export function setLogin(title: Title, site: string, redirect: boolean, customTitle: string) {
     if (!triedLogin) {
       loadFirst(title, site);
       API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
         .subscribe(values => validateLogin(values, redirect));
     } else {
-      title.setTitle(lang(site) + ' - ' + get('title'));
+      if (customTitle !== null) {
+        title.setTitle(customTitle + ' - ' + lang(site) + ' - ' + get('title'));
+      } else if (site === 'dashboard') {
+        title.setTitle(get('title'));
+      } else {
+        title.setTitle(lang(site) + ' - ' + get('title'));
+      }
       if (redirect && !login) {
         router.navigate(['/']);
         openSnackBar(lang('loginRequired'));

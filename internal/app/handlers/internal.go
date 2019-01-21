@@ -29,6 +29,7 @@ var (
 		"deletepost":      DeletePost,
 		"lastthreads":     LastThreads,
 		"lastuserthreads": LastUserThreads,
+		"editthread":      EditThread,
 	}
 )
 

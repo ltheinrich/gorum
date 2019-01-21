@@ -18,12 +18,11 @@ export class UsersComponent implements OnInit {
   constructor(private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(this.title, 'users', false);
+    Config.setLogin(this.title, 'users', false, null);
     Config.API('users', {}).subscribe(values => this.listUsers(values));
   }
 
   listUsers(values: any) {
-    this.title.setTitle(Config.lang('users') + ' - ' + Config.get('title'));
     Object.entries(values).forEach(user => this.users.push(new User(<number>(<unknown>user[0]), <{ [key: string]: Object }>user[1])));
   }
 }

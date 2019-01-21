@@ -69,7 +69,8 @@
     "hide": "Verstecken",
     "language": "Sprache",
     "titleMaxLength": "Der Titel ist länger als 32 Zeichen",
-    "contentMaxLength": "Der Inhalt ist länger als erlaubt"
+    "contentMaxLength": "Der Inhalt ist länger als erlaubt",
+    "threadEdited": "Thema bearbeitet"
   },
   "en": {
     "login": "Login",
@@ -141,7 +142,8 @@
     "hide": "Hide",
     "language": "Language",
     "titleMaxLength": "Title is longer than 32 characters",
-    "contentMaxLength": "Content is longer than allowed"
+    "contentMaxLength": "Content is longer than allowed",
+    "threadEdited": "Thread edited"
   },
   "ru": {
     "login": "логин",
@@ -213,6 +215,7 @@
     "hide": "Скрыть",
     "language": "язык",
     "titleMaxLength": "название длиннее 32 символов слишком долг",
-    "contentMaxLength": "Содержание длиннее допустимого"
+    "contentMaxLength": "Содержание длиннее допустимого",
+    "threadEdited": "Тема отредактирована"
   }
 }

@@ -15,12 +15,11 @@ export class BoardsComponent implements OnInit {
 
   categoryNames: string[] = [];
   categories: Map<string, Board[]> = new Map<string, Board[]>();
-  titleSet = false;
 
   constructor(private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(this.title, 'boards', false);
+    Config.setLogin(this.title, 'boards', false, null);
     Config.API('boards', {}).subscribe(values => this.addBoards(values));
   }
 
@@ -32,10 +31,6 @@ export class BoardsComponent implements OnInit {
   }
 
   addBoard(category: string, board: Board) {
-    if (!this.titleSet) {
-      this.title.setTitle(Config.lang('boards') + ' - ' + Config.get('title'));
-      this.titleSet = true;
-    }
     if (!this.categories.has(category)) {
       this.categoryNames.push(category);
       this.categories.set(category, []);

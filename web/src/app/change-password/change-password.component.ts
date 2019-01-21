@@ -22,13 +22,12 @@ export class ChangePasswordComponent implements OnInit {
   constructor(private title: Title, private router: Router) { }
 
   ngOnInit() {
-    Config.setLogin(this.title, 'changePassword', true);
+    Config.setLogin(this.title, 'changePassword', true, null);
     Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
-    this.title.setTitle(Config.lang('changePassword') + ' - ' + Config.get('title'));
   }
 
   changePassword() {
