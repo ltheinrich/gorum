@@ -34,7 +34,8 @@ export namespace Config {
     if (language === null) {
       language = get('language');
     }
-    API('lang', {}).subscribe(values => Object.entries(values[language]).forEach(([key, value]) => setLang(key, value as string, title, site)));
+    API('lang', {}).subscribe(values => Object.entries(values[language]).forEach(([key, value]) =>
+      setLang(key, value as string, title, site)));
     if (site === null) {
       title.setTitle(get('title'));
     }

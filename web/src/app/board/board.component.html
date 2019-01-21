@@ -1,6 +1,4 @@
-<br>
-<button mat-flat-button color="primary" routerLink="/new-thread/{{id}}">{{lang('newThread')}}</button>
-<br>
+<br><button mat-flat-button color="primary" routerLink="/new-thread/{{id}}">{{lang('newThread')}}</button><br>
 <mat-list *ngFor="let thread of threads">
   <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}">
     <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />

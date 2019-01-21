@@ -5,7 +5,8 @@
     <mat-card-subtitle>{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</mat-card-subtitle>
     <span class="fill-space"></span>
     <mat-card-actions>
-      <button mat-flat-button *ngIf="config.getUsername() === user.data['username'] && config.login; else reportButton" routerLink="/edit-profile" color="primary">{{lang("editProfile")}}</button>
+      <button mat-flat-button *ngIf="config.getUsername() === user.data['username'] && config.login; else reportButton"
+        routerLink="/edit-profile" color="primary">{{lang("editProfile")}}</button>
       <ng-template #reportButton>
         <!-- TODO
         <button mat-button #reportButton color="primary" *ngIf="config.login">{{lang("report")}}</button>

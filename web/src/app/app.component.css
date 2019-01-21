@@ -1,40 +1,40 @@
 .navbar-border {
-  margin-top: -8px;
-  margin-left: -8px;
-  margin-right: -8px;
-  padding-left: 10%;
-  padding-right: 10%;
-  width: 101%;
+    margin-top: -8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 101%;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .toolbar {
-  position: fixed;
-  z-index: 2;
+    position: fixed;
+    z-index: 2;
 }
 
 h1.app-name {
-  margin-left: 8px;
+    margin-left: 8px;
 }
 
 .sidenav-container {
-  flex: 1;
+    flex: 1;
 }
 
 .sidenav-container {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .language {
-  padding-left: 10%;
-  padding-right: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
