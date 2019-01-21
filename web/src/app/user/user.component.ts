@@ -31,7 +31,6 @@ export class UserComponent implements OnInit {
   constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
-    Config.setLogin(this.title, 'user', false);
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
@@ -46,6 +45,6 @@ export class UserComponent implements OnInit {
 
   initUser(values: any) {
     this.user = new User(this.id, values);
-    this.title.setTitle(this.user.data['username'] + ' - ' + Config.get('title'));
+    Config.setLogin(this.title, 'user', false, <string>values['username']);
   }
 }

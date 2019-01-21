@@ -21,13 +21,12 @@ export class EditProfileComponent implements OnInit {
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
   ngOnInit() {
-    Config.setLogin(this.title, 'editProfile', true);
+    Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
-    this.title.setTitle(Config.lang('editProfile') + ' - ' + Config.get('title'));
   }
 
   saveProfile() {
