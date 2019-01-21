@@ -27,7 +27,7 @@ export class EditThreadComponent implements OnInit {
     this.threadTitle = values['name'];
     this.threadContent = values['content'];
     const element = <any>document.querySelector('trix-editor');
-    (<any>element.editor).insertHTML(this.threadContent);
+    element.editor.insertHTML(this.threadContent);
     Config.setLogin(this.title, 'editThread', true, this.threadTitle);
   }
 

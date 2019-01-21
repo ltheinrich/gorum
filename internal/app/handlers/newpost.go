@@ -44,13 +44,14 @@ func NewPost(request map[string]interface{}, username string, auth bool) interfa
 	}
 
 	// insert into database
-	_, err = db.DB.Exec("INSERT INTO posts (thread, author, created, content) VALUES ($1, $2, $3, $4);",
-		thread, GetUserID(username), time.Now().Unix(), content)
+	var id int
+	err = db.DB.QueryRow("INSERT INTO posts (thread, author, created, content) VALUES ($1, $2, $3, $4) RETURNING id;",
+		thread, GetUserID(username), time.Now().Unix(), content).Scan(&id)
 	if err != nil {
 		// return error
 		return err
 	}
 
 	// respond done
-	return map[string]interface{}{"done": true}
+	return map[string]interface{}{"id": id}
 }

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"database/sql"
 	"errors"
 	"time"
 
@@ -12,6 +11,8 @@ import (
 
 // NewThread handler
 func NewThread(request map[string]interface{}, username string, auth bool) interface{} {
+	var err error
+
 	// check login
 	if !auth {
 		// not logged in
@@ -45,11 +46,13 @@ func NewThread(request map[string]interface{}, username string, auth bool) inter
 
 	// insert into database
 	var id int
-	var row *sql.Row
-	row = db.DB.QueryRow(`INSERT INTO threads (threadname, board, author, created, content)
+	err = db.DB.QueryRow(`INSERT INTO threads (threadname, board, author, created, content)
 												VALUES ($1, $2, $3, $4, $5) RETURNING id;`,
-		title, board, GetUserID(username), time.Now().Unix(), content)
-	row.Scan(&id)
+		title, board, GetUserID(username), time.Now().Unix(), content).Scan(&id)
+	if err != nil {
+		// return error
+		return err
+	}
 
 	// respond with id
 	return map[string]interface{}{"id": id}

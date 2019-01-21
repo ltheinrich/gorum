@@ -140,7 +140,11 @@ export class ThreadComponent implements OnInit {
       this.captcha = '';
     } else {
       Config.openSnackBar(Config.lang('postCreated'));
-      window.location.reload();
+      this.captcha = '';
+      const element = <any>document.querySelector('trix-editor');
+      element.editor.setSelectedRange([0, (<string>element.editor.getDocument().toString()).length]);
+      element.editor.deleteInDirection('forward');
+      Config.API('posts', { threadID: this.id }).subscribe(posts => this.listPosts(posts));
     }
   }
 }
