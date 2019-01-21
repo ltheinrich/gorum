@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"
@@ -42,7 +41,6 @@ func EditThread(request map[string]interface{}, username string, auth bool) inte
 		title, content, threadID, username)
 	if err != nil {
 		// return unknown error
-		log.Println(err)
 		return err
 	}
 
