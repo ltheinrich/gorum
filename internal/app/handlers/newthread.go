@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"log"
 	"time"
 
 	"github.com/ltheinrich/captcha"
@@ -50,7 +51,8 @@ func NewThread(request map[string]interface{}, username string, auth bool) inter
 												VALUES ($1, $2, $3, $4, $5) RETURNING id;`,
 		title, board, GetUserID(username), time.Now().Unix(), content).Scan(&id)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 

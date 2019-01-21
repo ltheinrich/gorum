@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"
@@ -37,7 +38,8 @@ func EditPost(request map[string]interface{}, username string, auth bool) interf
 	_, err = db.DB.Exec("UPDATE posts SET content = $1 FROM users WHERE posts.id = $2 AND users.username = $3;",
 		content, postID, username)
 	if err != nil {
-		// return unknown error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 

@@ -3,6 +3,7 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -18,7 +19,8 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 	var rows *sql.Rows
 	rows, err = db.DB.Query("SELECT id, username, registered FROM users;")
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 	defer rows.Close()
@@ -33,7 +35,8 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 		var queryUsername, registered string
 		err = rows.Scan(&id, &queryUsername, &registered)
 		if err != nil {
-			// return error
+			// print and return error
+			log.Println(err)
 			return err
 		}
 

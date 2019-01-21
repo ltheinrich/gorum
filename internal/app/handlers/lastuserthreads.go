@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -36,7 +37,8 @@ func LastUserThreads(request map[string]interface{}, username string, auth bool)
 							LEFT JOIN posts ON threads.id = posts.thread AND posts.author = $1
 							WHERE posts.author = $1 OR threads.author = $1 ORDER BY posts.created DESC;`, userID)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 	defer rows.Close()
@@ -53,7 +55,8 @@ func LastUserThreads(request map[string]interface{}, username string, auth bool)
 		var answer interface{}
 		err = rows.Scan(&id, &name, &author, &board, &created, &authorName, &answer)
 		if err != nil {
-			// return error
+			// print and return error
+			log.Println(err)
 			return err
 		}
 		idString := strconv.Itoa(id)

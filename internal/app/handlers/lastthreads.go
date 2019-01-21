@@ -3,6 +3,7 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -27,7 +28,8 @@ func LastThreads(request map[string]interface{}, username string, auth bool) int
 							FROM threads INNER JOIN users ON threads.author = users.id
 							LEFT JOIN posts ON threads.id = posts.thread ORDER BY posts.created DESC;`)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 	defer rows.Close()
@@ -44,7 +46,8 @@ func LastThreads(request map[string]interface{}, username string, auth bool) int
 		var answer interface{}
 		err = rows.Scan(&id, &name, &author, &board, &created, &authorName, &answer)
 		if err != nil {
-			// return error
+			// print and return error
+			log.Println(err)
 			return err
 		}
 		idString := strconv.Itoa(id)

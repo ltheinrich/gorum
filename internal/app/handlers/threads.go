@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -27,7 +28,8 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.author, threads.created, users.username
 							FROM threads INNER JOIN users ON threads.author = users.id WHERE threads.board = $1;`, boardID)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 	defer rows.Close()
@@ -43,7 +45,8 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 		var name, authorName string
 		err = rows.Scan(&id, &name, &author, &created, &authorName)
 		if err != nil {
-			// return error
+			// print and return error
+			log.Println(err)
 			return err
 		}
 

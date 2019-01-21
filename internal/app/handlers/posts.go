@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -27,7 +28,8 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 	rows, err = db.DB.Query(`SELECT posts.id, posts.author, posts.created, posts.content, users.username FROM posts
 							INNER JOIN users ON posts.author = users.id WHERE posts.thread = $1;`, threadID)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 	defer rows.Close()
@@ -43,7 +45,8 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 		var content, authorName string
 		err = rows.Scan(&id, &author, &created, &content, &authorName)
 		if err != nil {
-			// return error
+			// print and return error
+			log.Println(err)
 			return err
 		}
 

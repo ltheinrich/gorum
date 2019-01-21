@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"log"
 	"time"
 
 	"github.com/ltheinrich/captcha"
@@ -48,7 +49,8 @@ func NewPost(request map[string]interface{}, username string, auth bool) interfa
 	err = db.DB.QueryRow("INSERT INTO posts (thread, author, created, content) VALUES ($1, $2, $3, $4) RETURNING id;",
 		thread, GetUserID(username), time.Now().Unix(), content).Scan(&id)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 
