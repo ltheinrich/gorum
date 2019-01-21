@@ -10,6 +10,7 @@ import { BoardsComponent } from './boards/boards.component';
 import { BoardComponent } from './board/board.component';
 import { NewThreadComponent } from './new-thread/new-thread.component';
 import { EditThreadComponent } from './edit-thread/edit-thread.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
@@ -21,7 +22,8 @@ export const routes: Routes = [
   { path: 'board/:id', component: BoardComponent },
   { path: 'thread/:id', component: ThreadComponent },
   { path: 'new-thread/:id', component: NewThreadComponent },
-  { path: 'edit-thread/:id', component: EditThreadComponent }
+  { path: 'edit-thread/:id', component: EditThreadComponent },
+  { path: 'edit-post/:id', component: EditPostComponent }
 ];
 
 @NgModule({ imports: [RouterModule.forRoot(routes)], exports: [RouterModule] })

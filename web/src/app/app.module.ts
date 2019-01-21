@@ -20,11 +20,12 @@ import { ThreadComponent } from './thread/thread.component';
 import { BoardComponent } from './board/board.component';
 import { NewThreadComponent } from './new-thread/new-thread.component';
 import { EditThreadComponent } from './edit-thread/edit-thread.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
     AppComponent, LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview, UsersComponent, UserComponent, DashboardComponent,
-    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent, EditThreadComponent
+    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent, EditThreadComponent, EditPostComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,

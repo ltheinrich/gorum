@@ -7,8 +7,8 @@ import (
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
-// EditThread handler
-func EditThread(request map[string]interface{}, username string, auth bool) interface{} {
+// EditPost handler
+func EditPost(request map[string]interface{}, username string, auth bool) interface{} {
 	var err error
 
 	// check login
@@ -18,27 +18,24 @@ func EditThread(request map[string]interface{}, username string, auth bool) inte
 	}
 
 	// get variables from request
-	threadID := GetInt(request, "threadID")
-	title := GetString(request, "title")
-	/* board := GetInt(request, "board") // TODO */
+	postID := GetInt(request, "postID")
 	content := GetString(request, "content")
 
 	// check if data is provided
-	if threadID == 0 || title == "" || /* board == 0 || */ content == "" || len(title) > 32 {
+	if postID == 0 || content == "" {
 		// return not provided
 		return errors.New("400")
 	}
 
 	// check limit
-	if len(content) > config.GetInt("limit", "thread") {
+	if len(content) > config.GetInt("limit", "post") {
 		// return too long
 		return errors.New("411")
 	}
 
 	// insert into database
-	_, err = db.DB.Exec(`UPDATE threads SET threadname = $1, content = $2 FROM users
-						WHERE threads.id = $3 AND users.username = $4;`,
-		title, content, threadID, username)
+	_, err = db.DB.Exec("UPDATE posts SET content = $1 FROM users WHERE posts.id = $2 AND users.username = $3;",
+		content, postID, username)
 	if err != nil {
 		// return unknown error
 		return err

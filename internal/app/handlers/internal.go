@@ -30,6 +30,8 @@ var (
 		"lastthreads":     LastThreads,
 		"lastuserthreads": LastUserThreads,
 		"editthread":      EditThread,
+		"editpost":        EditPost,
+		"post":            Post,
 	}
 )
 

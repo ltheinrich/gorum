@@ -1,0 +1,7 @@
+<br>
+<form>
+  <input #content id="content" type="hidden">
+  <trix-editor input="content"></trix-editor>
+  <br>
+  <button mat-flat-button color="primary" (click)="publish(content.value)">{{lang('publish')}}</button>
+</form>
