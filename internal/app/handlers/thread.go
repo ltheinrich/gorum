@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
@@ -36,7 +37,8 @@ func Thread(request map[string]interface{}, username string, auth bool) interfac
 		// return not found
 		return errors.New("404")
 	} else if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 

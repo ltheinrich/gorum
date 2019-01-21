@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -68,7 +69,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				w.Header().Add("content-type", "text/html")
 				w.WriteHeader(200)
 
-				// write content
+				// print and write error
+				log.Println(err)
 				w.Write([]byte(err.Error()))
 				return
 			}
@@ -89,7 +91,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 					w.Header().Add("content-type", "text/html")
 					w.WriteHeader(200)
 
-					// write content
+					// print and write error
+					log.Println(err)
 					w.Write([]byte(err.Error()))
 					return
 				}
@@ -101,7 +104,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 					w.Header().Add("content-type", "text/html")
 					w.WriteHeader(200)
 
-					// write content
+					// print and write error
+					log.Println(err)
 					w.Write([]byte(err.Error()))
 					return
 				}
@@ -110,7 +114,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				w.Header().Add("content-type", "text/html")
 				w.WriteHeader(200)
 
-				// write content
+				// print and write error
+				log.Println(err)
 				w.Write([]byte(err.Error()))
 				return
 			}
@@ -122,7 +127,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				w.Header().Add("content-type", "text/html")
 				w.WriteHeader(200)
 
-				// write content
+				// print and write error
+				log.Println(err)
 				w.Write([]byte(err.Error()))
 				return
 			}

@@ -3,6 +3,7 @@ package handlers
 import (
 	"database/sql"
 	"errors"
+	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -31,7 +32,8 @@ func Board(request map[string]interface{}, username string, auth bool) interface
 		// return not found
 		return errors.New("404")
 	} else if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 

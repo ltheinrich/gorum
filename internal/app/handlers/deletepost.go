@@ -30,6 +30,7 @@ func DeletePost(request map[string]interface{}, username string, auth bool) inte
 	_, err = db.DB.Exec(`DELETE FROM posts USING users WHERE posts.author = users.id
 						AND posts.id = $1 AND users.username = $2;`, postID, username)
 	if err != nil {
+		// print and return error
 		log.Println(err)
 		return err
 	}

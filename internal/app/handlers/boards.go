@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -17,7 +18,8 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 							boards.sort + categories.sort FROM boards
 							INNER JOIN categories ON boards.category = categories.id;`)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 	defer rows.Close()
@@ -32,7 +34,8 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 		var name, description, icon, category string
 		err = rows.Scan(&id, &name, &description, &icon, &category, &sort)
 		if err != nil {
-			// return error
+			// print and return error
+			log.Println(err)
 			return err
 		}
 

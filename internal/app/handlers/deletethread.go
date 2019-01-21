@@ -30,6 +30,7 @@ func DeleteThread(request map[string]interface{}, username string, auth bool) in
 	_, err = db.DB.Exec(`DELETE FROM threads USING users WHERE threads.author = users.id
 						AND threads.id = $1 AND users.username = $2;`, threadID, username)
 	if err != nil {
+		// print and return error
 		log.Println(err)
 		return err
 	}

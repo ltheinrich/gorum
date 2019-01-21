@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"log"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -29,13 +30,16 @@ func EditPassword(request map[string]interface{}, username string, auth bool) in
 	var passwordHash []byte
 	passwordHash, err = bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost+1)
 	if err != nil {
+		// print and return error
+		log.Println(err)
 		return err
 	}
 
 	// update password
 	_, err = db.DB.Exec("UPDATE users SET passwordhash = $1 WHERE username = $2;", passwordHash, username)
 	if err != nil {
-		// return error
+		// print and return error
+		log.Println(err)
 		return err
 	}
 
