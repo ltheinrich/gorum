@@ -29,39 +29,48 @@ export namespace Config {
     return languageMap.get(name);
   }
 
-  export function loadLanguage(title: Title, site: string) {
+  export function loadLanguage(title: Title, site: string, customTitle: string) {
     let language = localStorage.getItem('language');
     if (language === null) {
       language = get('language');
     }
-    API('lang', {}).subscribe(values => Object.entries(values[language]).forEach(([key, value]) =>
-      setLang(key, value as string, title, site)));
-    if (site === null) {
+    API('lang', {}).subscribe(values => setLoadedLanguage(title, site, customTitle, language, values));
+  }
+
+  export function setLoadedLanguage(title: Title, site: string, customTitle: string, language: string, values: any) {
+    Object.entries(values[language]).forEach(([key, value]) => setLang(key, value as string, title, site));
+    setTitle(title, site, customTitle);
+  }
+
+  function setTitle(title: Title, site: string, customTitle: string) {
+    if (customTitle !== null) {
+      title.setTitle(customTitle + ' - ' + lang(site) + ' - ' + get('title'));
+    } else if (site === 'dashboard') {
       title.setTitle(get('title'));
+    } else {
+      title.setTitle(lang(site) + ' - ' + get('title'));
     }
   }
 
   function setLang(key: string, value: string, title: Title, site: string) {
     languageMap.set(key, value);
-    if (key === site) {
-      title.setTitle(value + ' - ' + get('title'));
-    }
   }
 
   export function getCaptcha() {
     API('newcaptcha', {}).subscribe(values => captcha = values['captcha']);
   }
 
-  export function loadFirst(title: Title, site: string) {
-    API('conf', {}).subscribe(values => Object.entries(values).forEach(([key, value]) => loadFirstSet(key, value as string, title, site)));
+  export function loadFirst(title: Title, site: string, customTitle: string) {
+    API('conf', {}).subscribe(values => Object.entries(values).forEach(([key, value]) =>
+      loadFirstSet(key, value as string, title, site, customTitle)));
   }
 
   let langOrTitleSet = false;
-  function loadFirstSet(key: string, value: string, title: Title, site: string) {
+  function loadFirstSet(key: string, value: string, title: Title, site: string, customTitle: string) {
     configMap.set(key, value);
     if (key === 'title' || key === 'language') {
       if (langOrTitleSet) {
-        loadLanguage(title, site);
+        loadLanguage(title, site, customTitle);
       }
       langOrTitleSet = true;
     }
@@ -73,17 +82,11 @@ export namespace Config {
 
   export function setLogin(title: Title, site: string, redirect: boolean, customTitle: string) {
     if (!triedLogin) {
-      loadFirst(title, site);
+      loadFirst(title, site, customTitle);
       API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
         .subscribe(values => validateLogin(values, redirect));
     } else {
-      if (customTitle !== null) {
-        title.setTitle(customTitle + ' - ' + lang(site) + ' - ' + get('title'));
-      } else if (site === 'dashboard') {
-        title.setTitle(get('title'));
-      } else {
-        title.setTitle(lang(site) + ' - ' + get('title'));
-      }
+      setTitle(title, site, customTitle);
       if (redirect && !login) {
         router.navigate(['/']);
         openSnackBar(lang('loginRequired'));
