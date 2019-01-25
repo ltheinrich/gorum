@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
+  footer: string;
 
   constructor(private http: HttpClient, private title: Title, public dialog: MatDialog, public snackBar: MatSnackBar,
     changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
@@ -34,10 +35,17 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     Config.http = this.http;
     Config.router = this.router;
+    Config.API('footer', {}).subscribe(values => this.setFooter(values));
   }
 
   ngOnDestroy() {
     this.mobileQuery.removeListener(this.mobileQueryListener);
+  }
+
+  private setFooter(values: any) {
+    if (values['footer'] !== undefined) {
+      this.footer = values['footer'];
+    }
   }
 
   private setLogin(username: string, password: string, message: string) {
