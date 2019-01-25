@@ -32,6 +32,7 @@ var (
 		"editthread":      EditThread,
 		"editpost":        EditPost,
 		"post":            Post,
+		"footer":          Footer,
 	}
 )
 

@@ -54,7 +54,7 @@
   </div>
 </ng-template>
 
-<div class="language">
+<div class="side-border">
   <mat-form-field>
     <mat-select placeholder="{{lang('language')}}">
       <mat-option (click)="changeLanguage('de')">Deutsch</mat-option>
@@ -63,3 +63,6 @@
     </mat-select>
   </mat-form-field>
 </div>
+
+<footer class="side-border" [innerHTML]="footer">
+</footer>
