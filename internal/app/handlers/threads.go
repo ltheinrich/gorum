@@ -27,12 +27,14 @@ func Threads(request map[string]interface{}, username string, auth bool) interfa
 	var rows *sql.Rows
 	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.author, threads.created, users.username
 							FROM threads INNER JOIN users ON threads.author = users.id WHERE threads.board = $1;`, boardID)
+
+	// defer close and check for error
+	defer rows.Close()
 	if err != nil {
 		// print and return error
 		log.Println(err)
 		return err
 	}
-	defer rows.Close()
 
 	// threads list to write
 	threads := map[string]interface{}{}

@@ -33,7 +33,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 		var header *multipart.FileHeader
 		file, header, err = r.FormFile("avatar")
 
-		// close file
+		// defer close file
 		defer file.Close()
 
 		// check if file provided
@@ -101,6 +101,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				// open avatar file again and defer close
 				avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
 				defer avatar.Close()
+
+				// check for error
 				if err != nil {
 					// write header
 					w.Header().Add("content-type", "text/html")

@@ -27,12 +27,14 @@ func LastThreads(request map[string]interface{}, username string, auth bool) int
 	rows, err = db.DB.Query(`SELECT threads.id, threads.threadname, threads.author, threads.board, threads.created, users.username, posts.created
 							FROM threads INNER JOIN users ON threads.author = users.id
 							LEFT JOIN posts ON threads.id = posts.thread ORDER BY posts.created DESC;`)
+
+	// defer close and check for error
+	defer rows.Close()
 	if err != nil {
 		// print and return error
 		log.Println(err)
 		return err
 	}
-	defer rows.Close()
 
 	// threads list to write
 	threads := map[string]interface{}{}
