@@ -72,7 +72,8 @@
     "contentMaxLength": "Der Inhalt ist länger als erlaubt",
     "threadEdited": "Thema bearbeitet",
     "editPost": "Beitrag bearbeiten",
-    "postEdited": "Beitrag bearbeitet"
+    "postEdited": "Beitrag bearbeitet",
+    "legalTermsRegister": "Mit der Registrierung akzeptierst du die rechtlichen Bedingungen"
   },
   "en": {
     "login": "Login",
@@ -147,7 +148,8 @@
     "contentMaxLength": "Content is longer than allowed",
     "threadEdited": "Thread edited",
     "editPost": "Edit post",
-    "postEdited": "Post edited"
+    "postEdited": "Post edited",
+    "legalTermsRegister": "When registering you accept the legal terms"
   },
   "ru": {
     "login": "логин",
@@ -222,6 +224,7 @@
     "contentMaxLength": "Содержание длиннее допустимого",
     "threadEdited": "Тема отредактирована",
     "editPost": "Редактировать сообщение",
-    "postEdited": "Сообщение отредактировано"
+    "postEdited": "Сообщение отредактировано",
+    "legalTermsRegister": "При регистрации вы принимаете правовые условия"
   }
 }

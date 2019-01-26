@@ -23,9 +23,11 @@
         required />
     </mat-form-field>
   </div>
-</div>
 
-<div mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="doRegister()">{{lang("register")}}</button>&nbsp;
-  <button mat-button (click)="onNoClick()">{{lang("cancel")}}</button>
+  <p><a class="url" href="{{conf('legalTerms')}}">{{lang('legalTermsRegister')}}</a></p>
+
+  <div mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="doRegister()">{{lang("register")}}</button>&nbsp;
+    <button mat-button (click)="onNoClick()">{{lang("cancel")}}</button>
+  </div>
 </div>

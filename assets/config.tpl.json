@@ -19,7 +19,8 @@
   "public": {
     "title": "Gorum",
     "description": "Lightweight forum software written in Go and Angular",
-    "language": "de"
+    "language": "de",
+    "legalTerms": "/"
   },
   "limit": {
     "avatar": "1000000",
