@@ -5,6 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
+	"strings"
+
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
 var (
@@ -34,7 +38,21 @@ func Footer(request map[string]interface{}, username string, auth bool) interfac
 
 	// serve loaded footer
 	if footerPage != "" {
-		return map[string]interface{}{"footer": footerPage}
+		// query counts
+		var users, threads, posts int
+		db.DB.QueryRow(`SELECT (SELECT COUNT(*) FROM users),
+						(SELECT COUNT(*) FROM threads),
+						(SELECT COUNT(*) FROM posts);`).
+			Scan(&users, &threads, &posts)
+
+		// insert placeholders
+		tempFooter := footerPage
+		tempFooter = strings.Replace(tempFooter, "${users}", strconv.Itoa(users), -1)
+		tempFooter = strings.Replace(tempFooter, "${threads}", strconv.Itoa(threads), -1)
+		tempFooter = strings.Replace(tempFooter, "${posts}", strconv.Itoa(posts), -1)
+
+		// return map
+		return map[string]interface{}{"footer": tempFooter}
 	}
 
 	// return not footer found
