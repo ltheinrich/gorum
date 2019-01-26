@@ -3,7 +3,6 @@
 /gorum.asc
 /data/
 /web/yarn.lock
-/config.json
 
 # IDEs and editors
 /.idea
