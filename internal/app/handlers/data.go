@@ -46,7 +46,7 @@ func Data(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// open file
+	// open file and defer close
 	var file *os.File
 	file, err = os.Open(path)
 	defer file.Close()

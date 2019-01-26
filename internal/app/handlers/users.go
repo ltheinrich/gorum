@@ -18,12 +18,14 @@ func Users(request map[string]interface{}, username string, auth bool) interface
 	// query db
 	var rows *sql.Rows
 	rows, err = db.DB.Query("SELECT id, username, registered FROM users;")
+
+	// defer close and check for error
+	defer rows.Close()
 	if err != nil {
 		// print and return error
 		log.Println(err)
 		return err
 	}
-	defer rows.Close()
 
 	// users map to write
 	users := map[string]interface{}{}

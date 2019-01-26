@@ -21,6 +21,8 @@ var (
 // Web serve web/dist/gorum files
 func Web(rw http.ResponseWriter, r *http.Request) {
 	var err error
+
+	// defer body close
 	defer r.Body.Close()
 
 	// data to respond with

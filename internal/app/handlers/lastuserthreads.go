@@ -36,12 +36,14 @@ func LastUserThreads(request map[string]interface{}, username string, auth bool)
 							FROM threads INNER JOIN users ON threads.author = users.id
 							LEFT JOIN posts ON threads.id = posts.thread AND posts.author = $1
 							WHERE posts.author = $1 OR threads.author = $1 ORDER BY posts.created DESC;`, userID)
+
+	// defer close and check for error
+	defer rows.Close()
 	if err != nil {
 		// print and return error
 		log.Println(err)
 		return err
 	}
-	defer rows.Close()
 
 	// threads list to write
 	threads := map[string]interface{}{}

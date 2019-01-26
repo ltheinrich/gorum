@@ -17,12 +17,14 @@ func Boards(request map[string]interface{}, username string, auth bool) interfac
 							boards.boardicon, categories.categoryname,
 							boards.sort + categories.sort FROM boards
 							INNER JOIN categories ON boards.category = categories.id;`)
+
+	// defer close and check for error
+	defer rows.Close()
 	if err != nil {
 		// print and return error
 		log.Println(err)
 		return err
 	}
-	defer rows.Close()
 
 	// boards list to write
 	categories := map[string]interface{}{}

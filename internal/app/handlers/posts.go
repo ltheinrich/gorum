@@ -27,12 +27,14 @@ func Posts(request map[string]interface{}, username string, auth bool) interface
 	var rows *sql.Rows
 	rows, err = db.DB.Query(`SELECT posts.id, posts.author, posts.created, posts.content, users.username FROM posts
 							INNER JOIN users ON posts.author = users.id WHERE posts.thread = $1;`, threadID)
+
+	// defer close and check for error
+	defer rows.Close()
 	if err != nil {
 		// print and return error
 		log.Println(err)
 		return err
 	}
-	defer rows.Close()
 
 	// posts list to write
 	posts := map[string]interface{}{}

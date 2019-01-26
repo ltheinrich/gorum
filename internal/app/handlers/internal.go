@@ -50,7 +50,7 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 			return
 		}
 
-		// read request
+		// read request and defer body close
 		request := read(r.Body, r.ContentLength)
 		defer r.Body.Close()
 
