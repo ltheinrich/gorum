@@ -17,6 +17,7 @@ import (
 // UploadAvatar http handler function
 func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
+	defer r.Body.Close()
 
 	// security headers
 	SecurityHeaders(w, r)
@@ -80,7 +81,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			avatarName := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), userID)
 			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
 
-			// close avatar file
+			// defer close avatar file
 			defer avatar.Close()
 
 			// create directories
@@ -97,8 +98,9 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 
-				// open avatar file again
+				// open avatar file again and defer close
 				avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
+				defer avatar.Close()
 				if err != nil {
 					// write header
 					w.Header().Add("content-type", "text/html")
