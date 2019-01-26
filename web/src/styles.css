@@ -37,3 +37,8 @@
 .gray {
     color: rgba(0, 0, 0, 0.54);
 }
+
+.url {
+    text-decoration: none;
+    color: rgb(2, 119, 189);
+}
