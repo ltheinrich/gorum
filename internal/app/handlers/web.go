@@ -21,6 +21,7 @@ var (
 // Web serve web/dist/gorum files
 func Web(rw http.ResponseWriter, r *http.Request) {
 	var err error
+	defer r.Body.Close()
 
 	// data to respond with
 	var file []byte

@@ -52,6 +52,7 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 
 		// read request
 		request := read(r.Body, r.ContentLength)
+		defer r.Body.Close()
 
 		// authenticate
 		var auth bool
