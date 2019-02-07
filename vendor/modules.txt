@@ -1,4 +1,4 @@
-# github.com/lib/pq v1.0.0
+# github.com/lib/pq v1.0.1-0.20181016162627-9eb73efc1fcc
 github.com/lib/pq
 github.com/lib/pq/oid
 # github.com/ltheinrich/captcha v0.0.0-20170622155422-6a29415a8364
