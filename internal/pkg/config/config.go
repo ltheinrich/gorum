@@ -76,6 +76,34 @@ func Set(parent, child, value string) error {
 	return nil
 }
 
+// Remove configuration value and save
+func Remove(parent, child, value string) error {
+	var err error
+
+	// check if map is nil
+	if config[parent] == nil {
+		return nil
+	}
+
+	// remove value
+	delete(config[parent], child)
+
+	// marshal
+	var data []byte
+	data, err = json.Marshal(config)
+	if err != nil {
+		return err
+	}
+
+	// write to file
+	err = ioutil.WriteFile(file, data, os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // LoadConfig load json config
 func LoadConfig(fileName string) error {
 	var err error
