@@ -5,5 +5,9 @@
 # Gorum
 Lightweight forum software written in Go and Angular
 
+## Support
+Contact @ltheinrich using [Wire](https://wire.com/)
+
 ## Discord
+*I can help you faster if you contact me using [Wire](https://wire.com/) (@ltheinrich)!*<br>
 [Gorum Project Discord](https://discord.gg/jjRruxx)
