@@ -1,0 +1,13 @@
+language: go
+
+go:
+- 1.10.x
+- 1.11.x
+- master
+
+before_script:
+  - psql -c "create database gorum;" -U postgres
+  - psql -c "create user gorum with password 'gorum';" -U postgres
+  - psql -c "GRANT permissions ON DATABASE gorum TO gorum;" -U postgres
+
+script: go test -v ./...
