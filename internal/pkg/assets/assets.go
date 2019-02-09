@@ -107,7 +107,7 @@ func configTplJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "config.tpl.json", size: 558, mode: os.FileMode(436), modTime: time.Unix(1549746355, 0)}
+	info := bindataFileInfo{name: "config.tpl.json", size: 558, mode: os.FileMode(436), modTime: time.Unix(1549751116, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

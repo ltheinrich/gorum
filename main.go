@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/ltheinrich/gorum/cmd"
 )
 
@@ -14,6 +16,6 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 
 func main() {
 	if err := cmd.Init(); err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 }
