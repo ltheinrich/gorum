@@ -12,42 +12,6 @@ import (
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 )
 
-func TestInit(t *testing.T) {
-	// make channel for boolean
-	fail := make(chan error)
-
-	// gofunction to call Init
-	go func() {
-		// call Init and get error
-		err := Init()
-		if err == nil {
-			// no error, but malfunction
-			err = errors.New("Init function ran through")
-		}
-
-		// Init ran through, send fail
-		fail <- err
-	}()
-
-	// gofunction for timeout
-	go func() {
-		// let Init function be running for 3 seconds
-		time.Sleep(3 * time.Second)
-
-		// Init function did not finish
-		fail <- nil
-	}()
-
-	// check whether failed
-	if err := <-fail; err != nil {
-		// print error message
-		t.Errorf("Could not init, %v\n", err)
-	} else {
-		// close server
-		Server.Close()
-	}
-}
-
 func TestLoadConfig(t *testing.T) {
 	// call loadConfig and get error
 	err := loadConfig()
@@ -158,8 +122,5 @@ func TestListen(t *testing.T) {
 	if err := <-fail; err != nil {
 		// print error message
 		t.Errorf("Could not listen, %v\n", err)
-	} else {
-		// close server
-		Server.Close()
 	}
 }

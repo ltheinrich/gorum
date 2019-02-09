@@ -15,11 +15,6 @@ import (
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
-var (
-	// Server http or https listener
-	Server *http.Server
-)
-
 // Init startup
 func Init() error {
 	// load config
@@ -133,13 +128,13 @@ func listen() error {
 	if certificate == "" || key == "" {
 		// http server
 		log.Printf("Webserver listening at http://%v/\n", url)
-		Server = &http.Server{Addr: address}
-		return Server.ListenAndServe()
+		server := &http.Server{Addr: address}
+		return server.ListenAndServe()
 	}
 
 	// https/tls server
 	log.Printf("Webserver listening at https://%v/\n", url)
-	Server := &http.Server{Addr: address,
+	server := &http.Server{Addr: address,
 		TLSConfig: &tls.Config{
 			MinVersion: tls.VersionTLS12,
 			CipherSuites: []uint16{
@@ -157,5 +152,5 @@ func listen() error {
 				tls.CurveP521,
 			},
 		}}
-	return Server.ListenAndServeTLS(certificate, key)
+	return server.ListenAndServeTLS(certificate, key)
 }
