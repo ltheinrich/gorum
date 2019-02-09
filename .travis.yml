@@ -6,8 +6,8 @@ go:
 - master
 
 before_script:
-  - psql -c "create database gorum;" -U postgres
-  - psql -c "create user gorum with password 'gorum';" -U postgres
-  - psql -c "GRANT permissions ON DATABASE gorum TO gorum;" -U postgres
+  - psql -c "CREATE DATABASE gorum;" -U postgres
+  - psql -c "CREATE USER gorum WITH PASSWORD 'gorum';" -U postgres
+  - psql -c "GRANT ALL ON DATABASE gorum TO gorum;" -U postgres
 
 script: go test -v ./...
