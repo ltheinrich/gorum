@@ -17,6 +17,7 @@ var (
 		"user":            User,
 		"editusername":    EditUsername,
 		"editpassword":    EditPassword,
+		"deleteaccount":   DeleteAccount,
 		"boards":          Boards,
 		"board":           Board,
 		"threads":         Threads,
