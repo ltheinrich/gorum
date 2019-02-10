@@ -6,7 +6,7 @@ import (
 
 func TestConnect(t *testing.T) {
 	// connect to database
-	err := Connect("::1", "5432", "disable", "gorum", "gorum", "gorum")
+	err := Connect("localhost", "5432", "disable", "gorum", "gorum", "gorum")
 
 	// check for error
 	if err != nil {
