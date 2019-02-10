@@ -5,6 +5,7 @@ import { UserComponent } from './user/user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 import { ThreadComponent } from './thread/thread.component';
 import { BoardsComponent } from './boards/boards.component';
 import { BoardComponent } from './board/board.component';
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'user/:id', component: UserComponent },
   { path: 'edit-profile', component: EditProfileComponent },
   { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'delete-account', component: DeleteAccountComponent },
   { path: 'boards', component: BoardsComponent },
   { path: 'board/:id', component: BoardComponent },
   { path: 'thread/:id', component: ThreadComponent },

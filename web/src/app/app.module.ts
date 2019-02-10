@@ -15,6 +15,7 @@ import { UserComponent } from './user/user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditProfileComponent, AvatarDialogOverview } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 import { BoardsComponent } from './boards/boards.component';
 import { ThreadComponent } from './thread/thread.component';
 import { BoardComponent } from './board/board.component';
@@ -25,7 +26,8 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 @NgModule({
   declarations: [
     AppComponent, LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview, UsersComponent, UserComponent, DashboardComponent,
-    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent, EditThreadComponent, EditPostComponent
+    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent, EditThreadComponent, EditPostComponent,
+    DeleteAccountComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,
