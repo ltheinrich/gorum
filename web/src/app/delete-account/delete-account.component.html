@@ -1,0 +1,11 @@
+<form class="form-size">
+  <br>
+
+  <mat-form-field class="input-full-width">
+    <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="password"
+           [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+
+  <br>
+  <button mat-flat-button (click)="deleteAccount()" color="primary">{{lang("deleteAccount")}}</button>
+</form>
