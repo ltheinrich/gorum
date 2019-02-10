@@ -42,3 +42,11 @@
     text-decoration: none;
     color: rgb(2, 119, 189);
 }
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}

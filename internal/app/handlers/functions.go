@@ -31,8 +31,16 @@ func GetStringArray(request map[string]interface{}, name string) []string {
 // GetInt get int or 0
 func GetInt(request map[string]interface{}, name string) int {
 	// cast and return value
-	value, _ := request[name].(int)
-	return value
+	value, _ := request[name].(float64)
+
+	// return int (rare, most common is float64 in JSON)
+	if value == 0 {
+		// return int
+		i, _ := request[name].(int)
+		return i
+	}
+
+	return int(value)
 }
 
 // GetBool get string or false

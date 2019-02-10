@@ -29,8 +29,8 @@ func TestLoadConfig(t *testing.T) {
 		return
 	}
 
-	// check if PostgreSQL host value is ::1
-	if Get("postgresql", "host") != "::1" {
+	// check if PostgreSQL host value is localhost
+	if Get("postgresql", "host") != "localhost" {
 		// failed
 		t.Error("Could not process config, example config value is wrong")
 	}

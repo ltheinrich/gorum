@@ -1,3 +1,6 @@
+<button mat-icon-button routerLink="/">
+  <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
+</button>
 <mat-list *ngFor="let user of users">
   <mat-list-item class="user-item" routerLink="/user/{{user.id}}">
     <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}" />
