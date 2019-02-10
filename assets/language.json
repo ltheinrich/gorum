@@ -76,7 +76,8 @@
     "threadEdited": "Thema bearbeitet",
     "editPost": "Beitrag bearbeiten",
     "postEdited": "Beitrag bearbeitet",
-    "legalTermsRegister": "Mit der Registrierung akzeptierst du die rechtlichen Bedingungen"
+    "legalTermsRegister": "Mit der Registrierung akzeptierst du die rechtlichen Bedingungen",
+    "back": "Zurück"
   },
   "en": {
     "login": "Login",
@@ -155,7 +156,8 @@
     "threadEdited": "Thread edited",
     "editPost": "Edit post",
     "postEdited": "Post edited",
-    "legalTermsRegister": "When registering you accept the legal terms"
+    "legalTermsRegister": "When registering you accept the legal terms",
+    "back": "Back"
   },
   "ru": {
     "login": "логин",
@@ -234,6 +236,7 @@
     "threadEdited": "Тема отредактирована",
     "editPost": "Редактировать сообщение",
     "postEdited": "Сообщение отредактировано",
-    "legalTermsRegister": "При регистрации вы принимаете правовые условия"
+    "legalTermsRegister": "При регистрации вы принимаете правовые условия",
+    "back": "назад"
   }
 }

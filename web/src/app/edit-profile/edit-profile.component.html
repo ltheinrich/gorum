@@ -1,3 +1,6 @@
+<button mat-icon-button routerLink="/board/{{user.id}}">
+  <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
+</button>
 <mat-card>
   <mat-card-header>
     <img mat-card-avatar width="50" height="50" (click)="editAvatar()" src="{{config.baseUrl}}{{user.data['avatar']}}">
