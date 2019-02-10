@@ -37,7 +37,7 @@ export class DeleteAccountComponent implements OnInit {
   }
 
   accountDeleted() {
-    localStorage.setItem('password', null);
+    Config.logout();
     Config.openSnackBar(Config.lang('accountDeleted'));
     this.router.navigate(['/']);
   }
