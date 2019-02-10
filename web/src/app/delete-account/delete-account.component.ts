@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Config} from '../config';
-import {Title} from '@angular/platform-browser';
-import {User} from '../user/user.component';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Config } from '../config';
+import { Title } from '@angular/platform-browser';
+import { User } from '../user/user.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-account',
@@ -14,10 +14,9 @@ export class DeleteAccountComponent implements OnInit {
   conf = Config.get;
   lang = Config.lang;
 
-  user = new User(0, {});
   password = '';
 
-  constructor(private title: Title, private router: Router) {}
+  constructor(private title: Title, private router: Router) { }
 
   ngOnInit() {
     Config.setLogin(this.title, 'deleteAccount', true, null);

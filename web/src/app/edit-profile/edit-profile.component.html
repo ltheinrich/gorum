@@ -7,7 +7,7 @@
     <mat-card-title>
       <input placeholder="{{lang('Name')}}" [(ngModel)]="user.data['username']">
       <button mat-button routerLink="/change-password" color="primary">{{lang("changePassword")}}</button>
-      <button mat-button routerLink="/delete-account" color="primary">{{lang("deleteAccount")}}</button>
+      <button mat-button routerLink="/delete-account" color="warn">{{lang("deleteAccount")}}</button>
     </mat-card-title>
     <mat-card-subtitle>{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</mat-card-subtitle>
     <span class="fill-space"></span>
