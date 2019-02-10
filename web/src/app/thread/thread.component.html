@@ -1,13 +1,17 @@
+<button mat-icon-button routerLink="/board/{{thread.board}}">
+  <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
+</button>
 <mat-card>
   <mat-card-header>
     <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}">
     <mat-card-title>{{thread.name}}</mat-card-title>
     <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(thread.created)}}
-      {{lang('by')}} <a href="/user/{{thread.author}}">{{thread.authorName}}</a></mat-card-subtitle>
+      {{lang('atTime')}} {{config.time(thread.created)}} {{lang('timeExtension')}}
+      {{lang('by')}} <a routerLink="/user/{{thread.author}}">{{thread.authorName}}</a></mat-card-subtitle>
     <span class="fill-space"></span>
     <mat-card-actions>
-      <button mat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton" color="primary"
-        routerLink="/edit-thread/{{thread.id}}">{{lang("editThread")}}</button>
+      <button mat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
+        color="primary" routerLink="/edit-thread/{{thread.id}}">{{lang("editThread")}}</button>
       <button mat-stroked-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
         color="warn" (click)="deleteThread()">{{lang("deleteThread")}}</button>
       <ng-template #reportButton>
@@ -28,13 +32,13 @@
   <mat-card>
     <mat-card-header>
       <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{post.authorAvatar}}">
-      <mat-card-title><a href="/user/{{post.author}}">{{post.authorName}}</a></mat-card-title>
+      <mat-card-title><a routerLink="/user/{{post.author}}">{{post.authorName}}</a></mat-card-title>
       <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(post.created)}} {{lang('atTime')}}
         {{config.time(post.created)}} {{lang('timeExtension')}}</mat-card-subtitle>
       <span class="fill-space"></span>
       <mat-card-actions>
-        <button mat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton" color="primary"
-          routerLink="/edit-post/{{post.id}}">{{lang("editPost")}}</button>
+        <button mat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton"
+          color="primary" routerLink="/edit-post/{{post.id}}">{{lang("editPost")}}</button>
         <button mat-stroked-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton"
           color="warn" (click)="deletePost(post.id)">{{lang("deletePost")}}</button>
         <ng-template #reportButton>
