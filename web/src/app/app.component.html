@@ -26,6 +26,19 @@
 
       <mat-sidenav-content>
         <router-outlet></router-outlet>
+
+        <div class="side-border right">
+          <mat-form-field>
+            <mat-select placeholder="{{lang('language')}}">
+              <mat-option (click)="changeLanguage('de')">Deutsch</mat-option>
+              <mat-option (click)="changeLanguage('ru')">русский</mat-option>
+              <mat-option (click)="changeLanguage('en')">English</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <footer class="side-border" [innerHTML]="footer">
+        </footer>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
