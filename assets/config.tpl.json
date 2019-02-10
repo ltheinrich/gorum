@@ -1,6 +1,6 @@
 {
   "postgresql": {
-    "host": "::1",
+    "host": "localhost",
     "port": "5432",
     "ssl": "disable",
     "database": "gorum",
