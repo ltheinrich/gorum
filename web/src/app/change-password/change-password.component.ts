@@ -23,11 +23,6 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(this.title, 'changePassword', true, null);
-    Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
-  }
-
-  initUser(values: any) {
-    this.user = new User(values['id'], values);
   }
 
   changePassword() {
