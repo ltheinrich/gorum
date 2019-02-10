@@ -3,9 +3,9 @@ language: go
 go:
 - 1.10.x
 - 1.11.x
-- master
 
 before_script:
   - psql -c "CREATE DATABASE gorum;" -U postgres
   - psql -c "CREATE USER gorum WITH PASSWORD 'gorum';" -U postgres
   - psql -c "GRANT ALL ON DATABASE gorum TO gorum;" -U postgres
+  - echo '{"postgresql": {"host": "127.0.0.1"}}'
