@@ -14,7 +14,6 @@ export class ChangePasswordComponent implements OnInit {
   conf = Config.get;
   lang = Config.lang;
 
-  user = new User(0, {});
   newPassword = '';
   repeatPassword = '';
   oldPassword = '';
