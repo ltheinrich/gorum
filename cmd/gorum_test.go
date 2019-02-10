@@ -16,7 +16,7 @@ func TestLoadConfig(t *testing.T) {
 	// call loadConfig and get error
 	err := loadConfig()
 
-	// check if error occured
+	// check if error occurred
 	if err != nil {
 		// failed
 		t.Errorf("Could not load config, %v\n", err)
@@ -49,7 +49,7 @@ func TestConnectDB(t *testing.T) {
 	// call connectDB and get error
 	err = connectDB()
 
-	// check if error occured
+	// check if error occurred
 	if err != nil {
 		// failed
 		t.Errorf("Could not connect to database, %v\n", err)
