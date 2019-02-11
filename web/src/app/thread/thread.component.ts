@@ -72,7 +72,11 @@ export class ThreadComponent implements OnInit {
   initThread(values: any) {
     this.thread = new Thread(<number>values['id'], <string>values['name'], <string>values['board'], <number>values['author'],
       <number>values['created'], <string>values['content'], <string>values['authorName'], <string>values['authorAvatar'], null);
-    Config.setLogin(this.title, 'thread', false, this.thread.name);
+    if (this.thread.name !== undefined) {
+      Config.setLogin(this.title, 'thread', false, this.thread.name);
+    } else {
+      Config.setLogin(this.title, 'thread', false, null);
+    }
   }
 
   listPosts(values: any) {
