@@ -77,7 +77,8 @@
     "editPost": "Beitrag bearbeiten",
     "postEdited": "Beitrag bearbeitet",
     "legalTermsRegister": "Mit der Registrierung akzeptierst du die rechtlichen Bedingungen",
-    "back": "Zurück"
+    "back": "Zurück",
+    "userDoesNotExist": "Dieser Benutzer existiert nicht"
   },
   "en": {
     "login": "Login",
@@ -157,7 +158,8 @@
     "editPost": "Edit post",
     "postEdited": "Post edited",
     "legalTermsRegister": "When registering you accept the legal terms",
-    "back": "Back"
+    "back": "Back",
+	"userDoesNotExist": "This user does not exist"
   },
   "ru": {
     "login": "логин",
@@ -237,7 +239,8 @@
     "editPost": "Редактировать сообщение",
     "postEdited": "Сообщение отредактировано",
     "legalTermsRegister": "При регистрации вы принимаете правовые условия",
-    "back": "назад"
+    "back": "назад",
+	"userDoesNotExist": "This user does not exist"
   },
   "es": {
     "login": "Entrar",
@@ -317,7 +320,8 @@
     "editPost": "Editar publicación",
     "postEdited": "Contribución editada",
     "legalTermsRegister": "Con la inscripción aceptas las condiciones legales.",
-    "back": "espalda"
+    "back": "espalda",
+	"userDoesNotExist": "This user does not exist"
   },
   "fr": {
     "login": "Connexion",
@@ -397,6 +401,7 @@
     "editPost": "Modifier le post",
     "postEdited": "Post edité",
     "legalTermsRegister": "En vous inscrivant, vous acceptez les termes légaux",
-    "back": "retour"
+    "back": "retour",
+	"userDoesNotExist": "Cet utilisateur n'existe pas"
   }
 }
