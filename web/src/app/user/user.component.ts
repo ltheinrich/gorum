@@ -45,6 +45,10 @@ export class UserComponent implements OnInit {
 
   initUser(values: any) {
     this.user = new User(this.id, values);
-    Config.setLogin(this.title, 'user', false, <string>values['username']);
+    if (<string>values['username'] !== undefined) {
+      Config.setLogin(this.title, 'user', false, <string>values['username']);
+    } else {
+      Config.setLogin(this.title, 'user', false, null);
+    }
   }
 }
