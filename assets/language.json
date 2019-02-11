@@ -242,8 +242,8 @@
     "postEdited": "Сообщение отредактировано",
     "legalTermsRegister": "При регистрации вы принимаете правовые условия",
     "back": "назад",
-    "userDoesNotExist": "This user does not exist",
-    "threadDoesNotExist": "This thread does not exist"
+    "userDoesNotExist": "Этот пользователь не существует",
+    "threadDoesNotExist": "Эта тема не существует"
   },
   "es": {
     "login": "Entrar",
