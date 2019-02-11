@@ -1,7 +1,7 @@
 <button mat-icon-button routerLink="/users">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
-<mat-card>
+<mat-card *ngIf="user.data['username'] !== undefined">
   <mat-card-header>
     <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}">
     <mat-card-title>{{user.data['username']}}</mat-card-title>
@@ -35,4 +35,7 @@
     </mat-list>
     <p *ngIf="threads.length == 0">{{ lang('noThreads') }}</p>
   </mat-card-content>
+</mat-card>
+<mat-card *ngIf="user.data['username'] === undefined">
+  <p>{{lang("userDoesNotExist")}}</p>
 </mat-card>
