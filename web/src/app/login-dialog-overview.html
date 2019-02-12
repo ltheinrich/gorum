@@ -7,12 +7,19 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="data.password" (keyup.enter)="doLogin()"
-      required />
+    <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="data.password"
+      (keyup.enter)="doLogin()" required />
   </mat-form-field>
-</div>
 
-<div mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="doLogin()">{{ lang('login') }}</button>&nbsp;
-  <button mat-button (click)="onNoClick()">{{ lang('cancel') }}</button>
+  <div *ngIf="config.captcha !== undefined">
+    <img src="{{config.baseUrl}}captcha/{{config.captcha}}.png" width="240" height="80">
+    <mat-form-field>
+      <input matInput placeholder="{{lang('captcha')}}" [(ngModel)]="data.captcha" (keyup.enter)="doLogin()" required />
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="doLogin()">{{ lang('login') }}</button>&nbsp;
+    <button mat-button (click)="onNoClick()">{{ lang('cancel') }}</button>
+  </div>
 </div>

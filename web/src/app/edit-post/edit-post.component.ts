@@ -41,7 +41,7 @@ export class EditPostComponent implements OnInit {
 
   publish(content: string) {
     Config.API('editpost', {
-      username: Config.getUsername(), password: Config.getPassword(), postID: this.id, content: content,
+      username: Config.getUsername(), token: Config.getToken(), postID: this.id, content: content,
     }).subscribe(values => this.proccessResponse(values));
   }
 

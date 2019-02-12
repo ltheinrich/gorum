@@ -12,7 +12,8 @@ func DeleteAccount(data HandlerData) interface{} {
 	var err error
 
 	// authenticate
-	if !data.Authenticated {
+	password := data.Request.GetString("password")
+	if password == "" || !data.Authenticated || !login(data.Username, password) {
 		// not authenticated
 		return errors.New("403")
 	}

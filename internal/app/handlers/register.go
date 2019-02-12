@@ -56,8 +56,11 @@ func Register(data HandlerData) interface{} {
 			return err
 		}
 
+		// generate new token
+		token := newToken(data.Username)
+
 		// registered
-		return map[string]interface{}{"done": true}
+		return map[string]interface{}{"done": true, "token": token}
 	} else if err != nil {
 		// print and return error
 		log.Println(err)

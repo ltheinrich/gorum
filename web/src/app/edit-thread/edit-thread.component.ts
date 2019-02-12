@@ -39,7 +39,7 @@ export class EditThreadComponent implements OnInit {
       Config.openSnackBar(Config.lang('titleMaxLength'));
     } else {
       Config.API('editthread', {
-        username: Config.getUsername(), password: Config.getPassword(), threadID: this.id, title: this.threadTitle, content: content,
+        username: Config.getUsername(), token: Config.getToken(), threadID: this.id, title: this.threadTitle, content: content,
       }).subscribe(values => this.proccessResponse(values));
     }
   }

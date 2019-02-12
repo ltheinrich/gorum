@@ -16,13 +16,13 @@ export class EditProfileComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
-  username = localStorage.getItem('username');
+  username = Config.getUsername();
 
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
-    Config.API('user', { username: localStorage.getItem('username') }).subscribe(values => this.initUser(values));
+    Config.API('user', { username: Config.getUsername() }).subscribe(values => this.initUser(values));
   }
 
   initUser(values: any) {
@@ -38,8 +38,7 @@ export class EditProfileComponent implements OnInit {
         Config.openSnackBar(Config.lang('usernameMaxLength'));
       } else {
         Config.API('editusername', {
-          username: this.username, newUsername: newUsername,
-          password: localStorage.getItem('password')
+          username: this.username, newUsername: newUsername, token: Config.getToken()
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
     } else {
@@ -71,8 +70,8 @@ export class EditProfileComponent implements OnInit {
 // tslint:disable-next-line:component-class-suffix
 export class AvatarDialogOverview {
   config = Config;
-  username = btoa(localStorage.getItem('username'));
-  password = localStorage.getItem('password');
+  username = btoa(Config.getUsername());
+  token = Config.getToken();
   constructor(public dialogRef: MatDialogRef<AvatarDialogOverview>) { }
   onNoClick(): void {
     this.dialogRef.close();

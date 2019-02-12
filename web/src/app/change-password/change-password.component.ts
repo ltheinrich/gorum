@@ -29,13 +29,12 @@ export class ChangePasswordComponent implements OnInit {
       Config.openSnackBar(Config.lang('fillAllFields'));
     } else if (this.newPassword !== this.repeatPassword) {
       Config.openSnackBar(Config.lang('passwordsNotMatch'));
-    } else if (Config.hash(this.oldPassword) !== localStorage.getItem('password')) {
-      Config.openSnackBar(Config.lang('wrongPassword'));
     } else if (this.newPassword.length < 8) {
       Config.openSnackBar(Config.lang('passwordMinLength'));
     } else {
       Config.API('editpassword', {
-        username: localStorage.getItem('username'), password: localStorage.getItem('password'), newPassword: Config.hash(this.newPassword)
+        username: Config.getUsername(), password: Config.hash(this.oldPassword),
+        newPassword: Config.hash(this.newPassword), token: Config.getToken()
       }).subscribe(values => values['success'] === true ? this.passwordChanged() :
         values['error'] === '403' ? Config.openSnackBar(Config.lang('wrongPassword')) : Config.openSnackBar('error'));
     }

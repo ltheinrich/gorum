@@ -93,12 +93,12 @@ export class ThreadComponent implements OnInit {
   }
 
   deleteThread() {
-    Config.API('deletethread', { username: Config.getUsername(), password: Config.getPassword(), threadID: this.id })
+    Config.API('deletethread', { username: Config.getUsername(), token: Config.getToken(), threadID: this.id })
       .subscribe(values => this.afterDeleteThread(values));
   }
 
   deletePost(id: number) {
-    Config.API('deletepost', { username: Config.getUsername(), password: Config.getPassword(), postID: id })
+    Config.API('deletepost', { username: Config.getUsername(), token: Config.getToken(), postID: id })
       .subscribe(values => this.afterDeletePost(values));
   }
 
@@ -122,7 +122,7 @@ export class ThreadComponent implements OnInit {
 
   post(content: string) {
     Config.API('newpost', {
-      username: Config.getUsername(), password: Config.getPassword(), thread: this.id, content: content,
+      username: Config.getUsername(), token: Config.getToken(), thread: this.id, content: content,
       captcha: Config.captcha, captchaValue: this.captcha
     }).subscribe(values => this.proccessResponse(values));
   }

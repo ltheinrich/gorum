@@ -24,10 +24,10 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 
 	// get username and password
 	rawUsername, _ := base64.StdEncoding.DecodeString(r.FormValue("username"))
-	username, password := string(rawUsername), r.FormValue("password")
+	username, token := string(rawUsername), r.FormValue("token")
 
 	// check if provided and login is correct
-	if username != "" && password != "" && login(username, password) {
+	if username != "" && token != "" && validateToken(username, token) {
 		// get file
 		var file multipart.File
 		var header *multipart.FileHeader

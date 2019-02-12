@@ -39,7 +39,7 @@ export class NewThreadComponent implements OnInit {
       Config.openSnackBar(Config.lang('titleMaxLength'));
     } else {
       Config.API('newthread', {
-        username: Config.getUsername(), password: Config.getPassword(), title: this.threadTitle, board: this.id,
+        username: Config.getUsername(), token: Config.getToken(), title: this.threadTitle, board: this.id,
         content: content, captcha: Config.captcha, captchaValue: this.captcha
       }).subscribe(values => this.proccessResponse(values));
     }

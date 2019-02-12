@@ -81,7 +81,7 @@ export namespace Config {
   export function setLogin(title: Title, site: string, redirect: boolean, customTitle: string) {
     if (!triedLogin) {
       loadFirst(title, site, customTitle);
-      API('login', { username: localStorage.getItem('username'), password: localStorage.getItem('password') })
+      API('login', { username: getUsername(), token: getToken() })
         .subscribe(values => validateLogin(values, redirect));
     } else {
       setTitle(title, site, customTitle);
@@ -104,13 +104,14 @@ export namespace Config {
     return localStorage.getItem('username');
   }
 
-  export function getPassword(): string {
-    return localStorage.getItem('password');
+  export function getToken(): string {
+    return localStorage.getItem('token');
   }
 
   export function logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+    localStorage.removeItem('token');
     login = false;
   }
 
