@@ -34,11 +34,11 @@ export namespace Config {
     if (language === null) {
       language = get('language');
     }
-    API('lang', {}).subscribe(values => setLoadedLanguage(title, site, customTitle, language, values));
+    API('lang', { language: language }).subscribe(values => setLoadedLanguage(title, site, customTitle, values));
   }
 
-  export function setLoadedLanguage(title: Title, site: string, customTitle: string, language: string, values: any) {
-    Object.entries(values[language]).forEach(([key, value]) => setLang(key, value as string, title, site));
+  export function setLoadedLanguage(title: Title, site: string, customTitle: string, values: any) {
+    Object.entries(values).forEach(([key, value]) => languageMap.set(key, value as string));
     setTitle(title, site, customTitle);
   }
 
@@ -52,10 +52,6 @@ export namespace Config {
         title.setTitle(lang(site) + ' - ' + get('title'));
       }
     }
-  }
-
-  function setLang(key: string, value: string, title: Title, site: string) {
-    languageMap.set(key, value);
   }
 
   export function getCaptcha() {
