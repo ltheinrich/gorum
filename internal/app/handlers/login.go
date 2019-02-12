@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"log"
+	"time"
 
 	"github.com/ltheinrich/captcha"
 	"github.com/ltheinrich/gorum/internal/pkg/config"
@@ -107,10 +108,19 @@ func newToken(username string) (token string) {
 	// encode token with base64
 	token = base64.StdEncoding.EncodeToString(tokenData)
 
+	// delete old tokens from database
+	_, err = db.DB.Exec(`DELETE FROM tokens WHERE token NOT IN
+						(SELECT token FROM tokens ORDER BY created DESC LIMIT $1);`,
+		config.Get("limit", "tokens"))
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+
 	// store token in database
-	_, err = db.DB.Exec(`INSERT INTO tokens (token, holder)
-						SELECT $1 AS token, users.id AS holder FROM users WHERE users.username = $2;`,
-		token, username)
+	_, err = db.DB.Exec(`INSERT INTO tokens (token, holder, created)
+						SELECT $1 AS token, users.id AS holder, $2 AS created FROM users WHERE users.username = $3;`,
+		token, time.Now().Unix(), username)
 	if err != nil {
 		log.Println(err)
 		return ""
