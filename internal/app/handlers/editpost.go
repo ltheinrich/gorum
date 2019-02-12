@@ -35,7 +35,8 @@ func EditPost(request map[string]interface{}, username string, auth bool) interf
 	}
 
 	// insert into database
-	_, err = db.DB.Exec("UPDATE posts SET content = $1 FROM users WHERE posts.id = $2 AND users.username = $3;",
+	_, err = db.DB.Exec(`UPDATE posts SET content = $1 FROM users
+						WHERE posts.author = users.id AND posts.id = $2 AND users.username = $3;`,
 		content, postID, username)
 	if err != nil {
 		// print and return error
