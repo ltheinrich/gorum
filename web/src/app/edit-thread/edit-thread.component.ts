@@ -24,6 +24,9 @@ export class EditThreadComponent implements OnInit {
   }
 
   initThread(values: any) {
+    if (values['authorName'] !== Config.getUsername()) {
+      this.router.navigate(['/thread/' + this.id]);
+    }
     this.threadTitle = values['name'];
     this.threadContent = values['content'];
     const element = <any>document.querySelector('trix-editor');

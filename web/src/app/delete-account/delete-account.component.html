@@ -1,8 +1,10 @@
 <button mat-icon-button routerLink="/edit-profile">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
+
 <form class="form-size">
   <p>{{lang('deleteAccountInfo')}}</p>
+
   <mat-form-field class="input-full-width">
     <input matInput type="password" placeholder="{{lang('password')}}" [(ngModel)]="password"
       [ngModelOptions]="{standalone: true}">

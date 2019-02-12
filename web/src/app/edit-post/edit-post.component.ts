@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { timeout } from 'q';
 
 @Component({
   selector: 'app-edit-post',
@@ -23,7 +24,14 @@ export class EditPostComponent implements OnInit {
     Config.API('post', { postID: this.id }).subscribe(values => this.initPost(values));
   }
 
+  r(): boolean {
+    return Config.lang('noPermission') !== '';
+  }
+
   initPost(values: any) {
+    if (values['authorName'] !== Config.getUsername()) {
+      this.router.navigate(['/thread/' + values['thread']]);
+    }
     this.thread = values['thread'];
     this.postContent = values['content'];
     const element = <any>document.querySelector('trix-editor');

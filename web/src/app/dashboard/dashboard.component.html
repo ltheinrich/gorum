@@ -3,8 +3,10 @@
     <mat-card-title>{{lang('lastThreads')}}</mat-card-title>
     <mat-card-subtitle>{{lang('lastThreadsDescription')}}</mat-card-subtitle>
     <span class="fill-space"></span>
+
     <mat-card-actions>
-      <button mat-stroked-button color="primary" (click)="lastThreadsShown = false" *ngIf="lastThreadsShown; else show">{{lang("hide")}}</button>
+      <button mat-stroked-button color="primary" (click)="lastThreadsShown = false"
+        *ngIf="lastThreadsShown; else show">{{lang("hide")}}</button>
       <ng-template #show>
         <button mat-stroked-button color="primary" (click)="lastThreadsShown = true">{{lang("show")}}</button>
       </ng-template>
@@ -24,6 +26,7 @@
         </p>
       </mat-list-item>
     </mat-list>
+
     <p *ngIf="threads.length == 0">{{ lang('noThreads') }}</p>
   </mat-card-content>
 </mat-card>

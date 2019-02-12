@@ -22,12 +22,13 @@ import { BoardComponent } from './board/board.component';
 import { NewThreadComponent } from './new-thread/new-thread.component';
 import { EditThreadComponent } from './edit-thread/edit-thread.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent, LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview, UsersComponent, UserComponent, DashboardComponent,
-    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent, EditThreadComponent, EditPostComponent,
-    DeleteAccountComponent
+    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent,
+    EditThreadComponent, EditPostComponent, DeleteAccountComponent, PageNotFoundComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,

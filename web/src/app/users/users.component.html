@@ -1,6 +1,7 @@
 <button mat-icon-button routerLink="/">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
+
 <mat-list *ngFor="let user of users">
   <mat-list-item class="user-item" routerLink="/user/{{user.id}}">
     <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}" />
@@ -11,4 +12,9 @@
     </p>
   </mat-list-item>
 </mat-list>
-<p *ngIf="users.length == 0">{{ lang('noUsers') }}</p>
+
+<mat-card *ngIf="users.length == 0">
+  <mat-card-header>
+    <mat-card-title>{{ lang('noUsers') }}</mat-card-title>
+  </mat-card-header>
+</mat-card>

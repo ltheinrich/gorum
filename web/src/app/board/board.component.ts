@@ -32,13 +32,22 @@ export class BoardComponent implements OnInit {
 
   threads: Thread[] = [];
   id = +this.route.snapshot.paramMap.get('id');
+  boardExists = true;
 
   constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
-    Config.API('board', { boardID: this.id }).subscribe(values =>
-      Config.setLogin(this.title, 'board', false, values['name']));
+    Config.API('board', { boardID: this.id }).subscribe(values => this.initBoard(values));
     Config.API('threads', { boardID: this.id }).subscribe(values => this.listThreads(values));
+  }
+
+  initBoard(values: any) {
+    if (values['name'] !== undefined) {
+      Config.setLogin(this.title, 'board', false, values['name']);
+    } else {
+      this.boardExists = false;
+      Config.setLogin(this.title, 'board', false, null);
+    }
   }
 
   listThreads(values: any) {
