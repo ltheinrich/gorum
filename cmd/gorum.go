@@ -65,7 +65,7 @@ func handle() {
 }
 
 // RegisterHandler add handler
-func RegisterHandler(url string, handler func(request map[string]interface{}, username string, auth bool) interface{}) {
+func RegisterHandler(url string, handler func(data handlers.HandlerData) interface{}) {
 	http.HandleFunc("/api/"+url, handlers.GenerateHandler(handler))
 }
 

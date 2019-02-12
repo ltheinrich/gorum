@@ -13,12 +13,12 @@ import (
 )
 
 // User handler
-func User(request map[string]interface{}, username string, auth bool) interface{} {
+func User(data HandlerData) interface{} {
 	var err error
 
 	// check if user data provided
-	userID := GetInt(request, "userID")
-	if userID == 0 && username == "" {
+	userID := data.Request.GetInt("userID")
+	if userID == 0 && data.Username == "" {
 		// both not provided
 		return errors.New("400")
 	}
@@ -30,7 +30,7 @@ func User(request map[string]interface{}, username string, auth bool) interface{
 	// check what provided
 	if userID == 0 {
 		// query current user
-		err = db.DB.QueryRow("SELECT id, username, registered FROM users WHERE username = $1;", username).Scan(&queryID, &queryUsername, &registered)
+		err = db.DB.QueryRow("SELECT id, username, registered FROM users WHERE username = $1;", data.Username).Scan(&queryID, &queryUsername, &registered)
 	} else {
 		// query user by id
 		err = db.DB.QueryRow("SELECT id, username, registered FROM users WHERE id = $1;", userID).Scan(&queryID, &queryUsername, &registered)

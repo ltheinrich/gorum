@@ -12,7 +12,7 @@ var (
 )
 
 // Conf handler
-func Conf(request map[string]interface{}, username string, auth bool) interface{} {
+func Conf(data HandlerData) interface{} {
 	var err error
 
 	// check if config map is loaded

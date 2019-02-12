@@ -12,11 +12,11 @@ import (
 )
 
 // LastThreads handler
-func LastThreads(request map[string]interface{}, username string, auth bool) interface{} {
+func LastThreads(data HandlerData) interface{} {
 	var err error
 
 	// get limit
-	limit := GetInt(request, "limit")
+	limit := data.Request.GetInt("limit")
 	if limit == 0 || limit >= 20 {
 		// no limit provided
 		limit = 10

@@ -14,29 +14,41 @@ const (
 	FALSE = "false"
 )
 
+// HandlerData structure
+type HandlerData struct {
+	Request       Request
+	Username      string
+	Authenticated bool
+}
+
+// Request structure
+type Request struct {
+	RequestMap map[string]interface{}
+}
+
 // GetString get string or empty string
-func GetString(request map[string]interface{}, name string) string {
+func (request Request) GetString(name string) string {
 	// cast and return value
-	value, _ := request[name].(string)
+	value, _ := request.RequestMap[name].(string)
 	return value
 }
 
 // GetStringArray get string array or nil
-func GetStringArray(request map[string]interface{}, name string) []string {
+func (request Request) GetStringArray(name string) []string {
 	// cast and return value
-	value, _ := request[name].([]string)
+	value, _ := request.RequestMap[name].([]string)
 	return value
 }
 
 // GetInt get int or 0
-func GetInt(request map[string]interface{}, name string) int {
+func (request Request) GetInt(name string) int {
 	// cast and return value
-	value, _ := request[name].(float64)
+	value, _ := request.RequestMap[name].(float64)
 
 	// return int (rare, most common is float64 in JSON)
 	if value == 0 {
 		// return int
-		i, _ := request[name].(int)
+		i, _ := request.RequestMap[name].(int)
 		return i
 	}
 
@@ -44,9 +56,9 @@ func GetInt(request map[string]interface{}, name string) int {
 }
 
 // GetBool get string or false
-func GetBool(request map[string]interface{}, name string) bool {
+func (request Request) GetBool(name string) bool {
 	// cast and return value
-	value, _ := request[name].(bool)
+	value, _ := request.RequestMap[name].(bool)
 	return value
 }
 

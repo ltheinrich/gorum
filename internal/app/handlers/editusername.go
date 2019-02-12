@@ -9,17 +9,17 @@ import (
 )
 
 // EditUsername handler
-func EditUsername(request map[string]interface{}, username string, auth bool) interface{} {
+func EditUsername(data HandlerData) interface{} {
 	var err error
 
 	// authenticate
-	if !auth {
+	if !data.Authenticated {
 		// not authenticated
 		return errors.New("403")
 	}
 
 	// check if new username and password is provided
-	newUsername := GetString(request, "newUsername")
+	newUsername := data.Request.GetString("newUsername")
 	if newUsername == "" || len(newUsername) > 32 {
 		// both not provided
 		return errors.New("400")
@@ -38,7 +38,7 @@ func EditUsername(request map[string]interface{}, username string, auth bool) in
 	}
 
 	// update username
-	_, err = db.DB.Exec("UPDATE users SET username = $1 WHERE username = $2;", newUsername, username)
+	_, err = db.DB.Exec("UPDATE users SET username = $1 WHERE username = $2;", newUsername, data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

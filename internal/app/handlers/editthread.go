@@ -9,20 +9,20 @@ import (
 )
 
 // EditThread handler
-func EditThread(request map[string]interface{}, username string, auth bool) interface{} {
+func EditThread(data HandlerData) interface{} {
 	var err error
 
 	// check login
-	if !auth {
+	if !data.Authenticated {
 		// not logged in
 		return errors.New("403")
 	}
 
 	// get variables from request
-	threadID := GetInt(request, "threadID")
-	title := GetString(request, "title")
-	/* board := GetInt(request, "board") // TODO */
-	content := GetString(request, "content")
+	threadID := data.Request.GetInt("threadID")
+	title := data.Request.GetString("title")
+	/* board := data.Request.GetInt("board") // TODO */
+	content := data.Request.GetString("content")
 
 	// check if data is provided
 	if threadID == 0 || title == "" || /* board == 0 || */ content == "" || len(title) > 32 {
@@ -39,7 +39,7 @@ func EditThread(request map[string]interface{}, username string, auth bool) inte
 	// insert into database
 	_, err = db.DB.Exec(`UPDATE threads SET threadname = $1, content = $2 FROM users
 						WHERE threads.author = users.id AND threads.id = $3 AND users.username = $4;`,
-		title, content, threadID, username)
+		title, content, threadID, data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

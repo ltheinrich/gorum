@@ -16,7 +16,7 @@ var (
 )
 
 // Footer provide HTML page
-func Footer(request map[string]interface{}, username string, auth bool) interface{} {
+func Footer(data HandlerData) interface{} {
 	var err error
 
 	// check whether to load or not

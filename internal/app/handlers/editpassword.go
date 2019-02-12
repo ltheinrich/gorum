@@ -10,17 +10,17 @@ import (
 )
 
 // EditPassword handler
-func EditPassword(request map[string]interface{}, username string, auth bool) interface{} {
+func EditPassword(data HandlerData) interface{} {
 	var err error
 
 	// authenticate
-	if !auth {
+	if !data.Authenticated {
 		// not authenticated
 		return errors.New("403")
 	}
 
 	// check if new password provided
-	newPassword := GetString(request, "newPassword")
+	newPassword := data.Request.GetString("newPassword")
 	if newPassword == "" {
 		// not provided
 		return errors.New("400")
@@ -36,7 +36,7 @@ func EditPassword(request map[string]interface{}, username string, auth bool) in
 	}
 
 	// update password
-	_, err = db.DB.Exec("UPDATE users SET passwordhash = $1 WHERE username = $2;", passwordHash, username)
+	_, err = db.DB.Exec("UPDATE users SET passwordhash = $1 WHERE username = $2;", passwordHash, data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

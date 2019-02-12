@@ -8,7 +8,7 @@ import (
 )
 
 // Boards handler
-func Boards(request map[string]interface{}, username string, auth bool) interface{} {
+func Boards(data HandlerData) interface{} {
 	var err error
 
 	// query db
