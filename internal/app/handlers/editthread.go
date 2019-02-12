@@ -38,7 +38,7 @@ func EditThread(request map[string]interface{}, username string, auth bool) inte
 
 	// insert into database
 	_, err = db.DB.Exec(`UPDATE threads SET threadname = $1, content = $2 FROM users
-						WHERE threads.id = $3 AND users.username = $4;`,
+						WHERE threads.author = users.id AND threads.id = $3 AND users.username = $4;`,
 		title, content, threadID, username)
 	if err != nil {
 		// print and return error
