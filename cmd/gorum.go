@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"crypto/tls"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -16,22 +17,24 @@ import (
 )
 
 // Init startup
-func Init() error {
+func Init() (err error) {
 	// load config
-	if err := loadConfig(); err != nil {
+	if err = loadConfig(); err != nil {
 		return err
 	}
 
 	// load language
-	loadLanguage()
+	if err = loadLanguage(); err != nil {
+		return err
+	}
 
 	// connect to postgresql database
-	if err := connectDB(); err != nil {
+	if err = connectDB(); err != nil {
 		return err
 	}
 
 	// run setup query
-	if err := setupDB(); err != nil {
+	if err = setupDB(); err != nil {
 		return err
 	}
 
@@ -67,10 +70,10 @@ func RegisterHandler(url string, handler func(request map[string]interface{}, us
 }
 
 // load config template and overwrite with custom
-func loadConfig() error {
+func loadConfig() (err error) {
 	// load template config
 	templateConfig := assets.MustAsset("config.tpl.json")
-	if err := config.ProcessConfig(templateConfig); err != nil {
+	if err = config.ProcessConfig(templateConfig); err != nil {
 		return err
 	}
 
@@ -79,14 +82,47 @@ func loadConfig() error {
 }
 
 // load language file
-func loadLanguage() {
+func loadLanguage() (err error) {
 	// load language file and set
-	language := assets.MustAsset("language.json")
-	handlers.Language = language
+	languageFile := assets.MustAsset("language.json")
+
+	// unmarshal to map and check for error
+	var languages map[string]map[string]string
+	err = json.Unmarshal(languageFile, &languages)
+	if err != nil {
+		return err
+	}
+
+	// loop through language maps
+	for language := range languages {
+		// check if language not German
+		if language != "de" {
+			// loop through language keys
+			for key, value := range languages["de"] {
+				// check if language variable exists
+				if _, exists := languages[language][key]; !exists {
+					// complete with soft fallback language (German)
+					languages[language][key] = value
+				}
+			}
+		}
+
+		// marshal map and check for error
+		var languageData []byte
+		languageData, err = json.Marshal(languages[language])
+		if err != nil {
+			return err
+		}
+
+		// set language
+		handlers.Languages[language] = languageData
+	}
+
+	return nil
 }
 
-// connect to postgresql database
-func connectDB() error {
+// connect to PostgreSQL database
+func connectDB() (err error) {
 	// define login variables
 	host := config.Get("postgresql", "host")
 	port := config.Get("postgresql", "port")
@@ -100,9 +136,7 @@ func connectDB() error {
 }
 
 // run setup query
-func setupDB() error {
-	var err error
-
+func setupDB() (err error) {
 	// get file
 	query := assets.MustAsset("setup.sql")
 
@@ -112,7 +146,7 @@ func setupDB() error {
 }
 
 // listen to address
-func listen() error {
+func listen() (err error) {
 	// define http(s) variable
 	address := config.Get("https", "address")
 	certificate := config.Get("https", "certificate")

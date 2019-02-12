@@ -9,11 +9,11 @@ import (
 )
 
 var (
-	// DB postgresql database
+	// DB PostgreSQL database
 	DB *sql.DB
 )
 
-// Connect to postgresql database
+// Connect to PostgreSQL database
 func Connect(host, port, sslmode, dbname, user, password string) error {
 	var err error
 

@@ -28,12 +28,16 @@ func TestLoadConfig(t *testing.T) {
 
 func TestLoadLanguage(t *testing.T) {
 	// call loadLanguage
-	loadLanguage()
+	err := loadLanguage()
+	if err != nil {
+		t.Errorf("Could not load language, %v\n", err)
+		return
+	}
 
-	// check if language is set
-	if handlers.Language == nil {
+	// check if German language (soft fallback) is set
+	if handlers.Languages["de"] == nil {
 		// failed
-		t.Error("Could not load language")
+		t.Error("Could not load language, German language (soft fallback) is not set")
 	}
 }
 
