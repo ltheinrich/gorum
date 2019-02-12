@@ -1,6 +1,7 @@
 <button mat-icon-button routerLink="/board/{{thread.board}}">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
+
 <div *ngIf="thread.name !== undefined">
   <mat-card>
     <mat-card-header>
@@ -10,6 +11,7 @@
         {{lang('atTime')}} {{config.time(thread.created)}} {{lang('timeExtension')}}
         {{lang('by')}} <a routerLink="/user/{{thread.author}}">{{thread.authorName}}</a></mat-card-subtitle>
       <span class="fill-space"></span>
+
       <mat-card-actions>
         <button mat-button *ngIf="config.getUsername() === thread.authorName && config.login; else reportButton"
           color="primary" routerLink="/edit-thread/{{thread.id}}">{{lang("editThread")}}</button>
@@ -37,6 +39,7 @@
         <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(post.created)}} {{lang('atTime')}}
           {{config.time(post.created)}} {{lang('timeExtension')}}</mat-card-subtitle>
         <span class="fill-space"></span>
+
         <mat-card-actions>
           <button mat-button *ngIf="config.getUsername() === post.authorName && config.login; else reportButton"
             color="primary" routerLink="/edit-post/{{post.id}}">{{lang("editPost")}}</button>
@@ -70,10 +73,14 @@
     <br>
     <button mat-flat-button color="primary" (click)="post(content.value)">{{lang('createPost')}}</button>
   </form>
+
   <ng-template #loginToPost>
     <p>{{lang('loginToPost')}}</p><br>
   </ng-template>
 </div>
+
 <mat-card *ngIf="thread.name === undefined">
-  <p>{{lang("threadDoesNotExist")}}</p>
+  <mat-card-header>
+    <mat-card-title>{{ lang('threadDoesNotExist') }}</mat-card-title>
+  </mat-card-header>
 </mat-card>

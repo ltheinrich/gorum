@@ -79,7 +79,11 @@
     "legalTermsRegister": "Mit der Registrierung akzeptierst du die rechtlichen Bedingungen",
     "back": "Zurück",
     "userDoesNotExist": "Dieser Benutzer existiert nicht",
-    "threadDoesNotExist": "Dieses Thema existiert nicht"
+    "threadDoesNotExist": "Dieses Thema existiert nicht",
+    "noPermission": "Du hast keine Berechtigung, diese Aktion durchzuführen",
+    "pageDoesNotExist": "Diese Seite existiert nicht",
+    "postDoesNotExist": "Dieser Beitrag existiert nicht",
+    "boardDoesNotExist": "Dieses Forum existiert nicht"
   },
   "en": {
     "login": "Login",
@@ -161,7 +165,11 @@
     "legalTermsRegister": "When registering you accept the legal terms",
     "back": "Back",
     "userDoesNotExist": "This user does not exist",
-    "threadDoesNotExist": "This thread does not exist"
+    "threadDoesNotExist": "This thread does not exist",
+    "noPermission": "You have no permission to execute this action",
+    "pageDoesNotExist": "This page does not exist",
+    "postDoesNotExist": "This post does not exist",
+    "boardDoesNotExist": "This board does not exist"
   },
   "ru": {
     "login": "логин",
@@ -243,7 +251,11 @@
     "legalTermsRegister": "При регистрации вы принимаете правовые условия",
     "back": "назад",
     "userDoesNotExist": "Этот пользователь не существует",
-    "threadDoesNotExist": "Эта тема не существует"
+    "threadDoesNotExist": "Эта тема не существует",
+    "noPermission": "Вы не уполномочены выполнять это действие",
+    "pageDoesNotExist": "Эта страница не существует",
+    "postDoesNotExist": "Этот пост не существует",
+    "boardDoesNotExist": "Этот форум не существует."
   },
   "es": {
     "login": "Entrar",
@@ -325,7 +337,11 @@
     "legalTermsRegister": "Con la inscripción aceptas las condiciones legales.",
     "back": "espalda",
     "userDoesNotExist": "Este usuario no existe",
-    "threadDoesNotExist": "Este hilo no existe"
+    "threadDoesNotExist": "Este hilo no existe",
+    "noPermission": "Usted no está autorizado a realizar esta acción",
+    "pageDoesNotExist": "Esta página no existe",
+    "postDoesNotExist": "Este post no existe",
+    "boardDoesNotExist": "Este foro no existe"
   },
   "fr": {
     "login": "Connexion",
@@ -407,6 +423,10 @@
     "legalTermsRegister": "En vous inscrivant, vous acceptez les termes légaux",
     "back": "retour",
     "userDoesNotExist": "Cet utilisateur n'existe pas",
-    "threadDoesNotExist": "Ce sujet n'existe pas"
+    "threadDoesNotExist": "Ce sujet n'existe pas",
+    "noPermission": "Vous n'êtes pas autorisé à effectuer cette action.",
+    "pageDoesNotExist": "Cette page n'existe pas",
+    "postDoesNotExist": "Ce post n'existe pas",
+    "boardDoesNotExist": "Ce forum n'existe pas"
   }
 }

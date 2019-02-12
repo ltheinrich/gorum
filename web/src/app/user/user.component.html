@@ -1,12 +1,14 @@
 <button mat-icon-button routerLink="/users">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
+
 <mat-card *ngIf="user.data['username'] !== undefined">
   <mat-card-header>
     <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}">
     <mat-card-title>{{user.data['username']}}</mat-card-title>
     <mat-card-subtitle>{{lang('joinedOn')}} {{config.registeredDate(user.data['registered'])}}</mat-card-subtitle>
     <span class="fill-space"></span>
+
     <mat-card-actions>
       <button mat-flat-button *ngIf="config.getUsername() === user.data['username'] && config.login; else reportButton"
         routerLink="/edit-profile" color="primary">{{lang("editProfile")}}</button>
@@ -21,6 +23,7 @@
   <mat-card-content>
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
+
     <mat-list *ngFor="let thread of threads">
       <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}">
         <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
@@ -33,9 +36,13 @@
         </p>
       </mat-list-item>
     </mat-list>
+
     <p *ngIf="threads.length == 0">{{ lang('noThreads') }}</p>
   </mat-card-content>
 </mat-card>
+
 <mat-card *ngIf="user.data['username'] === undefined">
-  <p>{{lang("userDoesNotExist")}}</p>
+  <mat-card-header>
+    <mat-card-title>{{lang("userDoesNotExist")}}</mat-card-title>
+  </mat-card-header>
 </mat-card>

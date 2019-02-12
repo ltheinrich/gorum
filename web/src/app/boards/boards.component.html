@@ -1,6 +1,7 @@
 <button mat-icon-button routerLink="/">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
+
 <mat-list *ngFor="let category of categoryNames">
   <h3 mat-subheader class="category-header">{{category}}</h3>
   <mat-divider></mat-divider>
@@ -11,4 +12,9 @@
   </mat-list-item>
   <br>
 </mat-list>
-<p *ngIf="categories.size == 0">{{ lang('noBoards') }}</p>
+
+<mat-card *ngIf="categories.size == 0">
+  <mat-card-header>
+    <mat-card-title>{{ lang('noBoards') }}</mat-card-title>
+  </mat-card-header>
+</mat-card>

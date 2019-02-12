@@ -27,6 +27,9 @@ export class NewThreadComponent implements OnInit {
   }
 
   initBoard(values: any) {
+    if (values['name'] === undefined) {
+      this.router.navigate(['/board/' + this.id]);
+    }
     this.board = new Board(values['id'], values['name'], values['description'], values['icon'], values['sort']);
     Config.setLogin(this.title, 'newThread', true, values['name']);
   }

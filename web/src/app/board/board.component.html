@@ -2,9 +2,10 @@
   <button mat-icon-button routerLink="/boards">
     <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
   </button>
-  <button mat-flat-button class="right button-margin-top" color="primary"
+  <button mat-flat-button *ngIf="boardExists" class="right button-margin-top" color="primary"
     routerLink="/new-thread/{{id}}">{{lang('newThread')}}</button>
 </div>
+
 <mat-list *ngFor="let thread of threads">
   <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}">
     <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
@@ -17,4 +18,15 @@
     </p>
   </mat-list-item>
 </mat-list>
-<p *ngIf="threads.length == 0">{{ lang('noThreads') }}</p>
+
+<mat-card *ngIf="threads.length == 0 && boardExists">
+  <mat-card-header>
+    <mat-card-title>{{ lang('noThreads') }}</mat-card-title>
+  </mat-card-header>
+</mat-card>
+
+<mat-card *ngIf="!boardExists">
+  <mat-card-header>
+    <mat-card-title>{{ lang('boardDoesNotExist') }}</mat-card-title>
+  </mat-card-header>
+</mat-card>
