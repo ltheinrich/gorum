@@ -13,18 +13,18 @@ import (
 )
 
 // LastUserThreads handler
-func LastUserThreads(request map[string]interface{}, username string, auth bool) interface{} {
+func LastUserThreads(data HandlerData) interface{} {
 	var err error
 
 	// get limit
-	limit := GetInt(request, "limit")
+	limit := data.Request.GetInt("limit")
 	if limit == 0 || limit >= 20 {
 		// no limit provided
 		limit = 10
 	}
 
 	// get user id and check if provided
-	userID := GetInt(request, "userID")
+	userID := data.Request.GetInt("userID")
 	if userID == 0 {
 		// not provided
 		return errors.New("400")

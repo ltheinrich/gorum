@@ -13,11 +13,11 @@ import (
 )
 
 // Posts handler
-func Posts(request map[string]interface{}, username string, auth bool) interface{} {
+func Posts(data HandlerData) interface{} {
 	var err error
 
 	// get thread id and check if provided
-	threadID := GetInt(request, "threadID")
+	threadID := data.Request.GetInt("threadID")
 	if threadID == 0 {
 		// no thread id provided
 		return errors.New("400")

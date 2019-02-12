@@ -9,18 +9,18 @@ import (
 )
 
 // EditPost handler
-func EditPost(request map[string]interface{}, username string, auth bool) interface{} {
+func EditPost(data HandlerData) interface{} {
 	var err error
 
 	// check login
-	if !auth {
+	if !data.Authenticated {
 		// not logged in
 		return errors.New("403")
 	}
 
 	// get variables from request
-	postID := GetInt(request, "postID")
-	content := GetString(request, "content")
+	postID := data.Request.GetInt("postID")
+	content := data.Request.GetString("content")
 
 	// check if data is provided
 	if postID == 0 || content == "" {
@@ -37,7 +37,7 @@ func EditPost(request map[string]interface{}, username string, auth bool) interf
 	// insert into database
 	_, err = db.DB.Exec(`UPDATE posts SET content = $1 FROM users
 						WHERE posts.author = users.id AND posts.id = $2 AND users.username = $3;`,
-		content, postID, username)
+		content, postID, data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

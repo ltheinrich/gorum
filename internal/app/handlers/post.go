@@ -9,11 +9,11 @@ import (
 )
 
 // Post handler
-func Post(request map[string]interface{}, username string, auth bool) interface{} {
+func Post(data HandlerData) interface{} {
 	var err error
 
 	// check if post id provided
-	postID := GetInt(request, "postID")
+	postID := data.Request.GetInt("postID")
 	if postID == 0 {
 		// post id not provided
 		return errors.New("400")

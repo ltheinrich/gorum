@@ -14,16 +14,16 @@ import (
 )
 
 // Register handler
-func Register(request map[string]interface{}, username string, auth bool) interface{} {
+func Register(data HandlerData) interface{} {
 	var err error
 
 	// get strings from request
-	password := GetString(request, "password")
-	cap := GetString(request, "captcha")
-	capVal := GetString(request, "captchaValue")
+	password := data.Request.GetString("password")
+	cap := data.Request.GetString("captcha")
+	capVal := data.Request.GetString("captchaValue")
 
 	// check if username and password are provided
-	if username == "" || password == "" || len(username) > 32 {
+	if data.Username == "" || password == "" || len(data.Username) > 32 {
 		// return not provided
 		return errors.New("400")
 	}
@@ -36,7 +36,7 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 
 	// query db
 	var id int
-	err = db.DB.QueryRow("SELECT id FROM users WHERE username = $1;", username).Scan(&id)
+	err = db.DB.QueryRow("SELECT id FROM users WHERE username = $1;", data.Username).Scan(&id)
 	if err == sql.ErrNoRows {
 		// not exists
 		var passwordHash []byte
@@ -49,7 +49,7 @@ func Register(request map[string]interface{}, username string, auth bool) interf
 
 		// insert into database
 		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, registered) VALUES ($1, $2, $3);",
-			username, string(passwordHash), time.Now().Format("2006-01-02T15:04:05"))
+			data.Username, string(passwordHash), time.Now().Format("2006-01-02T15:04:05"))
 		if err != nil {
 			// print and return error
 			log.Println(err)

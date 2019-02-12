@@ -11,20 +11,20 @@ import (
 )
 
 // NewPost handler
-func NewPost(request map[string]interface{}, username string, auth bool) interface{} {
+func NewPost(data HandlerData) interface{} {
 	var err error
 
 	// check login
-	if !auth {
+	if !data.Authenticated {
 		// not logged in
 		return errors.New("403")
 	}
 
 	// get strings from request
-	thread := GetInt(request, "thread")
-	content := GetString(request, "content")
-	cap := GetString(request, "captcha")
-	capVal := GetString(request, "captchaValue")
+	thread := data.Request.GetInt("thread")
+	content := data.Request.GetString("content")
+	cap := data.Request.GetString("captcha")
+	capVal := data.Request.GetString("captchaValue")
 
 	// check if data is provided
 	if thread == 0 || content == "" {
@@ -47,7 +47,7 @@ func NewPost(request map[string]interface{}, username string, auth bool) interfa
 	// insert into database
 	var id int
 	err = db.DB.QueryRow("INSERT INTO posts (thread, author, created, content) VALUES ($1, $2, $3, $4) RETURNING id;",
-		thread, GetUserID(username), time.Now().Unix(), content).Scan(&id)
+		thread, GetUserID(data.Username), time.Now().Unix(), content).Scan(&id)
 	if err != nil {
 		// print and return error
 		log.Println(err)

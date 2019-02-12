@@ -13,11 +13,11 @@ import (
 )
 
 // Threads handler
-func Threads(request map[string]interface{}, username string, auth bool) interface{} {
+func Threads(data HandlerData) interface{} {
 	var err error
 
 	// get board id and check if provided
-	boardID := GetInt(request, "boardID")
+	boardID := data.Request.GetInt("boardID")
 	if boardID == 0 {
 		// no board id provided
 		return errors.New("400")

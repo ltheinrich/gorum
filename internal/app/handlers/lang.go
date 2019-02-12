@@ -10,9 +10,9 @@ var (
 )
 
 // Lang handler
-func Lang(request map[string]interface{}, username string, auth bool) interface{} {
+func Lang(data HandlerData) interface{} {
 	// get language string
-	language := GetString(request, "language")
+	language := data.Request.GetString("language")
 	if language == "" {
 		// custom language as hard fallback
 		language = config.Get("public", "language")

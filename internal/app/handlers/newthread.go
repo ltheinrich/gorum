@@ -11,21 +11,21 @@ import (
 )
 
 // NewThread handler
-func NewThread(request map[string]interface{}, username string, auth bool) interface{} {
+func NewThread(data HandlerData) interface{} {
 	var err error
 
 	// check login
-	if !auth {
+	if !data.Authenticated {
 		// not logged in
 		return errors.New("403")
 	}
 
 	// get strings from request
-	title := GetString(request, "title")
-	board := GetInt(request, "board")
-	content := GetString(request, "content")
-	cap := GetString(request, "captcha")
-	capVal := GetString(request, "captchaValue")
+	title := data.Request.GetString("title")
+	board := data.Request.GetInt("board")
+	content := data.Request.GetString("content")
+	cap := data.Request.GetString("captcha")
+	capVal := data.Request.GetString("captchaValue")
 
 	// check if data is provided
 	if title == "" || board == 0 || content == "" || len(title) > 32 {
@@ -49,7 +49,7 @@ func NewThread(request map[string]interface{}, username string, auth bool) inter
 	var id int
 	err = db.DB.QueryRow(`INSERT INTO threads (threadname, board, author, created, content)
 												VALUES ($1, $2, $3, $4, $5) RETURNING id;`,
-		title, board, GetUserID(username), time.Now().Unix(), content).Scan(&id)
+		title, board, GetUserID(data.Username), time.Now().Unix(), content).Scan(&id)
 	if err != nil {
 		// print and return error
 		log.Println(err)

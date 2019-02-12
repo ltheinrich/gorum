@@ -8,17 +8,17 @@ import (
 )
 
 // DeletePost handler
-func DeletePost(request map[string]interface{}, username string, auth bool) interface{} {
+func DeletePost(data HandlerData) interface{} {
 	var err error
 
 	// check login
-	if !auth {
+	if !data.Authenticated {
 		// not logged in
 		return errors.New("403")
 	}
 
 	// get post id
-	postID := GetInt(request, "postID")
+	postID := data.Request.GetInt("postID")
 
 	// check if data is provided
 	if postID == 0 {
@@ -28,7 +28,7 @@ func DeletePost(request map[string]interface{}, username string, auth bool) inte
 
 	// delete from database
 	_, err = db.DB.Exec(`DELETE FROM posts USING users WHERE posts.author = users.id
-						AND posts.id = $1 AND users.username = $2;`, postID, username)
+						AND posts.id = $1 AND users.username = $2;`, postID, data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

@@ -8,17 +8,17 @@ import (
 )
 
 // DeleteThread handler
-func DeleteThread(request map[string]interface{}, username string, auth bool) interface{} {
+func DeleteThread(data HandlerData) interface{} {
 	var err error
 
 	// check login
-	if !auth {
+	if !data.Authenticated {
 		// not logged in
 		return errors.New("403")
 	}
 
 	// get thread id
-	threadID := GetInt(request, "threadID")
+	threadID := data.Request.GetInt("threadID")
 
 	// check if data is provided
 	if threadID == 0 {
@@ -28,7 +28,7 @@ func DeleteThread(request map[string]interface{}, username string, auth bool) in
 
 	// delete from database
 	_, err = db.DB.Exec(`DELETE FROM threads USING users WHERE threads.author = users.id
-						AND threads.id = $1 AND users.username = $2;`, threadID, username)
+						AND threads.id = $1 AND users.username = $2;`, threadID, data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

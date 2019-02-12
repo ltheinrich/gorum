@@ -6,7 +6,7 @@ import (
 
 func TestGetString(t *testing.T) {
 	// call GetString
-	s := GetString(map[string]interface{}{"string": "Hallo Welt"}, "string")
+	s := Request{RequestMap: map[string]interface{}{"string": "Hallo Welt"}}.GetString("string")
 
 	// check if value is correct
 	if s != "Hallo Welt" {
@@ -17,7 +17,7 @@ func TestGetString(t *testing.T) {
 
 func TestGetStringArray(t *testing.T) {
 	// call GetStringArray
-	sa := GetStringArray(map[string]interface{}{"stringArray": []string{"Hallo", "Welt"}}, "stringArray")
+	sa := Request{RequestMap: map[string]interface{}{"stringArray": []string{"Hallo", "Welt"}}}.GetStringArray("stringArray")
 
 	// check length
 	if len(sa) != 2 {
@@ -34,8 +34,8 @@ func TestGetStringArray(t *testing.T) {
 
 func TestGetInt(t *testing.T) {
 	// call GetInt
-	i := GetInt(map[string]interface{}{"int": 10}, "int")
-	f := GetInt(map[string]interface{}{"float": 10.0}, "float")
+	i := Request{RequestMap: map[string]interface{}{"int": 10}}.GetInt("int")
+	f := Request{RequestMap: map[string]interface{}{"float": 10.0}}.GetInt("float")
 
 	// check if values are correct
 	if i != 10 {
@@ -49,7 +49,7 @@ func TestGetInt(t *testing.T) {
 
 func TestGetBool(t *testing.T) {
 	// call GetBool
-	b := GetBool(map[string]interface{}{"bool": true}, "bool")
+	b := Request{RequestMap: map[string]interface{}{"bool": true}}.GetBool("bool")
 
 	// check if value correct
 	if !b {

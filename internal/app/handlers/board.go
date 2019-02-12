@@ -9,11 +9,11 @@ import (
 )
 
 // Board handler
-func Board(request map[string]interface{}, username string, auth bool) interface{} {
+func Board(data HandlerData) interface{} {
 	var err error
 
 	// check if board id provided
-	boardID := GetInt(request, "boardID")
+	boardID := data.Request.GetInt("boardID")
 	if boardID == 0 {
 		// not provided
 		return errors.New("400")

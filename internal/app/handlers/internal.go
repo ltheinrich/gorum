@@ -8,7 +8,7 @@ import (
 
 var (
 	// Handlers map
-	Handlers = map[string]func(request map[string]interface{}, username string, auth bool) interface{}{
+	Handlers = map[string]func(data HandlerData) interface{}{
 		"login":           Login,
 		"register":        Register,
 		"lang":            Lang,
@@ -38,7 +38,7 @@ var (
 )
 
 // GenerateHandler add custom variables to handler
-func GenerateHandler(handler func(request map[string]interface{}, username string, auth bool) interface{}) func(http.ResponseWriter, *http.Request) {
+func GenerateHandler(handler func(data HandlerData) interface{}) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// headers
 		w.Header().Set("Content-Type", "application/json")
@@ -57,14 +57,14 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 
 		// authenticate
 		var auth bool
-		username := GetString(request, "username")
-		password := GetString(request, "password")
+		username := request.GetString("username")
+		password := request.GetString("password")
 		if username != "" && password != "" {
 			auth = login(username, password)
 		}
 
 		// handle
-		response := handler(request, username, auth)
+		response := handler(HandlerData{Request: request, Username: username, Authenticated: auth})
 
 		// write response
 		if err, isErr := response.(error); isErr {
@@ -84,7 +84,7 @@ func GenerateHandler(handler func(request map[string]interface{}, username strin
 }
 
 // read and unmarshal to map[string]interface{}
-func read(reader io.Reader, length int64) map[string]interface{} {
+func read(reader io.Reader, length int64) (request Request) {
 	var err error
 
 	// read
@@ -92,14 +92,14 @@ func read(reader io.Reader, length int64) map[string]interface{} {
 	io.ReadAtLeast(reader, buffer, int(length))
 
 	// unmarshal json
-	var request map[string]interface{}
-	err = json.Unmarshal(buffer, &request)
+	var requestMap map[string]interface{}
+	err = json.Unmarshal(buffer, &requestMap)
 	if err != nil {
-		return map[string]interface{}{}
+		return Request{}
 	}
 
-	// return map
-	return request
+	// return Request
+	return Request{RequestMap: requestMap}
 }
 
 // write map marshalled from map[string]interface{}

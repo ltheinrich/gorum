@@ -8,17 +8,17 @@ import (
 )
 
 // DeleteAccount handler
-func DeleteAccount(request map[string]interface{}, username string, auth bool) interface{} {
+func DeleteAccount(data HandlerData) interface{} {
 	var err error
 
 	// authenticate
-	if !auth {
+	if !data.Authenticated {
 		// not authenticated
 		return errors.New("403")
 	}
 
 	// delete account
-	_, err = db.DB.Exec("DELETE FROM users WHERE username = $1;", username)
+	_, err = db.DB.Exec("DELETE FROM users WHERE username = $1;", data.Username)
 	if err != nil {
 		// print and return error
 		log.Println(err)

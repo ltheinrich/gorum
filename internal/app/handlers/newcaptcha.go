@@ -8,7 +8,7 @@ import (
 )
 
 // NewCaptcha handler
-func NewCaptcha(request map[string]interface{}, username string, auth bool) interface{} {
+func NewCaptcha(data HandlerData) interface{} {
 	// check if captcha enabled
 	if config.Get("https", "captcha") != TRUE {
 		// not enabled

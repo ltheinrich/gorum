@@ -8,9 +8,9 @@ import (
 )
 
 // Login handler
-func Login(request map[string]interface{}, username string, auth bool) interface{} {
+func Login(data HandlerData) interface{} {
 	// write
-	return map[string]interface{}{"valid": auth}
+	return map[string]interface{}{"valid": data.Authenticated}
 }
 
 // verify login
