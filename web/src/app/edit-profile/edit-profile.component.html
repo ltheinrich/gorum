@@ -20,4 +20,8 @@
       <button mat-button routerLink="/user/{{user.id}}" color="primary">{{lang("cancel")}}</button>
     </mat-card-actions>
   </mat-card-header>
+
+  <mat-card-content>
+    <p>Homepage: </p><input [(ngModel)]="user.data['website']">
+  </mat-card-content>
 </mat-card>
