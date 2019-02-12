@@ -144,6 +144,7 @@ export class ThreadComponent implements OnInit {
       this.captcha = '';
     } else {
       Config.openSnackBar(Config.lang('postCreated'));
+      Config.getCaptcha();
       this.captcha = '';
       const element = <any>document.querySelector('trix-editor');
       element.editor.setSelectedRange([0, (<string>element.editor.getDocument().toString()).length]);
