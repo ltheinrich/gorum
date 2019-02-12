@@ -29,7 +29,7 @@ export class EditPostComponent implements OnInit {
   }
 
   initPost(values: any) {
-    if (values['authorName'] !== Config.getUsername()) {
+    if (values['authorName'] !== Config.getUsername() || values['created'] === undefined) {
       this.router.navigate(['/thread/' + values['thread']]);
     }
     this.thread = values['thread'];

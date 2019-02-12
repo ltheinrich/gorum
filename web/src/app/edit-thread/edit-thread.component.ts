@@ -24,7 +24,7 @@ export class EditThreadComponent implements OnInit {
   }
 
   initThread(values: any) {
-    if (values['authorName'] !== Config.getUsername()) {
+    if (values['authorName'] !== Config.getUsername() || values['created'] === undefined) {
       this.router.navigate(['/thread/' + this.id]);
     }
     this.threadTitle = values['name'];
