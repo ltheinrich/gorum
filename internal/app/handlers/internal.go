@@ -58,9 +58,9 @@ func GenerateHandler(handler func(data HandlerData) interface{}) func(http.Respo
 		// authenticate
 		var auth bool
 		username := request.GetString("username")
-		password := request.GetString("password")
-		if username != "" && password != "" {
-			auth = login(username, password)
+		token := request.GetString("token")
+		if username != "" && token != "" {
+			auth = validateToken(username, token)
 		}
 
 		// handle

@@ -2,9 +2,17 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL,
     username VARCHAR(255) UNIQUE,
-    passwordhash VARCHAR(255),
-    registered VARCHAR(255),
+    passwordhash VARCHAR(255) NOT NULL,
+    registered VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
+);
+
+-- Tokens
+CREATE TABLE IF NOT EXISTS tokens (
+    token VARCHAR(255) UNIQUE,
+    holder INTEGER NOT NULL,
+    PRIMARY KEY (token),
+    FOREIGN KEY (holder) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Categories

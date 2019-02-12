@@ -25,11 +25,9 @@ export class DeleteAccountComponent implements OnInit {
   deleteAccount() {
     if (this.password.trim() === '') {
       Config.openSnackBar(Config.lang('fillAllFields'));
-    } else if (Config.hash(this.password) !== localStorage.getItem('password')) {
-      Config.openSnackBar(Config.lang('wrongPassword'));
     } else {
       Config.API('deleteaccount', {
-        username: localStorage.getItem('username'), password: localStorage.getItem('password')
+        username: Config.getUsername(), password: Config.hash(this.password), token: Config.getToken()
       }).subscribe(values => values['success'] === true ? this.accountDeleted() :
         values['error'] === '403' ? Config.openSnackBar(Config.lang('wrongPassword')) : Config.openSnackBar('error'));
     }
