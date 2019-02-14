@@ -17,7 +17,7 @@ func TestGetString(t *testing.T) {
 
 func TestGetStringArray(t *testing.T) {
 	// call GetStringArray
-	sa := Request{RequestMap: map[string]interface{}{"stringArray": []string{"Hallo", "Welt"}}}.GetStringArray("stringArray")
+	sa := Request{RequestMap: map[string]interface{}{"stringArray": []interface{}{"Hallo", "Welt"}}}.GetStringArray("stringArray")
 
 	// check length
 	if len(sa) != 2 {
