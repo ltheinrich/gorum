@@ -16,7 +16,6 @@ export class EditProfileComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
-  username = Config.getUsername();
 
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
@@ -31,14 +30,14 @@ export class EditProfileComponent implements OnInit {
 
   saveProfile() {
     const newUsername = <string>this.user.data['username'];
-    if (this.username !== newUsername) {
+    if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {
         Config.openSnackBar(Config.lang('emptyUsername'));
       } else if (newUsername.length > 32) {
         Config.openSnackBar(Config.lang('usernameMaxLength'));
       } else {
         Config.API('editusername', {
-          username: this.username, newUsername: newUsername, token: Config.getToken()
+          username: Config.getUsername(), newUsername: newUsername, token: Config.getToken()
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
     } else {
