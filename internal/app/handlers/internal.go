@@ -34,6 +34,8 @@ var (
 		"editpost":        EditPost,
 		"post":            Post,
 		"footer":          Footer,
+		"userdata":        UserData,
+		"setuserdata":     SetUserData,
 	}
 )
 

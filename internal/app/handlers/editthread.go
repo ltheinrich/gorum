@@ -37,7 +37,7 @@ func EditThread(data HandlerData) interface{} {
 	}
 
 	// insert into database
-	_, err = db.DB.Exec(`UPDATE threads SET threadname = $1, content = $2 FROM users
+	_, err = db.DB.Exec(`UPDATE threads SET threads.threadname = $1, threads.content = $2 FROM users
 						WHERE threads.author = users.id AND threads.id = $3 AND users.username = $4;`,
 		title, content, threadID, data.Username)
 	if err != nil {
