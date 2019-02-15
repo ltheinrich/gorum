@@ -20,7 +20,7 @@ func SetUserData(data HandlerData) interface{} {
 	// check if data provided
 	dataName := data.Request.GetString("dataName")
 	dataValue := data.Request.GetString("dataValue")
-	if dataName == "" || dataValue == "" {
+	if dataName == "" {
 		// both not provided
 		return errors.New("400")
 	}

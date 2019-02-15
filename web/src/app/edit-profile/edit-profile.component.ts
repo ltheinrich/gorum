@@ -22,13 +22,26 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.initUser(values));
+    Config.API('userdata', { dataNames: ['website'], username: Config.getUsername() })
+      .subscribe(values => this.initUserData(values));
   }
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
   }
 
+  initUserData(values: any) {
+    this.user.additionalData = values;
+  }
+
   saveProfile() {
+    // Change the userdata
+    Config.API('setuserdata', {
+      dataName: 'website', dataValue: <string>this.user.additionalData['website'],
+      username: Config.getUsername(), token: Config.getToken()
+    }).subscribe(values => this.savedProfile(values));
+
+    // Change the username
     const newUsername = <string>this.user.data['username'];
     if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {
@@ -42,6 +55,16 @@ export class EditProfileComponent implements OnInit {
       }
     } else {
       this.router.navigate(['/user/' + this.user.id]);
+    }
+  }
+
+  savedProfile(values: any) {
+    if (values['success'] === true) {
+      Config.openSnackBar(Config.lang('profileSaved'));
+      this.router.navigate(['/user/' + this.user.id]);
+    } else {
+      const errorMessage = Config.lang(values['error']);
+      Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
     }
   }
 

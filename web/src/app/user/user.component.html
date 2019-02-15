@@ -19,10 +19,13 @@
       </ng-template>
     </mat-card-actions>
   </mat-card-header>
+
   <br>
-  <mat-card-content *ngIf="user.data['website'] !== undefined">
-    <p>{{lang("website")}}: {{user.data['website']}}</p>
+
+  <mat-card-content *ngIf="userData['website'] !== undefined && userData['website'] !== ''">
+    {{lang("website")}}: <a href="{{userData['website']}}">{{userData['website']}}</a>
   </mat-card-content>
+
   <mat-card-content>
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
