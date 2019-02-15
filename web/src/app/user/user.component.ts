@@ -7,6 +7,7 @@ import { Thread } from '../thread/thread.component';
 export class User {
   id: number;
   data: { [key: string]: Object };
+  additionalData: { [key: string]: Object };
 
   constructor(id: number, data: { [key: string]: Object }) {
     this.id = id;
@@ -26,6 +27,7 @@ export class UserComponent implements OnInit {
 
   user = new User(0, {});
   id = +this.route.snapshot.paramMap.get('id');
+  userData = {};
   threads: Thread[] = [];
 
   constructor(private route: ActivatedRoute, private title: Title) { }
@@ -34,6 +36,12 @@ export class UserComponent implements OnInit {
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
+    Config.API('userdata', { dataNames: ['website'], userID: this.id })
+      .subscribe(values => this.listUserData(values));
+  }
+
+  listUserData(values: any) {
+    this.userData = values;
   }
 
   listThreads(values: any) {
