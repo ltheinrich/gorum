@@ -35,9 +35,29 @@ func (request Request) GetString(name string) string {
 
 // GetStringArray get string array or nil
 func (request Request) GetStringArray(name string) []string {
-	// cast and return value
-	value, _ := request.RequestMap[name].([]string)
-	return value
+	// cast
+	raw, okRaw := request.RequestMap[name].([]interface{})
+
+	// check if array
+	if okRaw {
+		// loop through string
+		values := []string{}
+		for _, value := range raw {
+			// cast to string
+			str, okStr := value.(string)
+
+			// append
+			if okStr {
+				values = append(values, str)
+			}
+		}
+
+		// return slice
+		return values
+	}
+
+	// return
+	return nil
 }
 
 // GetInt get int or 0

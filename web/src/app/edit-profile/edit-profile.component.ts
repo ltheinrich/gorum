@@ -16,7 +16,6 @@ export class EditProfileComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
-  username = Config.getUsername();
 
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
@@ -31,34 +30,18 @@ export class EditProfileComponent implements OnInit {
 
   saveProfile() {
     const newUsername = <string>this.user.data['username'];
-    const newWebsite = <string>this.user.data['website'];
-
-    // Update website
-    Config.API('editsocial', {
-      username: this.username, newWebsite: newWebsite, token: Config.getToken()
-    }).subscribe(values => this.updatedProfile(values));
-
-    // Update username
-    if (this.username !== newUsername) {
+    if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {
         Config.openSnackBar(Config.lang('emptyUsername'));
       } else if (newUsername.length > 32) {
         Config.openSnackBar(Config.lang('usernameMaxLength'));
       } else {
         Config.API('editusername', {
-          username: this.username, newUsername: newUsername, token: Config.getToken()
+          username: Config.getUsername(), newUsername: newUsername, token: Config.getToken()
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
-    }
-  }
-
-  updatedProfile(values: any) {
-    if (values['success'] === true) {
-      Config.openSnackBar(Config.lang('profileSaved'));
-      this.router.navigate(['/user/' + this.user.id]);
     } else {
-      const errorMessage = Config.lang(values['error']);
-      Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
+      this.router.navigate(['/user/' + this.user.id]);
     }
   }
 

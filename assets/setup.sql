@@ -1,7 +1,7 @@
 -- Users
 CREATE TABLE IF NOT EXISTS users (
-    id SERIAL,
-    username VARCHAR(255) UNIQUE,
+    id SERIAL NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
     passwordhash VARCHAR(255) NOT NULL,
     registered VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
@@ -9,16 +9,24 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Tokens
 CREATE TABLE IF NOT EXISTS tokens (
-    token VARCHAR(255) UNIQUE,
+    token VARCHAR(255) UNIQUE NOT NULL,
     holder INTEGER NOT NULL,
     created BIGINT NOT NULL,
     PRIMARY KEY (token),
     FOREIGN KEY (holder) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+-- User Data
+CREATE TABLE IF NOT EXISTS userdata (
+    holder INTEGER NOT NULL,
+    dataname VARCHAR(255) NOT NULL,
+    datavalue TEXT NOT NULL,
+    UNIQUE(holder, dataname)
+);
+
 -- Categories
 CREATE TABLE IF NOT EXISTS categories (
-    id SERIAL,
+    id SERIAL NOT NULL,
     categoryname VARCHAR(255) NOT NULL,
     sort INTEGER NOT NULL,
     PRIMARY KEY (id)
@@ -26,10 +34,10 @@ CREATE TABLE IF NOT EXISTS categories (
 
 -- Boards
 CREATE TABLE IF NOT EXISTS boards (
-    id SERIAL,
+    id SERIAL NOT NULL,
     boardname VARCHAR(255) NOT NULL,
     boarddescription VARCHAR(255),
-    boardicon VARCHAR(255) DEFAULT 'forum',
+    boardicon VARCHAR(255) DEFAULT 'forum' NOT NULL,
     sort INTEGER NOT NULL,
     category INTEGER NOT NULL,
     PRIMARY KEY (id),
@@ -38,7 +46,7 @@ CREATE TABLE IF NOT EXISTS boards (
 
 -- Threads
 CREATE TABLE IF NOT EXISTS threads (
-    id SERIAL,
+    id SERIAL NOT NULL,
     threadname VARCHAR(255) NOT NULL,
     board INTEGER NOT NULL,
     author INTEGER NOT NULL,
@@ -51,7 +59,7 @@ CREATE TABLE IF NOT EXISTS threads (
 
 -- Posts
 CREATE TABLE IF NOT EXISTS posts (
-    id SERIAL,
+    id SERIAL NOT NULL,
     thread INTEGER NOT NULL,
     author INTEGER NOT NULL,
     created BIGINT NOT NULL,
