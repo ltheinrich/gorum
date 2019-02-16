@@ -84,6 +84,8 @@
     "pageDoesNotExist": "Diese Seite existiert nicht",
     "postDoesNotExist": "Dieser Beitrag existiert nicht",
     "boardDoesNotExist": "Dieses Forum existiert nicht",
+    "profileSaved": "Dein Profil wurde gespeichert",
+    "website": "Website",
     "exportData": "Daten exportieren"
   },
   "en": {
@@ -171,6 +173,8 @@
     "pageDoesNotExist": "This page does not exist",
     "postDoesNotExist": "This post does not exist",
     "boardDoesNotExist": "This board does not exist",
+    "profileSaved": "Your profile has been saved",
+    "website": "Website",
     "exportData": "Export data"
   },
   "ru": {
@@ -258,6 +262,8 @@
     "pageDoesNotExist": "Эта страница не существует",
     "postDoesNotExist": "Этот пост не существует",
     "boardDoesNotExist": "Этот форум не существует.",
+    "profileSaved": "Ваш профиль сохранен",
+    "website": "интернет-сайт",
     "exportData": "Экспорт данных"
   },
   "es": {
@@ -345,6 +351,8 @@
     "pageDoesNotExist": "Esta página no existe",
     "postDoesNotExist": "Este post no existe",
     "boardDoesNotExist": "Este foro no existe",
+    "profileSaved": "Su perfil ha sido guardado",
+    "website": "Sitio",
     "exportData": "Datos de exportación"
   },
   "fr": {
@@ -432,6 +440,8 @@
     "pageDoesNotExist": "Cette page n'existe pas",
     "postDoesNotExist": "Ce post n'existe pas",
     "boardDoesNotExist": "Ce forum n'existe pas",
+    "profileSaved": "Votre profil a été enregistré",
+    "website": "Site Internet",
     "exportData": "Données des exportations"
   }
 }

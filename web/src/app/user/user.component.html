@@ -2,7 +2,7 @@
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
 
-<mat-card *ngIf="user.data['username'] !== undefined">
+<mat-card *ngIf="user.data['username'] !== null">
   <mat-card-header>
     <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}">
     <mat-card-title>{{user.data['username']}}</mat-card-title>
@@ -19,7 +19,13 @@
       </ng-template>
     </mat-card-actions>
   </mat-card-header>
+
   <br>
+
+  <mat-card-content *ngIf="userData.userData['website']">
+    {{lang("website")}}: <a href="{{userData.userData['website']}}">{{userData.userData['website']}}</a>
+  </mat-card-content>
+
   <mat-card-content>
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
@@ -41,7 +47,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="user.data['username'] === undefined">
+<mat-card *ngIf="!user.data['username']">
   <mat-card-header>
     <mat-card-title>{{lang("userDoesNotExist")}}</mat-card-title>
   </mat-card-header>
