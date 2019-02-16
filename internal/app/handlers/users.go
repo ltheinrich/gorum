@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -22,8 +21,7 @@ func Users(data HandlerData) interface{} {
 	// defer close and check for error
 	defer rows.Close()
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
@@ -37,8 +35,7 @@ func Users(data HandlerData) interface{} {
 		var queryUsername, registered string
 		err = rows.Scan(&id, &queryUsername, &registered)
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 

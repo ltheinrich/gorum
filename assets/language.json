@@ -83,7 +83,8 @@
     "noPermission": "Du hast keine Berechtigung, diese Aktion durchzuführen",
     "pageDoesNotExist": "Diese Seite existiert nicht",
     "postDoesNotExist": "Dieser Beitrag existiert nicht",
-    "boardDoesNotExist": "Dieses Forum existiert nicht"
+    "boardDoesNotExist": "Dieses Forum existiert nicht",
+    "exportData": "Daten exportieren"
   },
   "en": {
     "login": "Login",
@@ -169,7 +170,8 @@
     "noPermission": "You have no permission to execute this action",
     "pageDoesNotExist": "This page does not exist",
     "postDoesNotExist": "This post does not exist",
-    "boardDoesNotExist": "This board does not exist"
+    "boardDoesNotExist": "This board does not exist",
+    "exportData": "Export data"
   },
   "ru": {
     "login": "логин",
@@ -255,7 +257,8 @@
     "noPermission": "Вы не уполномочены выполнять это действие",
     "pageDoesNotExist": "Эта страница не существует",
     "postDoesNotExist": "Этот пост не существует",
-    "boardDoesNotExist": "Этот форум не существует."
+    "boardDoesNotExist": "Этот форум не существует.",
+    "exportData": "Экспорт данных"
   },
   "es": {
     "login": "Entrar",
@@ -341,7 +344,8 @@
     "noPermission": "Usted no está autorizado a realizar esta acción",
     "pageDoesNotExist": "Esta página no existe",
     "postDoesNotExist": "Este post no existe",
-    "boardDoesNotExist": "Este foro no existe"
+    "boardDoesNotExist": "Este foro no existe",
+    "exportData": "Datos de exportación"
   },
   "fr": {
     "login": "Connexion",
@@ -427,6 +431,7 @@
     "noPermission": "Vous n'êtes pas autorisé à effectuer cette action.",
     "pageDoesNotExist": "Cette page n'existe pas",
     "postDoesNotExist": "Ce post n'existe pas",
-    "boardDoesNotExist": "Ce forum n'existe pas"
+    "boardDoesNotExist": "Ce forum n'existe pas",
+    "exportData": "Données des exportations"
   }
 }

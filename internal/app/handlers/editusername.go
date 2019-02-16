@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"errors"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -32,16 +31,14 @@ func EditUsername(data HandlerData) interface{} {
 		// username already exists
 		return errors.New("usernameExists")
 	} else if err != nil && err != sql.ErrNoRows {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
 	// update username
 	_, err = db.DB.Exec("UPDATE users SET username = $1 WHERE username = $2;", newUsername, data.Username)
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 

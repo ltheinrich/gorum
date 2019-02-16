@@ -3,7 +3,6 @@ package handlers
 import (
 	"errors"
 	"io/ioutil"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -27,8 +26,7 @@ func Footer(data HandlerData) interface{} {
 
 		// check for error
 		if err != nil && !os.IsNotExist(err) {
-			// print unknown error
-			log.Println(err)
+			// return error
 			return err
 		}
 
