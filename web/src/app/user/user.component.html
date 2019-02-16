@@ -28,6 +28,9 @@
       {{lang("website")}}: <a href="http://{{userData.userData['website']}}"
         class="url">{{userData.userData['website']}}</a>
     </p>
+    <p mat-line *ngIf="userData.userData['eMailAddress'] !== undefined">
+      E-Mail-Adresse: <a href="mailto:{{userData.userData['eMailAddress']}}" class="url">{{userData.userData['eMailAddress']}}</a>
+    </p>
 
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
