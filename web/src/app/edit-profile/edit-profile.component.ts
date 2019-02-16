@@ -17,43 +17,90 @@ export class EditProfileComponent implements OnInit {
 
   user = new User(0, {});
   userData = new UserData({});
+  userDataOld = new UserData({});
+
+  updateRequests = 0;
+  finishedUpdateRequests = 0;
+  errorMessage = '';
 
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.user = new User(values['id'], values));
-    Config.API('userdata', { dataNames: ['website'], username: Config.getUsername() })
-      .subscribe(values => this.userData.userData = values);
+    Config.API('userdata', { dataNames: ['website', 'eMailAddress'], username: Config.getUsername() })
+      .subscribe(values => this.initUserData(values));
+  }
+
+  initUserData(values: any) {
+    this.userData.userData = values;
+    this.userDataOld.userData = JSON.parse(JSON.stringify(values));
   }
 
   saveProfile() {
-    Config.API('setuserdata', {
-      dataName: 'website', dataValue: <string>this.userData.userData['website'],
-      username: Config.getUsername(), token: Config.getToken()
-    }).subscribe(values => this.savedProfile(values));
-
     const newUsername = <string>this.user.data['username'];
     if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {
         Config.openSnackBar(Config.lang('emptyUsername'));
+        return;
       } else if (newUsername.length > 32) {
         Config.openSnackBar(Config.lang('usernameMaxLength'));
-      } else {
-        Config.API('editusername', {
-          username: Config.getUsername(), newUsername: newUsername, token: Config.getToken()
-        }).subscribe(values => this.changedUsername(values, newUsername));
+        return;
       }
+    }
+    const newWebsite = <string>this.userData.userData['website'];
+    if (newWebsite) {
+      if (!newWebsite.includes('.') || newWebsite.length <= 3) {
+        Config.openSnackBar('Die angegebene Webseite ist ungültig');
+        return;
+      }
+    }
+    const newEmailAddress = <string>this.userData.userData['eMailAddress'];
+    if (newEmailAddress) {
+      if (!newEmailAddress.includes('@') || !newEmailAddress.includes('.') || newEmailAddress.length <= 5) {
+        Config.openSnackBar('Die angegebene E-Mail-Adresse ist ungültig');
+        return;
+      }
+    }
+
+    if (Config.getUsername() !== newUsername) {
+      this.updateRequests++;
+      Config.API('editusername', {
+        username: Config.getUsername(), newUsername: newUsername, token: Config.getToken()
+      }).subscribe(values => this.changedUsername(values, newUsername));
+    }
+
+    Object.keys(this.userData.userData).forEach(key => {
+      if (this.userData.userData[key] !== this.userDataOld.userData[key]) {
+        this.updateRequests++;
+        Config.API('setuserdata', {
+          dataName: key, dataValue: <string>this.userData.userData[key],
+          username: Config.getUsername(), token: Config.getToken()
+        }).subscribe(values => this.savedUserDataValue(values));
+      }
+    })
+
+    if (this.updateRequests === 0) {
+      this.savedUserDataValue({'success': true, 'status': 'nochanges'});
     }
   }
 
-  savedProfile(values: any) {
-    if (values['success'] === true) {
+  savedUserDataValue(values: any) {
+    this.finishedUpdateRequests++;
+    if (values['success'] !== true) {
+      const errorMessage = Config.lang(values['error']);
+      this.errorMessage = errorMessage === undefined ? values['error'] : errorMessage;
+    }
+    if (values['status'] === 'nochanges') {
+      this.router.navigate(['/user/' + this.user.id]);
+      this.finishedUpdateRequests--;
+      return;
+    }
+    if (this.updateRequests === this.finishedUpdateRequests && !this.errorMessage) {
       Config.openSnackBar(Config.lang('profileSaved'));
       this.router.navigate(['/user/' + this.user.id]);
-    } else {
-      const errorMessage = Config.lang(values['error']);
-      Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
+    } else if (this.updateRequests === this.finishedUpdateRequests) {
+      Config.openSnackBar(this.errorMessage);
     }
   }
 
@@ -61,10 +108,12 @@ export class EditProfileComponent implements OnInit {
     if (values['success'] === true) {
       localStorage.setItem('username', newUsername);
       Config.openSnackBar(Config.lang('changedUsername'));
+      this.savedUserDataValue(values);
     } else {
       const errorMessage = Config.lang(values['error']);
-      Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
+      this.errorMessage = errorMessage === undefined ? values['error'] : errorMessage;
     }
+    this.savedUserDataValue(values);
   }
 
   editAvatar(): void {
