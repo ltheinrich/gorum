@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"errors"
-	"log"
 	"time"
 
 	"github.com/ltheinrich/captcha"
@@ -42,8 +41,7 @@ func Register(data HandlerData) interface{} {
 		var passwordHash []byte
 		passwordHash, err = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost+1)
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 
@@ -51,8 +49,7 @@ func Register(data HandlerData) interface{} {
 		_, err = db.DB.Exec("INSERT INTO users (username, passwordhash, registered) VALUES ($1, $2, $3);",
 			data.Username, string(passwordHash), time.Now().Format("2006-01-02T15:04:05"))
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 
@@ -62,8 +59,7 @@ func Register(data HandlerData) interface{} {
 		// registered
 		return map[string]interface{}{"done": true, "token": token}
 	} else if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 

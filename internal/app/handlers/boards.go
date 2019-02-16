@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"database/sql"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -21,8 +20,7 @@ func Boards(data HandlerData) interface{} {
 	// defer close and check for error
 	defer rows.Close()
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
@@ -36,8 +34,7 @@ func Boards(data HandlerData) interface{} {
 		var name, description, icon, category string
 		err = rows.Scan(&id, &name, &description, &icon, &category, &sort)
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"log"
 	"time"
 
 	"github.com/ltheinrich/captcha"
@@ -51,8 +50,7 @@ func NewThread(data HandlerData) interface{} {
 												VALUES ($1, $2, $3, $4, $5) RETURNING id;`,
 		title, board, GetUserID(data.Username), time.Now().Unix(), content).Scan(&id)
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
