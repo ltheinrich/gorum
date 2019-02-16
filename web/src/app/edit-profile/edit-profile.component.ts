@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user/user.component';
+import {User, UserData} from '../user/user.component';
 import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
@@ -16,6 +16,7 @@ export class EditProfileComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
+  userData = new UserData({});
 
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
@@ -31,13 +32,13 @@ export class EditProfileComponent implements OnInit {
   }
 
   initUserData(values: any) {
-    this.user.additionalData = values;
+    this.userData.userData = values;
   }
 
   saveProfile() {
     // Change the userdata
     Config.API('setuserdata', {
-      dataName: 'website', dataValue: <string>this.user.additionalData['website'],
+      dataName: 'website', dataValue: <string>this.userData.userData['website'],
       username: Config.getUsername(), token: Config.getToken()
     }).subscribe(values => this.savedProfile(values));
 
@@ -53,8 +54,6 @@ export class EditProfileComponent implements OnInit {
           username: Config.getUsername(), newUsername: newUsername, token: Config.getToken()
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
-    } else {
-      this.router.navigate(['/user/' + this.user.id]);
     }
   }
 
@@ -72,7 +71,6 @@ export class EditProfileComponent implements OnInit {
     if (values['success'] === true) {
       localStorage.setItem('username', newUsername);
       Config.openSnackBar(Config.lang('changedUsername'));
-      this.router.navigate(['/user/' + this.user.id]);
     } else {
       const errorMessage = Config.lang(values['error']);
       Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
