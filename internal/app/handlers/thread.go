@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
@@ -37,8 +36,7 @@ func Thread(data HandlerData) interface{} {
 		// return not found
 		return errors.New("404")
 	} else if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 

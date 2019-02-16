@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 )
@@ -26,8 +25,7 @@ func Conf(data HandlerData) interface{} {
 		// marshal map
 		configMap, err = json.Marshal(confMap)
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 	}

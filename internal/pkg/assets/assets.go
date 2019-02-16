@@ -148,6 +148,7 @@ func languageJson() (*asset, error) {
 	}
 
 	info := bindataFileInfo{name: "language.json", size: 20302, mode: os.FileMode(438), modTime: time.Unix(1550079599, 0)}
+
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

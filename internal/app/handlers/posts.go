@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -31,8 +30,7 @@ func Posts(data HandlerData) interface{} {
 	// defer close and check for error
 	defer rows.Close()
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
@@ -47,8 +45,7 @@ func Posts(data HandlerData) interface{} {
 		var content, authorName string
 		err = rows.Scan(&id, &author, &created, &content, &authorName)
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 

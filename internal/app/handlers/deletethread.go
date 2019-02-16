@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -30,8 +29,7 @@ func DeleteThread(data HandlerData) interface{} {
 	_, err = db.DB.Exec(`DELETE FROM threads USING users WHERE threads.author = users.id
 						AND threads.id = $1 AND users.username = $2;`, threadID, data.Username)
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 

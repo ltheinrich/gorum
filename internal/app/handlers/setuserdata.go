@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -36,8 +35,7 @@ func SetUserData(data HandlerData) interface{} {
 
 	// check for error
 	if err != nil {
-		// print out error and return it
-		log.Println(err)
+		// return error
 		return err
 	}
 
