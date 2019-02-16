@@ -14,6 +14,14 @@ export class User {
   }
 }
 
+export class UserData {
+  userData: { [key: string]: Object };
+
+  constructor(userData: { [key: string]: Object }) {
+    this.userData = userData;
+  }
+}
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -25,6 +33,7 @@ export class UserComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
+  userData = new UserData({});
   id = +this.route.snapshot.paramMap.get('id');
   threads: Thread[] = [];
 
@@ -32,15 +41,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
+    Config.API('userdata', { dataNames: ['website'], userID: this.id })
+      .subscribe(values => this.initUserData(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
-  }
-
-  listThreads(values: any) {
-    Object.entries(values).forEach(thread => this.threads.push(new Thread(<number>thread[1]['id'], <string>thread[1]['name'],
-      <string>thread[1]['board'], /* <number>thread[1]['author'] */ null, <number>thread[1]['created'], /* <string>thread[1]['content'] */
-      null, <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'], <number>thread[1]['answer'])));
-    this.threads.sort((a, b) => b.answer - a.answer);
   }
 
   initUser(values: any) {
@@ -50,5 +54,16 @@ export class UserComponent implements OnInit {
     } else {
       Config.setLogin(this.title, 'user', false, null);
     }
+  }
+
+  initUserData(values: any) {
+    this.userData = new UserData(values);
+  }
+
+  listThreads(values: any) {
+    Object.entries(values).forEach(thread => this.threads.push(new Thread(<number>thread[1]['id'], <string>thread[1]['name'],
+      <string>thread[1]['board'], /* <number>thread[1]['author'] */ null, <number>thread[1]['created'], /* <string>thread[1]['content'] */
+      null, <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'], <number>thread[1]['answer'])));
+    this.threads.sort((a, b) => b.answer - a.answer);
   }
 }

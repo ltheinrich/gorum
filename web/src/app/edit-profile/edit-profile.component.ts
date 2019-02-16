@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user/user.component';
+import {User, UserData} from '../user/user.component';
 import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
@@ -16,19 +16,33 @@ export class EditProfileComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
+  userData = new UserData({});
 
   constructor(private router: Router, private title: Title, public dialog: MatDialog) { }
 
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.initUser(values));
+    Config.API('userdata', { dataNames: ['website'], username: Config.getUsername() })
+      .subscribe(values => this.initUserData(values));
   }
 
   initUser(values: any) {
     this.user = new User(values['id'], values);
   }
 
+  initUserData(values: any) {
+    this.userData.userData = values;
+  }
+
   saveProfile() {
+    // Change the userdata
+    Config.API('setuserdata', {
+      dataName: 'website', dataValue: <string>this.userData.userData['website'],
+      username: Config.getUsername(), token: Config.getToken()
+    }).subscribe(values => this.savedProfile(values));
+
+    // Change the username
     const newUsername = <string>this.user.data['username'];
     if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {
@@ -40,8 +54,16 @@ export class EditProfileComponent implements OnInit {
           username: Config.getUsername(), newUsername: newUsername, token: Config.getToken()
         }).subscribe(values => this.changedUsername(values, newUsername));
       }
-    } else {
+    }
+  }
+
+  savedProfile(values: any) {
+    if (values['success'] === true) {
+      Config.openSnackBar(Config.lang('profileSaved'));
       this.router.navigate(['/user/' + this.user.id]);
+    } else {
+      const errorMessage = Config.lang(values['error']);
+      Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
     }
   }
 
@@ -49,7 +71,6 @@ export class EditProfileComponent implements OnInit {
     if (values['success'] === true) {
       localStorage.setItem('username', newUsername);
       Config.openSnackBar(Config.lang('changedUsername'));
-      this.router.navigate(['/user/' + this.user.id]);
     } else {
       const errorMessage = Config.lang(values['error']);
       Config.openSnackBar(errorMessage === undefined ? values['error'] : errorMessage);
