@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"errors"
-	"log"
 	"strconv"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
@@ -52,8 +51,7 @@ func UserData(data HandlerData) interface{} {
 		// return not found
 		return errors.New("404")
 	} else if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
@@ -69,8 +67,7 @@ func UserData(data HandlerData) interface{} {
 			// return not found
 			return errors.New("404")
 		} else if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 

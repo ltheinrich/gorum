@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -40,8 +39,7 @@ func LastUserThreads(data HandlerData) interface{} {
 	// defer close and check for error
 	defer rows.Close()
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
@@ -57,8 +55,7 @@ func LastUserThreads(data HandlerData) interface{} {
 		var answer interface{}
 		err = rows.Scan(&id, &name, &author, &board, &created, &authorName, &answer)
 		if err != nil {
-			// print and return error
-			log.Println(err)
+			// return error
 			return err
 		}
 		idString := strconv.Itoa(id)

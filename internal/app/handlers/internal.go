@@ -3,7 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -36,6 +38,7 @@ var (
 		"footer":          Footer,
 		"userdata":        UserData,
 		"setuserdata":     SetUserData,
+		"exportdata":      ExportData,
 	}
 )
 
@@ -70,7 +73,10 @@ func GenerateHandler(handler func(data HandlerData) interface{}) func(http.Respo
 
 		// write response
 		if err, isErr := response.(error); isErr {
-			// write error string
+			// print and write error string
+			if !strings.HasPrefix(err.Error(), "4") {
+				log.Printf("Handler error occured: %v\n", err.Error())
+			}
 			writeMap(w, map[string]interface{}{"error": err.Error()})
 		} else if resp, isByte := response.([]byte); isByte {
 			// write byte slice

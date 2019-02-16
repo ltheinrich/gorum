@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"
@@ -39,8 +38,7 @@ func EditPost(data HandlerData) interface{} {
 						WHERE posts.author = users.id AND posts.id = $2 AND users.username = $3;`,
 		content, postID, data.Username)
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 

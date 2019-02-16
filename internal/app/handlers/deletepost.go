@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"log"
 
 	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
@@ -30,8 +29,7 @@ func DeletePost(data HandlerData) interface{} {
 	_, err = db.DB.Exec(`DELETE FROM posts USING users WHERE posts.author = users.id
 						AND posts.id = $1 AND users.username = $2;`, postID, data.Username)
 	if err != nil {
-		// print and return error
-		log.Println(err)
+		// return error
 		return err
 	}
 
