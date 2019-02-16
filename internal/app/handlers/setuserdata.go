@@ -20,18 +20,26 @@ func SetUserData(data HandlerData) interface{} {
 	dataName := data.Request.GetString("dataName")
 	dataValue := data.Request.GetString("dataValue")
 	if dataName == "" {
-		// both not provided
+		// data name not provided
 		return errors.New("400")
 	}
 
-	// update database
-	_, err = db.DB.Exec(`INSERT INTO userdata (dataname, datavalue, holder)
+	// check if data value provided
+	if dataValue != "" {
+		// insert into or update database
+		_, err = db.DB.Exec(`INSERT INTO userdata (dataname, datavalue, holder)
 						SELECT $1 AS dataname, $2 AS datavalue, id AS holder FROM users
 						WHERE users.username = $3
 						ON CONFLICT (holder, dataname) DO
 						UPDATE SET datavalue = $2
 						WHERE userdata.dataname = $1 AND userdata.holder = $4;`,
-		dataName, dataValue, data.Username, GetUserID(data.Username))
+			dataName, dataValue, data.Username, GetUserID(data.Username))
+	} else {
+		// delete from database
+		_, err = db.DB.Exec(`DELETE FROM userdata USING users WHERE userdata.holder = users.id
+							AND users.username = $1 AND userdata.dataname = $2`,
+			data.Username, dataName)
+	}
 
 	// check for error
 	if err != nil {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User, UserData} from '../user/user.component';
+import { User, UserData } from '../user/user.component';
 import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
@@ -22,27 +22,17 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
-    Config.API('user', { username: Config.getUsername() }).subscribe(values => this.initUser(values));
+    Config.API('user', { username: Config.getUsername() }).subscribe(values => this.user = new User(values['id'], values));
     Config.API('userdata', { dataNames: ['website'], username: Config.getUsername() })
-      .subscribe(values => this.initUserData(values));
-  }
-
-  initUser(values: any) {
-    this.user = new User(values['id'], values);
-  }
-
-  initUserData(values: any) {
-    this.userData.userData = values;
+      .subscribe(values => this.userData.userData = values);
   }
 
   saveProfile() {
-    // Change the userdata
     Config.API('setuserdata', {
       dataName: 'website', dataValue: <string>this.userData.userData['website'],
       username: Config.getUsername(), token: Config.getToken()
     }).subscribe(values => this.savedProfile(values));
 
-    // Change the username
     const newUsername = <string>this.user.data['username'];
     if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {

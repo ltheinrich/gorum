@@ -20,13 +20,15 @@
     </mat-card-actions>
   </mat-card-header>
 
-  <br>
-
-  <mat-card-content *ngIf="userData.userData['website']">
-    {{lang("website")}}: <a href="{{userData.userData['website']}}">{{userData.userData['website']}}</a>
-  </mat-card-content>
-
   <mat-card-content>
+    <p mat-line *ngIf="userData.userData['website'] !== undefined && userData.userData['website'].startsWith('http')">
+      {{lang("website")}}: <a href="{{userData.userData['website']}}" class="url">{{userData.userData['website']}}</a>
+    </p>
+    <p mat-line *ngIf="userData.userData['website'] !== undefined && !userData.userData['website'].startsWith('http')">
+      {{lang("website")}}: <a href="http://{{userData.userData['website']}}"
+        class="url">{{userData.userData['website']}}</a>
+    </p>
+
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
 

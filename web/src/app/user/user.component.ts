@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
-  userData = new UserData({});
+  userData = new UserData({ 'website': '' });
   id = +this.route.snapshot.paramMap.get('id');
   threads: Thread[] = [];
 
@@ -42,7 +42,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
     Config.API('userdata', { dataNames: ['website'], userID: this.id })
-      .subscribe(values => this.initUserData(values));
+      .subscribe(values => this.userData = new UserData(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
   }
@@ -54,10 +54,6 @@ export class UserComponent implements OnInit {
     } else {
       Config.setLogin(this.title, 'user', false, null);
     }
-  }
-
-  initUserData(values: any) {
-    this.userData = new UserData(values);
   }
 
   listThreads(values: any) {
