@@ -27,7 +27,7 @@ func UserData(data HandlerData) interface{} {
 	// loop thorugh data names, start with the second
 	for i := 1; i < len(dataNames); i++ {
 		// extend query and add data name to injections
-		query += "OR userdata.dataname = " + strconv.Itoa(i+2)
+		query += " OR userdata.dataname = $" + strconv.Itoa(i+2)
 		injections = append(injections, dataNames[i])
 	}
 
