@@ -85,8 +85,11 @@
     "postDoesNotExist": "Dieser Beitrag existiert nicht",
     "boardDoesNotExist": "Dieses Forum existiert nicht",
     "profileSaved": "Dein Profil wurde gespeichert",
+    "exportData": "Daten exportieren",
     "website": "Webseite",
-    "exportData": "Daten exportieren"
+    "websiteInvalid": "Die Webseite ist ungültig",
+    "eMailAddress": "E-Mail-Adresse",
+    "eMailAddressInvalid": "Die E-Mail-Adresse ist ungültig"
   },
   "en": {
     "login": "Login",
@@ -174,8 +177,11 @@
     "postDoesNotExist": "This post does not exist",
     "boardDoesNotExist": "This board does not exist",
     "profileSaved": "Your profile has been saved",
+    "exportData": "Export data",
     "website": "Website",
-    "exportData": "Export data"
+    "websiteInvalid": "The website is invalid",
+    "eMailAddress": "E-mail address",
+    "eMailAddressInvalid": "The e-mail address is invalid"
   },
   "ru": {
     "login": "логин",
@@ -263,8 +269,11 @@
     "postDoesNotExist": "Этот пост не существует",
     "boardDoesNotExist": "Этот форум не существует.",
     "profileSaved": "Ваш профиль сохранен",
+    "exportData": "Экспорт данных",
     "website": "интернет-сайт",
-    "exportData": "Экспорт данных"
+    "websiteInvalid": "Веб-сайт недействителен",
+    "eMailAddress": "Адрес электронной почты",
+    "eMailAddressInvalid": "Адрес электронной почты недействителен"
   },
   "es": {
     "login": "Entrar",
@@ -352,8 +361,11 @@
     "postDoesNotExist": "Este post no existe",
     "boardDoesNotExist": "Este foro no existe",
     "profileSaved": "Su perfil ha sido guardado",
+    "exportData": "Datos de exportación",
     "website": "Sitio",
-    "exportData": "Datos de exportación"
+    "websiteInvalid": "El sitio web no es válido",
+    "eMailAddress": "Dirección de correo electrónico",
+    "eMailAddressInvalid": "La dirección de correo electrónico no es válida"
   },
   "fr": {
     "login": "Connexion",
@@ -441,7 +453,10 @@
     "postDoesNotExist": "Ce post n'existe pas",
     "boardDoesNotExist": "Ce forum n'existe pas",
     "profileSaved": "Votre profil a été enregistré",
+    "exportData": "Données des exportations",
     "website": "Site Internet",
-    "exportData": "Données des exportations"
+    "websiteInvalid": "Le site Web n'est pas valide",
+    "eMailAddress": "Adresse électronique",
+    "eMailAddressInvalid": "L'adresse e-mail n'est pas valide"
   }
 }

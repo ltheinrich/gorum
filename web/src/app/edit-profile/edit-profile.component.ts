@@ -4,6 +4,7 @@ import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import lang = Config.lang;
 
 @Component({
   selector: 'app-edit-profile',
@@ -51,14 +52,14 @@ export class EditProfileComponent implements OnInit {
     const newWebsite = <string>this.userData.userData['website'];
     if (newWebsite) {
       if (!newWebsite.includes('.') || newWebsite.length <= 3) {
-        Config.openSnackBar('Die angegebene Webseite ist ungültig');
+        Config.openSnackBar(Config.lang('websiteInvalid'));
         return;
       }
     }
     const newEmailAddress = <string>this.userData.userData['eMailAddress'];
     if (newEmailAddress) {
       if (!newEmailAddress.includes('@') || !newEmailAddress.includes('.') || newEmailAddress.length <= 5) {
-        Config.openSnackBar('Die angegebene E-Mail-Adresse ist ungültig');
+        Config.openSnackBar(Config.lang('eMailAddressInvalid'));
         return;
       }
     }
