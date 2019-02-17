@@ -24,12 +24,22 @@
 
   <br>
 
-  <mat-card-content>
-    <p>{{lang("website")}}: <input [(ngModel)]="userData.userData['website']"></p>
-    <p>{{lang("eMailAddress")}}: <input [(ngModel)]="userData.userData['eMailAddress']"></p>
-    <p>{{lang("twitterName")}}: @<input [(ngModel)]="userData.userData['twitter']"></p>
-    <p>{{lang("youtubeLink")}}: <input [(ngModel)]="userData.userData['youtube']"></p>
-    <p>{{lang("mastodonLink")}}: <input [(ngModel)]="userData.userData['mastodon']"></p>
-    <p>{{lang("discordTag")}}: <input [(ngModel)]="userData.userData['discord']"></p>
-  </mat-card-content>
+  <mat-form-field class="input-full-width">
+    {{lang("website")}}: <input matInput [(ngModel)]="userData.userData['website']" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="input-full-width">
+    {{lang("eMailAddress")}}: <input matInput [(ngModel)]="userData.userData['eMailAddress']" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="input-full-width">
+    {{lang("twitterName")}}: <input matInput [(ngModel)]="userData.userData['twitter']" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="input-full-width">
+    {{lang("youtubeLink")}}: <input matInput [(ngModel)]="userData.userData['youtube']" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="input-full-width">
+    {{lang("mastodonLink")}}: <input matInput [(ngModel)]="userData.userData['mastodon']" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="input-full-width">
+    {{lang("discordTag")}}: <input matInput [(ngModel)]="userData.userData['discord']" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
 </mat-card>
