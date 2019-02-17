@@ -3,7 +3,6 @@ package cmd
 import (
 	"crypto/tls"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -14,6 +13,14 @@ import (
 	"github.com/ltheinrich/gorum/internal/pkg/assets"
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"
+)
+
+var (
+	// Version string generated using Makefile
+	Version string
+
+	// BuildTime string generated using Makefile
+	BuildTime string
 )
 
 // Init startup
@@ -40,7 +47,6 @@ func Init() (err error) {
 
 	// register handlers
 	handle()
-	fmt.Println("Gorum (c) 2018 Lennart Heinrich")
 
 	// https listen
 	return listen()

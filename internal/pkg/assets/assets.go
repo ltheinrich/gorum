@@ -85,7 +85,7 @@ func avatarPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "avatar.png", size: 15127, mode: os.FileMode(436), modTime: time.Unix(1549565793, 0)}
+	info := bindataFileInfo{name: "avatar.png", size: 15127, mode: os.FileMode(436), modTime: time.Unix(1550401604, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -105,7 +105,7 @@ func configTplJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "config.tpl.json", size: 584, mode: os.FileMode(436), modTime: time.Unix(1550000648, 0)}
+	info := bindataFileInfo{name: "config.tpl.json", size: 584, mode: os.FileMode(436), modTime: time.Unix(1550401606, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -125,7 +125,7 @@ func gorumPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "gorum.png", size: 27923, mode: os.FileMode(436), modTime: time.Unix(1549565793, 0)}
+	info := bindataFileInfo{name: "gorum.png", size: 27923, mode: os.FileMode(436), modTime: time.Unix(1550401608, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -145,7 +145,7 @@ func languageJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "language.json", size: 20072, mode: os.FileMode(436), modTime: time.Unix(1550334363, 0)}
+	info := bindataFileInfo{name: "language.json", size: 20072, mode: os.FileMode(436), modTime: time.Unix(1550401611, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -165,7 +165,7 @@ func setupSql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "setup.sql", size: 1972, mode: os.FileMode(436), modTime: time.Unix(1550159079, 0)}
+	info := bindataFileInfo{name: "setup.sql", size: 1972, mode: os.FileMode(436), modTime: time.Unix(1550401613, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
