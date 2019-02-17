@@ -28,16 +28,22 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.user = new User(values['id'], values));
-    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord'], username: Config.getUsername() })
-      .subscribe(values => this.initUserData(values));
+    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord', 'aboutMe'],
+      username: Config.getUsername() }).subscribe(values => this.initUserData(values));
   }
 
   initUserData(values: any) {
     this.userData.userData = values;
     this.userDataOld.userData = JSON.parse(JSON.stringify(values));
+    const element = <any>document.querySelector('trix-editor');
+    element.editor.insertHTML(<string>this.userData.userData['aboutMe']);
   }
 
-  saveProfile() {
+  saveProfile(aboutMe: string) {
+    if (aboutMe) {
+      this.userData.userData['aboutMe'] = aboutMe;
+    }
+
     const newUsername = <string>this.user.data['username'];
     if (Config.getUsername() !== newUsername) {
       if (newUsername === '') {
@@ -69,6 +75,9 @@ export class EditProfileComponent implements OnInit {
       if (newTwitter.includes(' ') || newTwitter.length > 15) {
         Config.openSnackBar(Config.lang('twitterNameInvalid'));
         return;
+      }
+      if (newTwitter.includes('@')) {
+        this.userData.userData['twitter'] = newTwitter.replace('@', '');
       }
     }
     const newYoutube = <string>this.userData.userData['youtube'];
@@ -112,7 +121,7 @@ export class EditProfileComponent implements OnInit {
           username: Config.getUsername(), token: Config.getToken()
         }).subscribe(values => this.savedUserDataValue(values));
       }
-    })
+    });
 
     if (this.updateRequests === 0) {
       this.savedUserDataValue({'success': true, 'status': 'nochanges'});

@@ -101,7 +101,9 @@
     "mastodonLinkInvalid": "Der Mastodon-Link ist ungültig",
     "discord": "Discord",
     "discordTag": "Discord-Tag",
-    "discordTagInvalid": "Der Discord-Tag ist ungültig"
+    "discordTagInvalid": "Der Discord-Tag ist ungültig",
+    "aboutMe": "Über mich",
+    "contactDetails": "Kontaktdaten"
   },
   "en": {
     "login": "Login",
@@ -205,7 +207,9 @@
     "mastodonLinkInvalid": "The Mastodon link is invalid",
     "discord": "Discord",
     "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid"
+    "discordTagInvalid": "The Discord tag is invalid",
+    "aboutMe": "About me",
+    "contactDetails": "Contact"
   },
   "ru": {
     "login": "логин",
@@ -309,7 +313,9 @@
     "mastodonLinkInvalid": "Связь с Мастодоном недействительна",
     "discord": "Discord",
     "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid"
+    "discordTagInvalid": "The Discord tag is invalid",
+    "aboutMe": "Обо мне",
+    "contactDetails": "контактная информация"
   },
   "es": {
     "login": "Entrar",
@@ -413,7 +419,9 @@
     "mastodonLinkInvalid": "El enlace de Mastodon no es válido",
     "discord": "Discord",
     "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid"
+    "discordTagInvalid": "The Discord tag is invalid",
+    "aboutMe": "Acerca de mí",
+    "contactDetails": "Datos de contacto"
   },
   "fr": {
     "login": "Connexion",
@@ -517,6 +525,8 @@
     "mastodonLinkInvalid": "Le lien Mastodon n'est pas valide",
     "discord": "Discord",
     "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid"
+    "discordTagInvalid": "The Discord tag is invalid",
+    "aboutMe": "A propos de moi",
+    "contactDetails": "Coordonnées"
   }
 }
