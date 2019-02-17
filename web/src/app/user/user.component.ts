@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
-    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter'], userID: this.id })
+    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord'], userID: this.id })
       .subscribe(values => this.userData = new UserData(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
