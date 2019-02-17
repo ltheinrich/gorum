@@ -89,7 +89,19 @@
     "website": "Webseite",
     "websiteInvalid": "Die Webseite ist ungültig",
     "eMailAddress": "E-Mail-Adresse",
-    "eMailAddressInvalid": "Die E-Mail-Adresse ist ungültig"
+    "eMailAddressInvalid": "Die E-Mail-Adresse ist ungültig",
+    "twitter": "Twitter",
+    "twitterName": "Twitter-Name",
+    "twitterNameInvalid": "Der Twitter-Name ist ungültig",
+    "youtube": "YouTube",
+    "youtubeLink": "YouTube-Link",
+    "youtubeLinkInvalid": "Der YouTube-Link ist ungültig",
+    "mastodon": "Mastodon",
+    "mastodonLink": "Mastodon-Link",
+    "mastodonLinkInvalid": "Der Mastodon-Link ist ungültig",
+    "discord": "Discord",
+    "discordTag": "Discord-Tag",
+    "discordTagInvalid": "Der Discord-Tag ist ungültig"
   },
   "en": {
     "login": "Login",

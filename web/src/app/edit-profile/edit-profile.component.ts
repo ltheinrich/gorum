@@ -4,7 +4,6 @@ import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import lang = Config.lang;
 
 @Component({
   selector: 'app-edit-profile',
@@ -29,7 +28,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.user = new User(values['id'], values));
-    Config.API('userdata', { dataNames: ['website', 'eMailAddress'], username: Config.getUsername() })
+    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter'], username: Config.getUsername() })
       .subscribe(values => this.initUserData(values));
   }
 
@@ -51,15 +50,24 @@ export class EditProfileComponent implements OnInit {
     }
     const newWebsite = <string>this.userData.userData['website'];
     if (newWebsite) {
-      if (!newWebsite.includes('.') || newWebsite.length <= 3) {
+      if (this.toValidLink(newWebsite) == null) {
         Config.openSnackBar(Config.lang('websiteInvalid'));
         return;
+      } else {
+        this.userData.userData['website'] = this.toValidLink(newWebsite);
       }
     }
     const newEmailAddress = <string>this.userData.userData['eMailAddress'];
     if (newEmailAddress) {
       if (!newEmailAddress.includes('@') || !newEmailAddress.includes('.') || newEmailAddress.length <= 5) {
         Config.openSnackBar(Config.lang('eMailAddressInvalid'));
+        return;
+      }
+    }
+    const newTwitter = <string>this.userData.userData['twitter'];
+    if (newTwitter) {
+      if (newTwitter.includes(' ') || newTwitter.length > 15) {
+        Config.openSnackBar(Config.lang('twitterNameInvalid'));
         return;
       }
     }
@@ -119,6 +127,20 @@ export class EditProfileComponent implements OnInit {
 
   editAvatar(): void {
     this.dialog.open(AvatarDialogOverview, { width: '400px', data: {} });
+  }
+
+  toValidLink(link: string): string {
+    if (!link.includes('.') || link.length <= 3) {
+      return null;
+    } else {
+      if (!link.startsWith('http')) {
+        link = 'http://' + link;
+      }
+      if (link.includes(' ')) {
+        link = link.replace(' ', '%20');
+      }
+    }
+    return link;
   }
 }
 
