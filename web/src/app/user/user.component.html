@@ -34,6 +34,15 @@
     <p mat-line *ngIf="userData.userData['twitter'] !== undefined">
       {{lang("twitter")}}: <a href="https://twitter.com/{{userData.userData['twitter']}}" class="url">@{{userData.userData['twitter']}}</a>
     </p>
+    <p mat-line *ngIf="userData.userData['youtube'] !== undefined">
+      {{lang("youtube")}}: <a href="{{userData.userData['youtube']}}" class="url">{{userData.userData['youtube']}}</a>
+    </p>
+    <p mat-line *ngIf="userData.userData['mastodon'] !== undefined">
+      {{lang("mastodon")}}: <a href="{{userData.userData['mastodon']}}" class="url">{{userData.userData['mastodon']}}</a>
+    </p>
+    <p mat-line *ngIf="userData.userData['discord'] !== undefined">
+      {{lang("discord")}}: {{userData.userData['discord']}}
+    </p>
 
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>

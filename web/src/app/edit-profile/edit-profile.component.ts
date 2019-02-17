@@ -28,7 +28,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.user = new User(values['id'], values));
-    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter'], username: Config.getUsername() })
+    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord'], username: Config.getUsername() })
       .subscribe(values => this.initUserData(values));
   }
 
@@ -50,11 +50,11 @@ export class EditProfileComponent implements OnInit {
     }
     const newWebsite = <string>this.userData.userData['website'];
     if (newWebsite) {
-      if (this.toValidLink(newWebsite) == null) {
+      if (this.toValidLink(newWebsite, false) == null) {
         Config.openSnackBar(Config.lang('websiteInvalid'));
         return;
       } else {
-        this.userData.userData['website'] = this.toValidLink(newWebsite);
+        this.userData.userData['website'] = this.toValidLink(newWebsite, false);
       }
     }
     const newEmailAddress = <string>this.userData.userData['eMailAddress'];
@@ -68,6 +68,31 @@ export class EditProfileComponent implements OnInit {
     if (newTwitter) {
       if (newTwitter.includes(' ') || newTwitter.length > 15) {
         Config.openSnackBar(Config.lang('twitterNameInvalid'));
+        return;
+      }
+    }
+    const newYoutube = <string>this.userData.userData['youtube'];
+    if (newYoutube) {
+      if ((this.toValidLink(newYoutube, false) == null)) {
+        Config.openSnackBar(Config.lang('youtubeLinkInvalid'));
+        return;
+      } else {
+        this.userData.userData['youtube'] = this.toValidLink(newYoutube, true);
+      }
+    }
+    const newMastodon = <string>this.userData.userData['mastodon'];
+    if (newMastodon) {
+      if (this.toValidLink(newMastodon, false) == null) {
+        Config.openSnackBar(Config.lang('mastodonLinkInvalid'));
+        return;
+      } else {
+        this.userData.userData['mastodon'] = this.toValidLink(newMastodon, false);
+      }
+    }
+    const newDiscord = <string>this.userData.userData['discord'];
+    if (newDiscord) {
+      if (newDiscord.includes(' ') || newDiscord.length < 6 || !newDiscord.includes('#')) {
+        Config.openSnackBar(Config.lang('discordTagInvalid'));
         return;
       }
     }
@@ -129,12 +154,19 @@ export class EditProfileComponent implements OnInit {
     this.dialog.open(AvatarDialogOverview, { width: '400px', data: {} });
   }
 
-  toValidLink(link: string): string {
+  toValidLink(link: string, https: boolean): string {
     if (!link.includes('.') || link.length <= 3) {
       return null;
     } else {
       if (!link.startsWith('http')) {
-        link = 'http://' + link;
+        if (https) {
+         link = 'https://' + link;
+        } else {
+          link = 'http://' + link;
+        }
+      }
+      if (link.startsWith('http://') && https) {
+        link = link.replace('http://', 'https://');
       }
       if (link.includes(' ')) {
         link = link.replace(' ', '%20');
