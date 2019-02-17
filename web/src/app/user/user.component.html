@@ -31,6 +31,9 @@
     <p mat-line *ngIf="userData.userData['eMailAddress'] !== undefined">
       {{lang("eMailAddress")}}: <a href="mailto:{{userData.userData['eMailAddress']}}" class="url">{{userData.userData['eMailAddress']}}</a>
     </p>
+    <p mat-line *ngIf="userData.userData['twitter'] !== undefined">
+      {{lang("twitter")}}: <a href="https://twitter.com/{{userData.userData['twitter']}}" class="url">@{{userData.userData['twitter']}}</a>
+    </p>
 
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
