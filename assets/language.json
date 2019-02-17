@@ -193,7 +193,19 @@
     "website": "Website",
     "websiteInvalid": "The website is invalid",
     "eMailAddress": "E-mail address",
-    "eMailAddressInvalid": "The e-mail address is invalid"
+    "eMailAddressInvalid": "The e-mail address is invalid",
+    "twitter": "Twitter",
+    "twitterName": "Twitter name",
+    "twitterNameInvalid": "The Twitter name is invalid",
+    "youtube": "YouTube",
+    "youtubeLink": "YouTube link",
+    "youtubeLinkInvalid": "The YouTube link is invalid",
+    "mastodon": "Mastodon",
+    "mastodonLink": "Mastodon link",
+    "mastodonLinkInvalid": "The Mastodon link is invalid",
+    "discord": "Discord",
+    "discordTag": "Discord tag",
+    "discordTagInvalid": "The Discord tag is invalid"
   },
   "ru": {
     "login": "логин",
@@ -285,7 +297,19 @@
     "website": "интернет-сайт",
     "websiteInvalid": "Веб-сайт недействителен",
     "eMailAddress": "Адрес электронной почты",
-    "eMailAddressInvalid": "Адрес электронной почты недействителен"
+    "eMailAddressInvalid": "Адрес электронной почты недействителен",
+    "twitter": "Twitter",
+    "twitterName": "Имя в Твиттере",
+    "twitterNameInvalid": "Имя в Твиттере недействительное",
+    "youtube": "YouTube",
+    "youtubeLink": "Ссылка на YouTube",
+    "youtubeLinkInvalid": "Ссылка на YouTube недействительна",
+    "mastodon": "Мастодон",
+    "mastodonLink": "Мастодонская связь",
+    "mastodonLinkInvalid": "Связь с Мастодоном недействительна",
+    "discord": "Discord",
+    "discordTag": "Discord tag",
+    "discordTagInvalid": "The Discord tag is invalid"
   },
   "es": {
     "login": "Entrar",
@@ -377,7 +401,19 @@
     "website": "Sitio",
     "websiteInvalid": "El sitio web no es válido",
     "eMailAddress": "Dirección de correo electrónico",
-    "eMailAddressInvalid": "La dirección de correo electrónico no es válida"
+    "eMailAddressInvalid": "La dirección de correo electrónico no es válida",
+    "twitter": "Twitter",
+    "twitterName": "Nombre de Twitter",
+    "twitterNameInvalid": "El nombre de Twitter no es válido",
+    "youtube": "YouTube",
+    "youtubeLink": "Enlace a YouTube",
+    "youtubeLinkInvalid": "El enlace de YouTube no es válido",
+    "mastodon": "Mastodon",
+    "mastodonLink": "Enlace Mastodonte",
+    "mastodonLinkInvalid": "El enlace de Mastodon no es válido",
+    "discord": "Discord",
+    "discordTag": "Discord tag",
+    "discordTagInvalid": "The Discord tag is invalid"
   },
   "fr": {
     "login": "Connexion",
@@ -469,6 +505,18 @@
     "website": "Site Internet",
     "websiteInvalid": "Le site Web n'est pas valide",
     "eMailAddress": "Adresse électronique",
-    "eMailAddressInvalid": "L'adresse e-mail n'est pas valide"
+    "eMailAddressInvalid": "L'adresse e-mail n'est pas valide",
+    "twitter": "Twitter",
+    "twitterName": "Nom de Twitter",
+    "twitterNameInvalid": "Le nom de Twitter n'est pas valide",
+    "youtube": "YouTube",
+    "youtubeLink": "Lien YouTube",
+    "youtubeLinkInvalid": "Le lien YouTube n'est pas valide",
+    "mastodon": "Mastodon",
+    "mastodonLink": "Lien Mastodon",
+    "mastodonLinkInvalid": "Le lien Mastodon n'est pas valide",
+    "discord": "Discord",
+    "discordTag": "Discord tag",
+    "discordTagInvalid": "The Discord tag is invalid"
   }
 }
