@@ -2,7 +2,7 @@ NAME=gorum
 BINARY=${NAME}
 INSTALL_DIR=/usr/local/bin
 
-VERSION=v1.0.13
+VERSION=v1.0.14
 BUILD_TIME=`date +%FT%T%z`
 
 LDFLAGS=-ldflags "-X github.com/ltheinrich/gorum/cmd.Version=${VERSION} -X github.com/ltheinrich/gorum/cmd.BuildTime=${BUILD_TIME}"
