@@ -15,6 +15,8 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 `
 
 func main() {
+	fmt.Printf("Gorum %v (c) 2018 Lennart Heinrich\n", cmd.Version)
+
 	if err := cmd.Init(); err != nil {
 		fmt.Println(err)
 	}

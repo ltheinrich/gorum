@@ -87,7 +87,7 @@ func avatarPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "avatar.png", size: 15127, mode: os.FileMode(438), modTime: time.Unix(1549800288, 0)}
+	info := bindataFileInfo{name: "avatar.png", size: 15127, mode: os.FileMode(436), modTime: time.Unix(1550401604, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -146,7 +146,7 @@ func languageJson() (*asset, error) {
 	if err != nil {
 		return nil, err
 	}
-
+  
 	info := bindataFileInfo{name: "language.json", size: 24461, mode: os.FileMode(438), modTime: time.Unix(1550421870, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
@@ -166,7 +166,7 @@ func setupSql() (*asset, error) {
 	if err != nil {
 		return nil, err
 	}
-
+  
 	info := bindataFileInfo{name: "setup.sql", size: 2042, mode: os.FileMode(438), modTime: time.Unix(1550255693, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
