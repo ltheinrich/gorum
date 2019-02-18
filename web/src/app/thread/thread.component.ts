@@ -6,7 +6,8 @@ import { Config } from '../config';
 export class Thread {
   id: number;
   name: string;
-  board: string;
+  board: number;
+  boardName: string;
   author: number;
   created: number;
   content: string;
@@ -14,11 +15,12 @@ export class Thread {
   authorAvatar: string;
   answer: number;
 
-  constructor(id: number, name: string, board: string, author: number, created: number,
+  constructor(id: number, name: string, board: number, boardName: string, author: number, created: number,
     content: string, authorName: string, authorAvatar: string, answer: number) {
     this.id = id;
     this.name = name;
     this.board = board;
+    this.boardName = boardName;
     this.author = author;
     this.created = created;
     this.content = content;
@@ -56,7 +58,7 @@ export class ThreadComponent implements OnInit {
   conf = Config.get;
   lang = Config.lang;
 
-  thread = new Thread(0, null, null, null, null, null, null, null, null);
+  thread = new Thread(0, null, null, null, null, null, null, null, null, null);
   posts: Post[] = [];
   id = +this.route.snapshot.paramMap.get('id');
   captcha: string;
@@ -70,8 +72,9 @@ export class ThreadComponent implements OnInit {
   }
 
   initThread(values: any) {
-    this.thread = new Thread(<number>values['id'], <string>values['name'], <string>values['board'], <number>values['author'],
-      <number>values['created'], <string>values['content'], <string>values['authorName'], <string>values['authorAvatar'], null);
+    this.thread = new Thread(<number>values['id'], <string>values['name'], <number>values['board'], <string>values['boardName'],
+      <number>values['author'], <number>values['created'], <string>values['content'], <string>values['authorName'],
+      <string>values['authorAvatar'], null);
     if (this.thread.name !== undefined) {
       Config.setLogin(this.title, 'thread', false, this.thread.name);
     } else {

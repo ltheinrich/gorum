@@ -58,7 +58,7 @@
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
 
     <mat-list *ngFor="let thread of threads">
-      <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}">
+      <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}/{{config.generateURL(thread.name)}}">
         <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
         <h4 mat-line>{{ thread.name }}</h4>
         <p mat-line class="gray">

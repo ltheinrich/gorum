@@ -24,12 +24,13 @@ func Thread(data HandlerData) interface{} {
 	// define variables
 	var created int64
 	var board, author int
-	var name, content, authorName string
+	var name, content, authorName, boardName string
 
 	// query thread
 	err = db.DB.QueryRow(`SELECT threads.threadname, threads.board, threads.author, threads.created, threads.content,
-						users.username FROM threads INNER JOIN users ON threads.author = users.id WHERE threads.id = $1;`, threadID).
-		Scan(&name, &board, &author, &created, &content, &authorName)
+						users.username, boards.boardname FROM threads INNER JOIN users ON threads.author = users.id
+						INNER JOIN boards ON boards.id = threads.board WHERE threads.id = $1;`, threadID).
+		Scan(&name, &board, &author, &created, &content, &authorName, &boardName)
 
 	// check not found
 	if err == sql.ErrNoRows {
@@ -45,6 +46,7 @@ func Thread(data HandlerData) interface{} {
 	thread["id"] = threadID
 	thread["name"] = name
 	thread["board"] = board
+	thread["boardName"] = boardName
 	thread["author"] = author
 	thread["created"] = created
 	thread["content"] = content

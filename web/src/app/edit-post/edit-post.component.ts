@@ -16,6 +16,7 @@ export class EditPostComponent implements OnInit {
 
   id = +this.route.snapshot.paramMap.get('id');
   thread: number;
+  threadTitle: string;
   postContent: string;
 
   constructor(private route: ActivatedRoute, private title: Title, private router: Router) { }
@@ -33,6 +34,7 @@ export class EditPostComponent implements OnInit {
       this.router.navigate(['/thread/' + values['thread']]);
     }
     this.thread = values['thread'];
+    this.threadTitle = values['threadName'];
     this.postContent = values['content'];
     const element = <any>document.querySelector('trix-editor');
     element.editor.insertHTML(this.postContent);

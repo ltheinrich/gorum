@@ -1,4 +1,4 @@
-<button mat-icon-button routerLink="/board/{{thread.board}}">
+<button mat-icon-button routerLink="/board/{{thread.board}}/{{config.generateURL(thread.boardName)}}">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
 
@@ -9,7 +9,9 @@
       <mat-card-title>{{thread.name}}</mat-card-title>
       <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(thread.created)}}
         {{lang('atTime')}} {{config.time(thread.created)}} {{lang('timeExtension')}}
-        {{lang('by')}} <a routerLink="/user/{{thread.author}}">{{thread.authorName}}</a></mat-card-subtitle>
+        {{lang('by')}} <a
+          routerLink="/user/{{thread.author}}/{{config.generateURL(thread.authorName)}}">{{thread.authorName}}</a>
+      </mat-card-subtitle>
       <span class="fill-space"></span>
 
       <mat-card-actions>
@@ -35,7 +37,9 @@
     <mat-card>
       <mat-card-header>
         <img mat-card-avatar width="50" height="50" src="{{config.baseUrl}}{{post.authorAvatar}}">
-        <mat-card-title><a routerLink="/user/{{post.author}}">{{post.authorName}}</a></mat-card-title>
+        <mat-card-title><a
+            routerLink="/user/{{post.author}}/{{config.generateURL(post.authorName)}}">{{post.authorName}}</a>
+        </mat-card-title>
         <mat-card-subtitle>{{lang('createdOn')}} {{config.createdDate(post.created)}} {{lang('atTime')}}
           {{config.time(post.created)}} {{lang('timeExtension')}}</mat-card-subtitle>
         <span class="fill-space"></span>

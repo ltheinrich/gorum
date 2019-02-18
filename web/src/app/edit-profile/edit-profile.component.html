@@ -1,4 +1,4 @@
-<button mat-icon-button routerLink="/user/{{user.id}}">
+<button mat-icon-button routerLink="/user/{{user.id}}//{{config.generateURL(user.data['username'])}}">
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
 
@@ -18,7 +18,8 @@
 
     <mat-card-actions>
       <button mat-flat-button (click)="saveProfile(aboutMe.value)" color="primary">{{lang("save")}}</button>
-      <button mat-button routerLink="/user/{{user.id}}" color="primary">{{lang("cancel")}}</button>
+      <button mat-button routerLink="/user/{{user.id}}//{{config.generateURL(user.data['username'])}}"
+        color="primary">{{lang("cancel")}}</button>
     </mat-card-actions>
   </mat-card-header>
   <br>

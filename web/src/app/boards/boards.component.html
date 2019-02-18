@@ -5,7 +5,8 @@
 <mat-list *ngFor="let category of categoryNames">
   <h3 mat-subheader class="category-header">{{category}}</h3>
   <mat-divider></mat-divider>
-  <mat-list-item *ngFor="let board of categories.get(category)" class="board-item" routerLink="/board/{{board.id}}">
+  <mat-list-item *ngFor="let board of categories.get(category)" class="board-item"
+    routerLink="/board/{{board.id}}/{{config.generateURL(board.name)}}">
     <mat-icon matListIcon>{{board.icon}}</mat-icon>
     <h4 mat-line>{{board.name}}</h4>
     <p mat-line class="gray">{{board.description}}</p>

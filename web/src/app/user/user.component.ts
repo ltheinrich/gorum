@@ -73,8 +73,9 @@ export class UserComponent implements OnInit {
 
   listThreads(values: any) {
     Object.entries(values).forEach(thread => this.threads.push(new Thread(<number>thread[1]['id'], <string>thread[1]['name'],
-      <string>thread[1]['board'], /* <number>thread[1]['author'] */ null, <number>thread[1]['created'], /* <string>thread[1]['content'] */
-      null, <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'], <number>thread[1]['answer'])));
+      <number>thread[1]['board'], null, /* <number>thread[1]['author'] */ null, <number>thread[1]['created'],
+      /* <string>thread[1]['content'] */ null, <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'],
+      <number>thread[1]['answer'])));
     this.threads.sort((a, b) => b.answer - a.answer);
   }
 }

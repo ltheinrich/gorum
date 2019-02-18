@@ -21,6 +21,14 @@ export namespace Config {
   const configMap: Map<string, string> = new Map<string, string>();
   const languageMap: Map<string, string> = new Map<string, string>();
 
+  export function generateURL(name: string): string {
+    if (name !== null && name !== undefined) {
+      return name.replace(/[^A-Za-z0-9 ]/g, '').replace(/\s{2,}/g, ' ').replace(/\s/g, '-').toLowerCase();
+    } else {
+      return name;
+    }
+  }
+
   export function get(key: string): string {
     return configMap.get(key);
   }

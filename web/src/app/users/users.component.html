@@ -3,7 +3,7 @@
 </button>
 
 <mat-list *ngFor="let user of users">
-  <mat-list-item class="user-item" routerLink="/user/{{user.id}}">
+  <mat-list-item class="user-item" routerLink="/user/{{user.id}}/{{config.generateURL(user.data['username'])}}">
     <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}" />
     <h4 mat-line>{{ user.data['username'] }}</h4>
     <p mat-line class="gray">

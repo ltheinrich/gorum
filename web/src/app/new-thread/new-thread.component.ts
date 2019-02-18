@@ -15,7 +15,7 @@ export class NewThreadComponent implements OnInit {
   lang = Config.lang;
 
   id = +this.route.snapshot.paramMap.get('id');
-  board: Board;
+  board: Board = new Board(null, null, null, null, null);
   threadTitle: string;
   captcha: string;
 
