@@ -17,6 +17,8 @@ export class User {
 export class UserData {
   userData: { [key: string]: Object };
 
+  contactDataProvided: boolean;
+
   constructor(userData: { [key: string]: Object }) {
     this.userData = userData;
   }
@@ -33,16 +35,20 @@ export class UserComponent implements OnInit {
   lang = Config.lang;
 
   user = new User(0, {});
-  userData = new UserData({ 'website': '' });
+  userData = new UserData(
+    { 'website': '', 'eMailAddress': '', 'twitter': '', 'youtube': '', 'mastodon': '', 'discord': '', 'aboutMe': '' });
   id = +this.route.snapshot.paramMap.get('id');
   threads: Thread[] = [];
+
+  contactDataProvided: boolean;
 
   constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
-    Config.API('userdata', { dataNames: ['website'], userID: this.id })
-      .subscribe(values => this.userData = new UserData(values));
+    Config.API('userdata',
+      { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord', 'aboutMe'], userID: this.id })
+      .subscribe(values => this.initUserData(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
   }
@@ -53,6 +59,16 @@ export class UserComponent implements OnInit {
       Config.setLogin(this.title, 'user', false, <string>values['username']);
     } else {
       Config.setLogin(this.title, 'user', false, null);
+    }
+  }
+
+  initUserData(values: any) {
+    this.userData = new UserData(values);
+    const contactData = ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord'];
+    for (const entry of contactData) {
+      if (this.userData.userData[entry]) {
+        this.userData.contactDataProvided = true;
+      }
     }
   }
 
