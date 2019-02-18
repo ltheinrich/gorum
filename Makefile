@@ -65,8 +65,8 @@ installgo:
 	go install ${LDFLAGS}
 
 clean:
-	if [ -f ${WEB_DIST} ] ; then rm -r ${WEB_DIST} ; fi
-	if [ -f ${WEB_MODULES} ; then rm -r ${WEB_MODULES} ; fi
-	if [ -f ${WEB_LOCK} ] ; then rm ${WEB_LOCK} ; fi
-	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
-	if [ -f ${BINARY}.asc ] ; then rm ${BINARY}.asc ; fi
+	if [ -d ${WEB_DIST} ] ; then rm -rf ${WEB_DIST} ; fi
+	if [ -d ${WEB_MODULES} ] ; then rm -rf ${WEB_MODULES} ; fi
+	if [ -f ${WEB_LOCK} ] ; then rm -f ${WEB_LOCK} ; fi
+	if [ -f ${BINARY} ] ; then rm -f ${BINARY} ; fi
+	if [ -f ${BINARY}.asc ] ; then rm -f ${BINARY}.asc ; fi

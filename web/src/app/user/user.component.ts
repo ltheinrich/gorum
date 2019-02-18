@@ -6,20 +6,20 @@ import { Thread } from '../thread/thread.component';
 
 export class User {
   id: number;
-  data: { [key: string]: Object };
+  data: { [key: string]: string };
 
-  constructor(id: number, data: { [key: string]: Object }) {
+  constructor(id: number, data: { [key: string]: string }) {
     this.id = id;
     this.data = data;
   }
 }
 
 export class UserData {
-  userData: { [key: string]: Object };
+  userData: { [key: string]: string };
 
   contactDataProvided: boolean;
 
-  constructor(userData: { [key: string]: Object }) {
+  constructor(userData: { [key: string]: string }) {
     this.userData = userData;
   }
 }

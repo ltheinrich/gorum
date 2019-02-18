@@ -58,7 +58,7 @@ func Posts(data HandlerData) interface{} {
 		post["content"] = content
 
 		// add avatar
-		avatarPath := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), author)
+		avatarPath := fmt.Sprintf("%v/%v.png", config.Get("data", "avatar"), author)
 		_, err = os.Open(avatarPath)
 		if os.IsNotExist(err) {
 			post["authorAvatar"] = fmt.Sprintf("%s/default", config.Get("data", "avatar"))

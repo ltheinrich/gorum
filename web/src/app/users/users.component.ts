@@ -23,6 +23,6 @@ export class UsersComponent implements OnInit {
   }
 
   listUsers(values: any) {
-    Object.entries(values).forEach(user => this.users.push(new User(<number>(<unknown>user[0]), <{ [key: string]: Object }>user[1])));
+    Object.entries(values).forEach(user => this.users.push(new User(<number>(<unknown>user[0]), <{ [key: string]: string }>user[1])));
   }
 }

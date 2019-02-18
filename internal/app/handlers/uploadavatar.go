@@ -3,15 +3,19 @@ package handlers
 import (
 	"encoding/base64"
 	"fmt"
-	"io"
+	"image"
+	"image/jpeg"
+	"image/png"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"
+	"github.com/nfnt/resize"
 )
 
 // UploadAvatar http handler function
@@ -23,8 +27,9 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	SecurityHeaders(w, r)
 
 	// get username and password
-	rawUsername, _ := base64.StdEncoding.DecodeString(r.FormValue("username"))
-	username, token := string(rawUsername), r.FormValue("token")
+	rawUsername, _ := base64.URLEncoding.DecodeString(r.FormValue("username"))
+	rawToken, _ := base64.URLEncoding.DecodeString(r.FormValue("token"))
+	username, token := string(rawUsername), string(rawToken)
 
 	// check if provided and login is correct
 	if username != "" && token != "" && validateToken(username, token) {
@@ -43,7 +48,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(200)
 
 			// write content
-			w.Write([]byte(`<form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept="image/png"><button type="submit">Avatar Upload</button></form>`))
+			w.Write([]byte(`<form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept=".png,.jpg,.jpeg"><button type="submit">Avatar Upload</button></form>`))
 		} else {
 			// check avatar size limit
 			var avatarSizeLimit int
@@ -54,13 +59,43 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(200)
 
 				// write content and return
-				w.Write([]byte(`<h3>Avatar size limit exceeded</h3><form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept="image/png"><button type="submit">Avatar Upload</button></form>`))
+				w.Write([]byte(`<h3>Avatar size limit exceeded</h3><form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept=".png,.jpg,.jpeg"><button type="submit">Avatar Upload</button></form>`))
 				return
 			}
 
-			// read file
-			fileData := make([]byte, header.Size)
-			io.ReadAtLeast(file, fileData, int(header.Size))
+			/*
+				// read file
+				fileData := make([]byte, header.Size)
+				io.ReadAtLeast(file, fileData, int(header.Size))
+			*/
+
+			// decode avatar image
+			var img image.Image
+			if strings.HasSuffix(header.Filename, ".png") {
+				img, err = png.Decode(file)
+			} else if strings.HasSuffix(header.Filename, ".jpg") || strings.HasSuffix(header.Filename, ".jpeg") {
+				img, err = jpeg.Decode(file)
+			} else {
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// print and write error
+				w.Write([]byte(`<h3>Wrong file extension, use .png, .jpg or .jpeg</h3><form method="post" enctype="multipart/form-data"><input name="avatar" type="file" size="50" accept=".png,.jpg,.jpeg"><button type="submit">Avatar Upload</button></form>`))
+				return
+			}
+
+			// check for error
+			if err != nil {
+				// write header
+				w.Header().Add("content-type", "text/html")
+				w.WriteHeader(200)
+
+				// print and write error
+				log.Println(err)
+				w.Write([]byte(err.Error()))
+				return
+			}
 
 			// get user id
 			var userID int
@@ -78,8 +113,8 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 
 			// open avatar file
 			var avatar *os.File
-			avatarName := fmt.Sprintf("%s/%v.png", config.Get("data", "avatar"), userID)
-			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
+			avatarName := fmt.Sprintf("%v/%v.png", config.Get("data", "avatar"), userID)
+			avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
 
 			// defer close avatar file
 			defer avatar.Close()
@@ -99,7 +134,7 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				}
 
 				// open avatar file again and defer close
-				avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE, os.ModePerm)
+				avatar, err = os.OpenFile(avatarName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
 				defer avatar.Close()
 
 				// check for error
@@ -124,8 +159,9 @@ func UploadAvatar(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			// write avatar file
-			_, err := avatar.Write(fileData)
+			// resize and write avatar file
+			img = resize.Resize(100, 100, img, resize.Bilinear)
+			err = png.Encode(avatar, img)
 			if err != nil {
 				// write header
 				w.Header().Add("content-type", "text/html")

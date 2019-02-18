@@ -205,8 +205,8 @@ export class EditProfileComponent implements OnInit {
 // tslint:disable-next-line:component-class-suffix
 export class AvatarDialogOverview {
   config = Config;
-  username = btoa(Config.getUsername());
-  token = Config.getToken();
+  username = btoa(Config.getUsername()).replace('+', '-').replace('/', '_').replace('=', '%3d');
+  token = btoa(Config.getToken()).replace('+', '-').replace('/', '_').replace('=', '%3d');
   constructor(public dialogRef: MatDialogRef<AvatarDialogOverview>) { }
   onNoClick(): void {
     this.dialogRef.close();
