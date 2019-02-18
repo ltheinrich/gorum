@@ -36,10 +36,9 @@ export class UserComponent implements OnInit {
 
   user = new User(0, {});
   userData = new UserData(
-    { 'website': '', 'eMailAddress': '', 'twitter': '', 'youtube': '', 'mastodon': '', 'discord': '', 'aboutMe': '' });
+    { 'website': '', 'eMailAddress': '', 'mastodon': '', 'twitter': '', 'youtube': '', 'wire': '', 'discord': '', 'aboutMe': '' });
   id = +this.route.snapshot.paramMap.get('id');
   threads: Thread[] = [];
-
   contactDataProvided: boolean;
 
   constructor(private route: ActivatedRoute, private title: Title) { }
@@ -47,7 +46,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     Config.API('user', { userID: this.id }).subscribe(values => this.initUser(values));
     Config.API('userdata',
-      { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord', 'aboutMe'], userID: this.id })
+      { dataNames: ['website', 'eMailAddress', 'mastodon', 'twitter', 'youtube', 'wire', 'discord', 'aboutMe'], userID: this.id })
       .subscribe(values => this.initUserData(values));
     Config.API('lastuserthreads', { userID: this.id })
       .subscribe(values => this.listThreads(values));
@@ -64,7 +63,7 @@ export class UserComponent implements OnInit {
 
   initUserData(values: any) {
     this.userData = new UserData(values);
-    const contactData = ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord'];
+    const contactData = ['website', 'eMailAddress', 'mastodon', 'twitter', 'youtube', 'wire', 'discord'];
     for (const entry of contactData) {
       if (this.userData.userData[entry]) {
         this.userData.contactDataProvided = true;

@@ -21,32 +21,44 @@
       <button mat-button routerLink="/user/{{user.id}}" color="primary">{{lang("cancel")}}</button>
     </mat-card-actions>
   </mat-card-header>
-
   <br>
-
   <form class="form-size">
     <h3>{{lang("contactDetails")}}</h3>
     <mat-form-field class="input-full-width">
-      <input matInput [(ngModel)]="userData.userData['website']" [ngModelOptions]="{standalone: true}" placeholder="{{lang('website')}}">
+      <input matInput [(ngModel)]="userData.userData['website']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('website')}}">
     </mat-form-field>
+    &nbsp;
     <mat-form-field class="input-full-width">
-      <input matInput [(ngModel)]="userData.userData['eMailAddress']" [ngModelOptions]="{standalone: true}" placeholder="{{lang('eMailAddress')}}">
+      <input matInput [(ngModel)]="userData.userData['eMailAddress']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('eMailAddress')}}">
     </mat-form-field>
+    &nbsp;
     <mat-form-field class="input-full-width">
-      <input matInput [(ngModel)]="userData.userData['twitter']" [ngModelOptions]="{standalone: true}" placeholder="{{lang('twitterName')}}">
+      <input matInput [(ngModel)]="userData.userData['mastodon']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('mastodonLink')}}">
     </mat-form-field>
+    &nbsp;
     <mat-form-field class="input-full-width">
-      <input matInput [(ngModel)]="userData.userData['youtube']" [ngModelOptions]="{standalone: true}" placeholder="{{lang('youtubeLink')}}">
+      <input matInput [(ngModel)]="userData.userData['twitter']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('twitterName')}}">
     </mat-form-field>
+    &nbsp;
     <mat-form-field class="input-full-width">
-      <input matInput [(ngModel)]="userData.userData['mastodon']" [ngModelOptions]="{standalone: true}" placeholder="{{lang('mastodonLink')}}">
+      <input matInput [(ngModel)]="userData.userData['youtube']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('youtubeLink')}}">
     </mat-form-field>
+    &nbsp;
     <mat-form-field class="input-full-width">
-      <input matInput [(ngModel)]="userData.userData['discord']" [ngModelOptions]="{standalone: true}" placeholder="{{lang('discordTag')}}">
+      <input matInput [(ngModel)]="userData.userData['wire']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('wireName')}}">
     </mat-form-field>
-
+    &nbsp;
+    <mat-form-field class="input-full-width">
+      <input matInput [(ngModel)]="userData.userData['discord']" [ngModelOptions]="{standalone: true}"
+        placeholder="{{lang('discordTag')}}">
+    </mat-form-field>
     <br>
-
     <h3>{{lang("aboutMe")}}</h3>
     <input #aboutMe id="content" type="hidden">
     <trix-editor input="content"></trix-editor>

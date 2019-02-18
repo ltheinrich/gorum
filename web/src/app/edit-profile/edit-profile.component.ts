@@ -28,8 +28,10 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     Config.setLogin(this.title, 'editProfile', true, null);
     Config.API('user', { username: Config.getUsername() }).subscribe(values => this.user = new User(values['id'], values));
-    Config.API('userdata', { dataNames: ['website', 'eMailAddress', 'twitter', 'youtube', 'mastodon', 'discord', 'aboutMe'],
-      username: Config.getUsername() }).subscribe(values => this.initUserData(values));
+    Config.API('userdata', {
+      dataNames: ['website', 'eMailAddress', 'mastodon', 'twitter', 'youtube', 'wire', 'discord', 'aboutMe'],
+      username: Config.getUsername()
+    }).subscribe(values => this.initUserData(values));
   }
 
   initUserData(values: any) {
@@ -70,6 +72,15 @@ export class EditProfileComponent implements OnInit {
         return;
       }
     }
+    const newMastodon = <string>this.userData.userData['mastodon'];
+    if (newMastodon) {
+      if (this.toValidLink(newMastodon, false) == null) {
+        Config.openSnackBar(Config.lang('mastodonLinkInvalid'));
+        return;
+      } else {
+        this.userData.userData['mastodon'] = this.toValidLink(newMastodon, false);
+      }
+    }
     const newTwitter = <string>this.userData.userData['twitter'];
     if (newTwitter) {
       if (newTwitter.includes(' ') || newTwitter.length > 15) {
@@ -89,13 +100,14 @@ export class EditProfileComponent implements OnInit {
         this.userData.userData['youtube'] = this.toValidLink(newYoutube, true);
       }
     }
-    const newMastodon = <string>this.userData.userData['mastodon'];
-    if (newMastodon) {
-      if (this.toValidLink(newMastodon, false) == null) {
-        Config.openSnackBar(Config.lang('mastodonLinkInvalid'));
+    const newWire = <string>this.userData.userData['wire'];
+    if (newWire) {
+      if (newWire.includes(' ')) {
+        Config.openSnackBar(Config.lang('wireNameInvalid'));
         return;
-      } else {
-        this.userData.userData['mastodon'] = this.toValidLink(newMastodon, false);
+      }
+      if (newWire.includes('@')) {
+        this.userData.userData['wire'] = newWire.replace('@', '');
       }
     }
     const newDiscord = <string>this.userData.userData['discord'];
@@ -124,7 +136,7 @@ export class EditProfileComponent implements OnInit {
     });
 
     if (this.updateRequests === 0) {
-      this.savedUserDataValue({'success': true, 'status': 'nochanges'});
+      this.savedUserDataValue({ 'success': true, 'status': 'nochanges' });
     }
   }
 
@@ -169,7 +181,7 @@ export class EditProfileComponent implements OnInit {
     } else {
       if (!link.startsWith('http')) {
         if (https) {
-         link = 'https://' + link;
+          link = 'https://' + link;
         } else {
           link = 'http://' + link;
         }

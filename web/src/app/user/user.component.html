@@ -23,24 +23,26 @@
   <mat-card-content>
     <div *ngIf="userData.contactDataProvided === true">
       <h3 mat-line>{{lang("contactDetails")}}</h3>
-      <p mat-line *ngIf="userData.userData['website'] !== undefined && userData.userData['website'].startsWith('http')">
+      <p mat-line *ngIf="userData.userData['website'] !== undefined">
         {{lang("website")}}: <a href="{{userData.userData['website']}}" class="url">{{userData.userData['website']}}</a>
       </p>
-      <p mat-line *ngIf="userData.userData['website'] !== undefined && !userData.userData['website'].startsWith('http')">
-        {{lang("website")}}: <a href="http://{{userData.userData['website']}}"
-          class="url">{{userData.userData['website']}}</a>
-      </p>
       <p mat-line *ngIf="userData.userData['eMailAddress'] !== undefined">
-        {{lang("eMailAddress")}}: <a href="mailto:{{userData.userData['eMailAddress']}}" class="url">{{userData.userData['eMailAddress']}}</a>
+        {{lang("eMailAddress")}}: <a href="mailto:{{userData.userData['eMailAddress']}}"
+          class="url">{{userData.userData['eMailAddress']}}</a>
+      </p>
+      <p mat-line *ngIf="userData.userData['mastodon'] !== undefined">
+        {{lang("mastodon")}}: <a href="{{userData.userData['mastodon']}}"
+          class="url">{{userData.userData['mastodon']}}</a>
       </p>
       <p mat-line *ngIf="userData.userData['twitter'] !== undefined">
-        {{lang("twitter")}}: <a href="https://twitter.com/{{userData.userData['twitter']}}" class="url">@{{userData.userData['twitter']}}</a>
+        {{lang("twitter")}}: <a href="https://twitter.com/{{userData.userData['twitter']}}"
+          class="url">@{{userData.userData['twitter']}}</a>
       </p>
       <p mat-line *ngIf="userData.userData['youtube'] !== undefined">
         {{lang("youtube")}}: <a href="{{userData.userData['youtube']}}" class="url">{{userData.userData['youtube']}}</a>
       </p>
-      <p mat-line *ngIf="userData.userData['mastodon'] !== undefined">
-        {{lang("mastodon")}}: <a href="{{userData.userData['mastodon']}}" class="url">{{userData.userData['mastodon']}}</a>
+      <p mat-line *ngIf="userData.userData['wire'] !== undefined">
+        {{lang("wire")}}: @{{userData.userData['wire']}}
       </p>
       <p mat-line *ngIf="userData.userData['discord'] !== undefined">
         {{lang("discord")}}: {{userData.userData['discord']}}
@@ -54,7 +56,6 @@
 
     <h3 mat-line id="lastThreads">{{lang('lastThreads')}}</h3>
     <p mat-line class="gray">{{lang('lastThreadsDescription')}}</p>
-
 
     <mat-list *ngFor="let thread of threads">
       <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}">

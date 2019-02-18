@@ -103,7 +103,10 @@
     "discordTag": "Discord-Tag",
     "discordTagInvalid": "Der Discord-Tag ist ungültig",
     "aboutMe": "Über mich",
-    "contactDetails": "Kontaktdaten"
+    "contactDetails": "Kontaktdaten",
+    "wire": "Wire",
+    "wireName": "Wire-Benutzername",
+    "wireNameInvalid": "Der Wire-Benutzername ist ungültig"
   },
   "en": {
     "login": "Login",
@@ -209,7 +212,10 @@
     "discordTag": "Discord tag",
     "discordTagInvalid": "The Discord tag is invalid",
     "aboutMe": "About me",
-    "contactDetails": "Contact"
+    "contactDetails": "Contact",
+    "wire": "Wire",
+    "wireName": "Wire username",
+    "wireNameInvalid": "The Wire username is invalid"
   },
   "ru": {
     "login": "логин",
@@ -312,10 +318,13 @@
     "mastodonLink": "Мастодонская связь",
     "mastodonLinkInvalid": "Связь с Мастодоном недействительна",
     "discord": "Discord",
-    "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid",
+    "discordTag": "Метка Discord",
+    "discordTagInvalid": "Метка Discord недействительна",
     "aboutMe": "Обо мне",
-    "contactDetails": "контактная информация"
+    "contactDetails": "контактная информация",
+    "wire": "Wire",
+    "wireName": "Имя в Wire",
+    "wireNameInvalid": "Имя пользователя в Wire недействительно"
   },
   "es": {
     "login": "Entrar",
@@ -418,10 +427,13 @@
     "mastodonLink": "Enlace Mastodonte",
     "mastodonLinkInvalid": "El enlace de Mastodon no es válido",
     "discord": "Discord",
-    "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid",
+    "discordTag": "Etiqueta de discordia",
+    "discordTagInvalid": "La etiqueta Discord no es válida",
     "aboutMe": "Acerca de mí",
-    "contactDetails": "Datos de contacto"
+    "contactDetails": "Datos de contacto",
+    "wire": "Wire",
+    "wireName": "Nombre de Wire",
+    "wireNameInvalid": "El nombre de usuario de Wire no es válido"
   },
   "fr": {
     "login": "Connexion",
@@ -524,9 +536,12 @@
     "mastodonLink": "Lien Mastodon",
     "mastodonLinkInvalid": "Le lien Mastodon n'est pas valide",
     "discord": "Discord",
-    "discordTag": "Discord tag",
-    "discordTagInvalid": "The Discord tag is invalid",
+    "discordTag": "Étiquette Discord",
+    "discordTagInvalid": "La balise Discord n'est pas valide",
     "aboutMe": "A propos de moi",
-    "contactDetails": "Coordonnées"
+    "contactDetails": "Coordonnées",
+    "wire": "Wire",
+    "wireName": "Nom Wire",
+    "wireNameInvalid": "Le nom d'utilisateur Wire n'est pas valide"
   }
 }
