@@ -1,11 +1,11 @@
-# github.com/lib/pq v1.0.1-0.20181016162627-9eb73efc1fcc
+# github.com/lib/pq v1.0.0
 github.com/lib/pq
 github.com/lib/pq/oid
 # github.com/ltheinrich/captcha v0.0.0-20170622155422-6a29415a8364
 github.com/ltheinrich/captcha
 # github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 github.com/nfnt/resize
-# golang.org/x/crypto v0.0.0-20190211182817-74369b46fc67
+# golang.org/x/crypto v0.0.0-20190219172222-a4c6cb3142f2
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/sha3
 golang.org/x/crypto/blowfish
