@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/ltheinrich/captcha"
@@ -170,6 +171,12 @@ func listen() (err error) {
 		log.Printf("Webserver listening at http://%v/\n", url)
 		server := &http.Server{Addr: address}
 		return server.ListenAndServe()
+	}
+
+	// enable TLS 1.3
+	if config.GetBool("https", "tls13") {
+		os.Setenv("GODEBUG", "tls13=1")
+		log.Println("Explicitly enabled TLS 1.3 for the https web server")
 	}
 
 	// https/tls server

@@ -48,6 +48,19 @@ func GetInt(parent, child string) int {
 	return num
 }
 
+// GetBool configuration value as boolean
+func GetBool(parent, child string) bool {
+	// get and parse
+	b, err := strconv.ParseBool(Get(parent, child))
+	if err != nil {
+		// not an boolean, return false
+		return false
+	}
+
+	// return boolean value
+	return b
+}
+
 // Set configuration value and save
 func Set(parent, child, value string) error {
 	var err error

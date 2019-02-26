@@ -11,7 +11,8 @@
     "address": ":1813",
     "certificate": "",
     "key": "",
-    "captcha": "true"
+    "captcha": "true",
+    "tls13": "false"
   },
   "data": {
     "avatar": "data/avatar"
