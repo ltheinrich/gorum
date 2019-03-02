@@ -21,49 +21,62 @@ WEBASSETS_DIR=${WEB_DIST}/gorum
 WEBASSETS_PKG=webassets
 WEBASSETS_FILE=../../../internal/pkg/webassets/webassets.go
 
+.PHONY: build
 build: clean fmt test buildng assetsng assetsgo buildgo sign
 
+.PHONY: install
 install: gorum
 	cp ${BINARY} ${INSTALL_DIR}
 
+.PHONY: run
 run: assetsgo buildgo
 	clear
 	./${BINARY}
 
+.PHONY: serve
 serve:
 	clear
 	cd ${WEB_DIR} && \
 	ng serve
 
+.PHONY: fmt
 fmt:
 	go fmt ${GO_FILES}
 
+.PHONY: test
 test:
 	go vet -v ${GO_FILES}
 	go test -v -race ${GO_FILES}
 
+.PHONY: buildng
 buildng:
 	cd ${WEB_DIR} && \
 	yarn install && \
 	ng build --prod
 
+.PHONY: assetsng
 assetsng:
 	cd ${WEBASSETS_DIR} && \
 	go-bindata -o ${WEBASSETS_FILE} -pkg ${WEBASSETS_PKG} .
 
+.PHONY: assetsgo
 assetsgo:
 	cd ${ASSETS_DIR} && \
 	go-bindata -o ${ASSETS_FILE} -pkg ${ASSETS_PKG} .
 
+.PHONY: buildgo
 buildgo:
 	go build ${LDFLAGS} -o ${BINARY}
 
+.PHONY: sign
 sign:
 	gpg2 -a --detach-sign ${BINARY}
 
+.PHONY: installgo
 installgo:
 	go install ${LDFLAGS}
 
+.PHONY: clean
 clean:
 	if [ -d ${WEB_DIST} ] ; then rm -rf ${WEB_DIST} ; fi
 	if [ -d ${WEB_MODULES} ] ; then rm -rf ${WEB_MODULES} ; fi
