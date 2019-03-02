@@ -39,6 +39,7 @@ var (
 		"userdata":        UserData,
 		"setuserdata":     SetUserData,
 		"exportdata":      ExportData,
+		"page":            Page,
 	}
 )
 

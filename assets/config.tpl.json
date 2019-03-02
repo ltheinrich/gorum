@@ -15,7 +15,8 @@
     "tls13": "false"
   },
   "data": {
-    "avatar": "data/avatar"
+    "avatar": "data/avatar",
+    "page": "data/page"
   },
   "public": {
     "title": "Gorum",

@@ -53,6 +53,6 @@ func Footer(data HandlerData) interface{} {
 		return map[string]interface{}{"footer": tempFooter}
 	}
 
-	// return not footer found
+	// return footer not found
 	return errors.New("404 data")
 }

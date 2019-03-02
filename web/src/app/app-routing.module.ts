@@ -14,6 +14,7 @@ import { EditThreadComponent } from './edit-thread/edit-thread.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ExportDataComponent } from './export-data/export-data.component';
+import { PageComponent } from './page/page.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: 'edit-thread/:id', component: EditThreadComponent },
   { path: 'edit-post/:id', component: EditPostComponent },
   { path: 'export-data', component: ExportDataComponent },
+  { path: 'page/:name', component: PageComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
