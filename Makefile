@@ -25,7 +25,7 @@ WEBASSETS_FILE=../../../internal/pkg/webassets/webassets.go
 build: clean fmt test buildng assetsng assetsgo buildgo sign
 
 .PHONY: install
-install: gorum
+install: ${BINARY}
 	cp ${BINARY} ${INSTALL_DIR}
 
 .PHONY: run
