@@ -1,6 +1,7 @@
 # Custom
 /gorum
 /gorum.asc
+/gorum_*.deb
 /data/
 /web/yarn.lock
 

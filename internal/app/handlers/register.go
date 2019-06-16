@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ltheinrich/captcha"
+	"github.com/dchest/captcha"
 
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 	"github.com/ltheinrich/gorum/internal/pkg/db"

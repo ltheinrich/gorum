@@ -3,7 +3,7 @@ package handlers
 import (
 	"errors"
 
-	"github.com/ltheinrich/captcha"
+	"github.com/dchest/captcha"
 	"github.com/ltheinrich/gorum/internal/pkg/config"
 )
 

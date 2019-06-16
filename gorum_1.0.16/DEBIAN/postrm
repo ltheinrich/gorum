@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case "$1" in
+	purge)
+		rm -rf /var/lib/gorum
+		deluser --remove-home gorum
+		;;
+	*)
+		chown -R root:root /var/lib/gorum
+		deluser --remove-home gorum
+		;;
+esac
+
+exit 0

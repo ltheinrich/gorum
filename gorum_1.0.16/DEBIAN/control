@@ -1,0 +1,9 @@
+Package: gorum
+Version: 1.0.16
+Section: comm
+Priority: optional
+Architecture: amd64
+Depends: rustc, cargo, systemd
+Maintainer: Lennart Heinrich <lennart@ltheinrich.de>
+Description: Gorum
+ Lightweight forum software written in Go and Angular

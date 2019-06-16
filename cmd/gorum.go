@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ltheinrich/captcha"
+	"github.com/dchest/captcha"
 
 	"github.com/ltheinrich/gorum/internal/app/handlers"
 	"github.com/ltheinrich/gorum/internal/pkg/assets"

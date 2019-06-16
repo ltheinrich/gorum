@@ -1,0 +1,17 @@
+#!/bin/sh
+
+case "$1" in
+	install)
+		adduser --disabled-login --no-create-home --gecos "" gorum
+		chown -R gorum:gorum /var/lib/gorum
+		systemctl enable gorum.service
+		systemctl start gorum.service
+		;;
+	*)
+		adduser --disabled-login --no-create-home --gecos "" gorum
+		chown -R gorum:gorum /var/lib/gorum
+		systemctl start gorum.service
+		;;
+esac
+
+exit 0

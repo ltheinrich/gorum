@@ -1,0 +1,33 @@
+{
+  "postgresql": {
+    "host": "localhost",
+    "port": "5432",
+    "ssl": "disable",
+    "database": "gorum",
+    "username": "gorum",
+    "password": "gorum"
+  },
+  "https": {
+    "address": ":1813",
+    "certificate": "",
+    "key": "",
+    "captcha": "true",
+    "tls13": "false"
+  },
+  "data": {
+    "avatar": "data/avatar",
+    "page": "data/page"
+  },
+  "public": {
+    "title": "Gorum",
+    "description": "Lightweight forum software written in Go and Angular",
+    "language": "de",
+    "legalTerms": "/"
+  },
+  "limit": {
+    "avatar": "1000000",
+    "thread": "1000000",
+    "post": "1000000",
+    "tokens": "10"
+  }
+}

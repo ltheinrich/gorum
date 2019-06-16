@@ -1,0 +1,6 @@
+#!/bin/sh
+
+systemctl stop gorum.service
+systemctl disable gorum.service
+
+exit 0

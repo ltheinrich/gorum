@@ -2,7 +2,8 @@ NAME=gorum
 BINARY=${NAME}
 INSTALL_DIR=/usr/local/bin
 
-VERSION=v1.0.14
+NUM_VERSION=1.0.16
+VERSION=v${NUM_VERSION}
 BUILD_TIME=`date +%FT%T%z`
 
 LDFLAGS=-ldflags "-X github.com/ltheinrich/gorum/cmd.Version=${VERSION} -X github.com/ltheinrich/gorum/cmd.BuildTime=${BUILD_TIME}"
@@ -22,7 +23,7 @@ WEBASSETS_PKG=webassets
 WEBASSETS_FILE=../../../internal/pkg/webassets/webassets.go
 
 .PHONY: build
-build: clean fmt test buildng assetsng assetsgo buildgo sign
+build: clean fmt test buildng assetsng assetsgo buildgo sign deb
 
 .PHONY: install
 install: ${BINARY}
@@ -67,10 +68,16 @@ assetsgo:
 .PHONY: buildgo
 buildgo:
 	go build ${LDFLAGS} -o ${BINARY}
+	strip ${BINARY}
 
 .PHONY: sign
 sign:
 	gpg2 -a --detach-sign ${BINARY}
+
+.PHONY: deb
+deb:
+	cp ${BINARY} ${NAME}_${NUM_VERSION}/usr/bin/gorum
+	dpkg -b ${NAME}_${NUM_VERSION}
 
 .PHONY: installgo
 installgo:
@@ -83,3 +90,4 @@ clean:
 	if [ -f ${WEB_LOCK} ] ; then rm -f ${WEB_LOCK} ; fi
 	if [ -f ${BINARY} ] ; then rm -f ${BINARY} ; fi
 	if [ -f ${BINARY}.asc ] ; then rm -f ${BINARY}.asc ; fi
+	if [ -f ${NAME}_${NUM_VERSION}.deb ] ; then rm -f ${NAME}_${NUM_VERSION}.deb ; fi

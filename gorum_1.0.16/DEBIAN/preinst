@@ -1,0 +1,5 @@
+#!/bin/sh
+
+adduser --disabled-login --no-create-home --gecos "" gorum
+
+exit 0
