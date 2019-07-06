@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/dchest/captcha"
-	"github.com/ltheinrich/gorum/internal/pkg/config"
-	"github.com/ltheinrich/gorum/internal/pkg/db"
+	"github.com/NathanNr/gorum/internal/pkg/config"
+	"github.com/NathanNr/gorum/internal/pkg/db"
 )
 
 // NewThread handler
