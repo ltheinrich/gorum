@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/nathannr/gorum/internal/pkg/assets"
+	"github.com/NathanNr/gorum/internal/pkg/assets"
 )
 
 // Data serve data files

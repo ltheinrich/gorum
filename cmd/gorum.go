@@ -10,10 +10,10 @@ import (
 
 	"github.com/dchest/captcha"
 
-	"github.com/nathannr/gorum/internal/app/handlers"
-	"github.com/nathannr/gorum/internal/pkg/assets"
-	"github.com/nathannr/gorum/internal/pkg/config"
-	"github.com/nathannr/gorum/internal/pkg/db"
+	"github.com/NathanNr/gorum/internal/app/handlers"
+	"github.com/NathanNr/gorum/internal/pkg/assets"
+	"github.com/NathanNr/gorum/internal/pkg/config"
+	"github.com/NathanNr/gorum/internal/pkg/db"
 )
 
 var (

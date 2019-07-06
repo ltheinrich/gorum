@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/nathannr/gorum/internal/pkg/webassets"
+	"github.com/NathanNr/gorum/internal/pkg/webassets"
 )
 
 var (

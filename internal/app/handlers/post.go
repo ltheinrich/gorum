@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/nathannr/gorum/internal/pkg/db"
+	"github.com/NathanNr/gorum/internal/pkg/db"
 )
 
 // Post handler

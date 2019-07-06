@@ -3,8 +3,8 @@ package handlers
 import (
 	"errors"
 
-	"github.com/nathannr/gorum/internal/pkg/config"
-	"github.com/nathannr/gorum/internal/pkg/db"
+	"github.com/NathanNr/gorum/internal/pkg/config"
+	"github.com/NathanNr/gorum/internal/pkg/db"
 )
 
 // EditPost handler

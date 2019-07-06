@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/nathannr/gorum/internal/pkg/db"
+	"github.com/NathanNr/gorum/internal/pkg/db"
 )
 
 var (

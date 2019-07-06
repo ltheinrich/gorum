@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/nathannr/gorum/internal/pkg/db"
+	"github.com/NathanNr/gorum/internal/pkg/db"
 )
 
 const (
