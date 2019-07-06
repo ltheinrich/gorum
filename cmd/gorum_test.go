@@ -5,11 +5,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ltheinrich/gorum/internal/pkg/db"
+	"github.com/nathannr/gorum/internal/pkg/db"
 
-	"github.com/ltheinrich/gorum/internal/app/handlers"
+	"github.com/nathannr/gorum/internal/app/handlers"
 
-	"github.com/ltheinrich/gorum/internal/pkg/config"
+	"github.com/nathannr/gorum/internal/pkg/config"
 )
 
 func TestLoadConfig(t *testing.T) {

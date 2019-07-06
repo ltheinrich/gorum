@@ -9,9 +9,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/ltheinrich/gorum/internal/pkg/config"
+	"github.com/nathannr/gorum/internal/pkg/config"
 
-	"github.com/ltheinrich/gorum/internal/pkg/db"
+	"github.com/nathannr/gorum/internal/pkg/db"
 )
 
 // ExportData handler

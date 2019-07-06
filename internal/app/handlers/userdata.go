@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/ltheinrich/gorum/internal/pkg/db"
+	"github.com/nathannr/gorum/internal/pkg/db"
 )
 
 // UserData handler

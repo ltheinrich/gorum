@@ -3,7 +3,7 @@ package handlers
 import (
 	"errors"
 
-	"github.com/ltheinrich/gorum/internal/pkg/db"
+	"github.com/nathannr/gorum/internal/pkg/db"
 )
 
 // DeleteAccount handler

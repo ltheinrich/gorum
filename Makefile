@@ -6,7 +6,7 @@ NUM_VERSION=1.0.16
 VERSION=v${NUM_VERSION}
 BUILD_TIME=`date +%FT%T%z`
 
-LDFLAGS=-ldflags "-X github.com/ltheinrich/gorum/cmd.Version=${VERSION} -X github.com/ltheinrich/gorum/cmd.BuildTime=${BUILD_TIME}"
+LDFLAGS=-ldflags "-X github.com/nathannr/gorum/cmd.Version=${VERSION} -X github.com/nathannr/gorum/cmd.BuildTime=${BUILD_TIME}"
 GO_FILES=./...
 
 WEB_DIR=web
