@@ -10,5 +10,5 @@ before_script:
   - psql -c "GRANT ALL ON DATABASE gorum TO gorum;" -U postgres
 
 script:
-  - go vet -v ./...
-  - go test -v -race ./...
+  - make test
+  - make buildgo
