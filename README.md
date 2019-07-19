@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/NathanNr/gorum.svg?branch=master)](https://travis-ci.com/NathanNr/gorum)
-[![Discord](https://img.shields.io/discord/488792767657410560.svg)](https://discord.gg/jjRruxx)
+[![Go Report Card](https://goreportcard.com/badge/github.com/NathanNr/gorum)](https://goreportcard.com/report/github.com/NathanNr/gorum)
 
 # Gorum
 Lightweight forum software written in Go and Angular
