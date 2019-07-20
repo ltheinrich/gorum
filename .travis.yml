@@ -4,6 +4,9 @@ go:
 - 1.11.x
 - 1.12.x
 
+services:
+ - postgresql
+
 before_script:
   - psql -c "CREATE DATABASE gorum;" -U postgres
   - psql -c "CREATE USER gorum WITH PASSWORD 'gorum';" -U postgres
