@@ -3,7 +3,7 @@ package handlers
 import (
 	"errors"
 
-	"github.com/NathanNr/gorum/internal/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 )
 
 // SetUserData handler

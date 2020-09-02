@@ -13,8 +13,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/NathanNr/gorum/internal/pkg/config"
-	"github.com/NathanNr/gorum/internal/pkg/db"
+	"github.com/ltheinrich/gorum/internal/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/db"
 	"github.com/nfnt/resize"
 )
 

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/NathanNr/gorum/cmd"
+	"github.com/ltheinrich/gorum/cmd"
 )
 
 // LICENSE ISC

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/NathanNr/gorum/internal/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/config"
 )
 
 var (

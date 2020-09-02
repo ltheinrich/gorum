@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 
-	"github.com/NathanNr/gorum/internal/pkg/config"
+	"github.com/ltheinrich/gorum/internal/pkg/config"
 )
 
 var (

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User, UserData } from '../user/user.component';
 import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({

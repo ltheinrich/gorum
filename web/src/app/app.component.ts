@@ -1,7 +1,8 @@
 import { Component, ChangeDetectorRef, OnDestroy, Inject, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Config } from './config';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
