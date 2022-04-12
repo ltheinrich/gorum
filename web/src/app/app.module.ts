@@ -33,19 +33,18 @@ import { ExportDataComponent } from './export-data/export-data.component';
 import { PageComponent } from './page/page.component';
 
 @NgModule({
-  declarations: [
-    AppComponent, LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview, UsersComponent, UserComponent, DashboardComponent,
-    EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent,
-    EditThreadComponent, EditPostComponent, DeleteAccountComponent, PageNotFoundComponent, ExportDataComponent, PageComponent
-  ],
-  imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,
-    MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule
-  ],
-  entryComponents: [LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview],
-  exports: [],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    declarations: [
+        AppComponent, LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview, UsersComponent, UserComponent, DashboardComponent,
+        EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent,
+        EditThreadComponent, EditPostComponent, DeleteAccountComponent, PageNotFoundComponent, ExportDataComponent, PageComponent
+    ],
+    imports: [
+        BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,
+        MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule
+    ],
+    exports: [],
+    providers: [],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
