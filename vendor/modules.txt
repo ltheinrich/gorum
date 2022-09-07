@@ -1,7 +1,7 @@
 # github.com/dchest/captcha v0.0.0-20170622155422-6a29415a8364
 ## explicit
 github.com/dchest/captcha
-# github.com/lib/pq v1.10.6
+# github.com/lib/pq v1.10.7
 ## explicit
 github.com/lib/pq
 github.com/lib/pq/oid
