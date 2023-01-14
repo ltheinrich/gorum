@@ -26,7 +26,7 @@ WEBASSETS_FILE=../../../internal/pkg/webassets/webassets.go
 build: clean fmt test buildng assetsng assetsgo buildgo sign deb
 
 .PHONY: build1
-build1: clean buildng assetsng assetsgo buildgo
+build1: buildng assetsng assetsgo buildgo
 
 .PHONY: install
 install: ${BINARY}

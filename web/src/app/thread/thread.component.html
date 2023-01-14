@@ -64,8 +64,8 @@
   </div>
   <br>
   <form *ngIf="config.login; else loginToPost">
-    <input #content id="content" type="hidden">
-    <trix-editor input="content"></trix-editor>
+    <input #content1 id="content1" type="hidden">
+    <trix-editor input="content1"></trix-editor>
     <br>
     <div *ngIf="config.captcha !== undefined">
       <img src="{{config.baseUrl}}captcha/{{config.captcha}}.png" width="240" height="80">
@@ -75,7 +75,7 @@
       </mat-form-field>
     </div>
     <br>
-    <button mat-flat-button color="primary" (click)="post(content.value)">{{lang('createPost')}}</button>
+    <button mat-flat-button color="primary" (click)="post(content1.value)">{{lang('createPost')}}</button>
   </form>
 
   <ng-template #loginToPost>

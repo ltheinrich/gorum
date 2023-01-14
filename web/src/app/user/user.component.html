@@ -59,14 +59,10 @@
 
     <mat-list *ngFor="let thread of threads">
       <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}/{{config.generateURL(thread.name)}}">
-        <img matListAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
-        <h4 mat-line>{{ thread.name }}</h4>
-        <p mat-line class="gray">
-          {{ lang('createdOn') }}
-          {{ config.createdDate(thread.created) }}
-          {{ lang('by') }}
-          {{ thread.authorName }}
-        </p>
+        <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
+        <div matListItemTitle>{{ thread.name }}</div>
+        <div matListItemLine>{{ lang('createdOn') }} {{ config.createdDate(thread.created) }}
+          {{ lang('by') }} {{ thread.authorName }}</div>
       </mat-list-item>
     </mat-list>
 

@@ -39,7 +39,7 @@ func Register(data HandlerData) interface{} {
 	if err == sql.ErrNoRows {
 		// not exists
 		var passwordHash []byte
-		passwordHash, err = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost+1)
+		passwordHash, err = bcrypt.GenerateFromPassword([]byte(password)[0:72], bcrypt.DefaultCost+1)
 		if err != nil {
 			// return error
 			return err

@@ -28,7 +28,7 @@ func EditPassword(data HandlerData) interface{} {
 
 	// generate new password hash
 	var passwordHash []byte
-	passwordHash, err = bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost+1)
+	passwordHash, err = bcrypt.GenerateFromPassword([]byte(newPassword)[0:72], bcrypt.DefaultCost+1)
 	if err != nil {
 		// return error
 		return err
