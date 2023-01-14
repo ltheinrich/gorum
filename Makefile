@@ -25,6 +25,9 @@ WEBASSETS_FILE=../../../internal/pkg/webassets/webassets.go
 .PHONY: build
 build: clean fmt test buildng assetsng assetsgo buildgo sign deb
 
+.PHONY: build1
+build1: clean buildng assetsng assetsgo buildgo
+
 .PHONY: install
 install: ${BINARY}
 	cp ${BINARY} ${INSTALL_DIR}
@@ -53,7 +56,7 @@ test:
 buildng:
 	cd ${WEB_DIR} && \
 	yarn install && \
-	ng build --prod
+	ng build -c production
 
 .PHONY: assetsng
 assetsng:
