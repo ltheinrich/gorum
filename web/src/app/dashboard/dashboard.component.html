@@ -23,6 +23,7 @@
       </mat-list-item>
     </mat-list>
 
-    <p *ngIf="threads.length == 0">{{ lang('noThreads') }}</p>
+    <p *ngIf="loading">{{ lang('loadingData') }}</p>
+    <p *ngIf="threads.length == 0 && !loading">{{ lang('noThreads') }}</p>
   </mat-card-content>
 </mat-card>

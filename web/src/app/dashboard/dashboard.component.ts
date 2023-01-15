@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   conf = Config.get;
   lang = Config.lang;
 
+  loading = true;
   threads: Thread[] = [];
   lastThreadsShown = true;
 
@@ -29,5 +30,6 @@ export class DashboardComponent implements OnInit {
       /* <string>thread[1]['content'] */ null, <string>thread[1]['authorName'], <string>thread[1]['authorAvatar'],
       <number>thread[1]['answer'])));
     this.threads.sort((a, b) => b.answer - a.answer);
+    this.loading = false;
   }
 }

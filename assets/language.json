@@ -106,7 +106,8 @@
     "contactDetails": "Kontaktdaten",
     "wire": "Wire",
     "wireName": "Wire-Benutzername",
-    "wireNameInvalid": "Der Wire-Benutzername ist ungültig"
+    "wireNameInvalid": "Der Wire-Benutzername ist ungültig",
+    "loadingData": "Daten werden geladen..."
   },
   "en": {
     "login": "Login",
@@ -215,7 +216,8 @@
     "contactDetails": "Contact",
     "wire": "Wire",
     "wireName": "Wire username",
-    "wireNameInvalid": "The Wire username is invalid"
+    "wireNameInvalid": "The Wire username is invalid",
+    "loadingData": "Loading data..."
   },
   "ru": {
     "login": "Логин",
@@ -324,7 +326,8 @@
     "contactDetails": "информация о контактах",
     "wire": "Wire",
     "wireName": "Имя в Wire",
-    "wireNameInvalid": "Имя пользователя в Wire неверное"
+    "wireNameInvalid": "Имя пользователя в Wire неверное",
+    "loadingData": "Загрузка данных..."
   },
   "es": {
     "login": "Entrar",
@@ -433,7 +436,8 @@
     "contactDetails": "Datos de contacto",
     "wire": "Wire",
     "wireName": "Nombre de Wire",
-    "wireNameInvalid": "El nombre de usuario de Wire no es válido"
+    "wireNameInvalid": "El nombre de usuario de Wire no es válido",
+    "loadingData": "Cargando datos..."
   },
   "fr": {
     "login": "Connexion",
@@ -542,6 +546,7 @@
     "contactDetails": "Coordonnées",
     "wire": "Wire",
     "wireName": "Nom Wire",
-    "wireNameInvalid": "Le nom d'utilisateur Wire n'est pas valide"
+    "wireNameInvalid": "Le nom d'utilisateur Wire n'est pas valide",
+    "loadingData": "Chargement des données..."
   }
 }
