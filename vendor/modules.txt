@@ -1,8 +1,6 @@
 # github.com/dchest/captcha v1.1.0
 ## explicit; go 1.18
 github.com/dchest/captcha
-# github.com/google/go-cmp v0.6.0
-## explicit; go 1.13
 # github.com/lib/pq v1.10.9
 ## explicit; go 1.13
 github.com/lib/pq
@@ -11,29 +9,11 @@ github.com/lib/pq/scram
 # github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 ## explicit
 github.com/nfnt/resize
-# github.com/yuin/goldmark v1.4.13
-## explicit; go 1.18
 # golang.org/x/crypto v0.34.0
 ## explicit; go 1.23.0
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/blowfish
 golang.org/x/crypto/sha3
-# golang.org/x/mod v0.17.0
-## explicit; go 1.18
-# golang.org/x/net v0.25.0
-## explicit; go 1.18
-# golang.org/x/sync v0.11.0
-## explicit; go 1.18
 # golang.org/x/sys v0.30.0
 ## explicit; go 1.18
 golang.org/x/sys/cpu
-# golang.org/x/telemetry v0.0.0-20240228155512-f48c80bd79b2
-## explicit; go 1.20
-# golang.org/x/term v0.29.0
-## explicit; go 1.18
-# golang.org/x/text v0.22.0
-## explicit; go 1.18
-# golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d
-## explicit; go 1.19
-# golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7
-## explicit; go 1.11
