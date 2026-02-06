@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @include mat.core();
-$primary: mat.define-palette(mat.$light-blue-palette, 800);
-$accent: mat.define-palette(mat.$cyan-palette, 600, 100, 800);
-$warn: mat.define-palette(mat.$deep-orange-palette, 600);
-$theme: mat.define-light-theme($primary, $accent, $warn);
+$primary: mat.m2-define-palette(mat.$m2-light-blue-palette, 800);
+$accent: mat.m2-define-palette(mat.$m2-cyan-palette, 600, 100, 800);
+$warn: mat.m2-define-palette(mat.$m2-deep-orange-palette, 600);
+$theme: mat.m2-define-light-theme($primary, $accent, $warn);
 @include mat.all-component-themes($theme);

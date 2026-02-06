@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent, RegisterDialogOverview } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,19 +32,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ExportDataComponent } from './export-data/export-data.component';
 import { PageComponent } from './page/page.component';
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent, LoginDialogOverview, RegisterDialogOverview, AvatarDialogOverview, UsersComponent, UserComponent, DashboardComponent,
         EditProfileComponent, ChangePasswordComponent, BoardsComponent, ThreadComponent, BoardComponent, NewThreadComponent,
         EditThreadComponent, EditPostComponent, DeleteAccountComponent, PageNotFoundComponent, ExportDataComponent, PageComponent
     ],
-    imports: [
-        BrowserModule, HttpClientModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,
-        MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule
-    ],
     exports: [],
-    providers: [],
     bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], imports: [BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, MatButtonModule, MatSelectModule,
+        MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatInputModule, MatDialogModule, MatSnackBarModule, MatCardModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
