@@ -2,27 +2,35 @@
   <button mat-icon-button routerLink="/boards">
     <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
   </button>
-  <button mat-flat-button *ngIf="boardExists" class="right button-margin-top" color="primary"
+  @if (boardExists) {
+    <button mat-flat-button class="right button-margin-top" color="primary"
     routerLink="/new-thread/{{id}}">{{lang('newThread')}}</button>
+  }
 </div>
 
-<mat-list *ngFor="let thread of threads">
-  <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}/{{config.generateURL(thread.name)}}">
-    <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
-    <div matListItemTitle>{{ thread.name }}</div>
-    <div matListItemLine>{{ lang('createdOn') }} {{ config.createdDate(thread.created) }}
+@for (thread of threads; track thread) {
+  <mat-list>
+    <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}/{{config.generateURL(thread.name)}}">
+      <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
+      <div matListItemTitle>{{ thread.name }}</div>
+      <div matListItemLine>{{ lang('createdOn') }} {{ config.createdDate(thread.created) }}
       {{ lang('by') }} {{ thread.authorName }}</div>
-  </mat-list-item>
-</mat-list>
+    </mat-list-item>
+  </mat-list>
+}
 
-<mat-card *ngIf="threads.length == 0 && boardExists">
-  <mat-card-header>
-    <mat-card-title>{{ lang('noThreads') }}</mat-card-title>
-  </mat-card-header>
-</mat-card>
+@if (threads.length == 0 && boardExists) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ lang('noThreads') }}</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+}
 
-<mat-card *ngIf="!boardExists">
-  <mat-card-header>
-    <mat-card-title>{{ lang('boardDoesNotExist') }}</mat-card-title>
-  </mat-card-header>
-</mat-card>
+@if (!boardExists) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ lang('boardDoesNotExist') }}</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+}

@@ -11,12 +11,14 @@
       (keyup.enter)="doLogin()" required />
   </mat-form-field>
 
-  <div *ngIf="config.captcha !== undefined">
-    <img src="{{config.baseUrl}}captcha/{{config.captcha}}.png" width="240" height="80">
-    <mat-form-field>
-      <input matInput placeholder="{{lang('captcha')}}" [(ngModel)]="data.captcha" (keyup.enter)="doLogin()" required />
-    </mat-form-field>
-  </div>
+  @if (config.captcha !== undefined) {
+    <div>
+      <img src="{{config.baseUrl}}captcha/{{config.captcha}}.png" width="240" height="80">
+      <mat-form-field>
+        <input matInput placeholder="{{lang('captcha')}}" [(ngModel)]="data.captcha" (keyup.enter)="doLogin()" required />
+      </mat-form-field>
+    </div>
+  }
 
   <div mat-dialog-actions>
     <button mat-flat-button color="primary" (click)="doLogin()">{{ lang('login') }}</button>&nbsp;

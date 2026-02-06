@@ -2,16 +2,20 @@
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
 
-<mat-list *ngFor="let user of users">
-  <mat-list-item class="user-item" routerLink="/user/{{user.id}}/{{config.generateURL(user.data['username'])}}">
-    <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}" />
-    <div matListItemTitle>{{ user.data['username'] }}</div>
-    <div matListItemLine>{{ lang('joinedOn') }} {{ config.registeredDate(user.data['registered']) }}</div>
-  </mat-list-item>
-</mat-list>
+@for (user of users; track user) {
+  <mat-list>
+    <mat-list-item class="user-item" routerLink="/user/{{user.id}}/{{config.generateURL(user.data['username'])}}">
+      <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{user.data['avatar']}}" />
+      <div matListItemTitle>{{ user.data['username'] }}</div>
+      <div matListItemLine>{{ lang('joinedOn') }} {{ config.registeredDate(user.data['registered']) }}</div>
+    </mat-list-item>
+  </mat-list>
+}
 
-<mat-card *ngIf="users.length == 0">
-  <mat-card-header>
-    <mat-card-title>{{ lang('noUsers') }}</mat-card-title>
-  </mat-card-header>
-</mat-card>
+@if (users.length == 0) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ lang('noUsers') }}</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+}

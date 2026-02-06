@@ -5,25 +5,33 @@
     <span class="fill-space"></span>
 
     <mat-card-actions>
-      <button mat-stroked-button color="primary" (click)="lastThreadsShown = false"
-        *ngIf="lastThreadsShown; else show">{{lang("hide")}}</button>
-      <ng-template #show>
+      @if (lastThreadsShown) {
+        <button mat-stroked-button color="primary" (click)="lastThreadsShown = false"
+        >{{lang("hide")}}</button>
+      } @else {
         <button mat-stroked-button color="primary" (click)="lastThreadsShown = true">{{lang("show")}}</button>
-      </ng-template>
+      }
     </mat-card-actions>
   </mat-card-header>
 
-  <mat-card-content *ngIf="lastThreadsShown">
-    <mat-list *ngFor="let thread of threads">
-      <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}/{{config.generateURL(thread.name)}}">
-        <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
-        <div matListItemTitle>{{ thread.name }}</div>
-        <div matListItemLine>{{ lang('createdOn') }} {{ config.createdDate(thread.created) }}
-          {{ lang('by') }} {{ thread.authorName }}</div>
-      </mat-list-item>
-    </mat-list>
-
-    <p *ngIf="loading">{{ lang('loadingData') }}</p>
-    <p *ngIf="threads.length == 0 && !loading">{{ lang('noThreads') }}</p>
-  </mat-card-content>
+  @if (lastThreadsShown) {
+    <mat-card-content>
+      @for (thread of threads; track thread) {
+        <mat-list>
+          <mat-list-item class="thread-item" routerLink="/thread/{{thread.id}}/{{config.generateURL(thread.name)}}">
+            <img matListItemAvatar width="50" height="50" src="{{config.baseUrl}}{{thread.authorAvatar}}" />
+            <div matListItemTitle>{{ thread.name }}</div>
+            <div matListItemLine>{{ lang('createdOn') }} {{ config.createdDate(thread.created) }}
+            {{ lang('by') }} {{ thread.authorName }}</div>
+          </mat-list-item>
+        </mat-list>
+      }
+      @if (loading) {
+        <p>{{ lang('loadingData') }}</p>
+      }
+      @if (threads.length == 0 && !loading) {
+        <p>{{ lang('noThreads') }}</p>
+      }
+    </mat-card-content>
+  }
 </mat-card>

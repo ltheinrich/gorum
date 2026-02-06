@@ -2,20 +2,26 @@
   <mat-icon aria-label="{{lang('back')}}">arrow_back</mat-icon>
 </button>
 
-<mat-list *ngFor="let category of categoryNames">
-  <h3 mat-subheader class="category-header">{{category}}</h3>
-  <mat-divider></mat-divider>
-  <mat-list-item *ngFor="let board of categories.get(category)" class="board-item"
-    routerLink="/board/{{board.id}}/{{config.generateURL(board.name)}}">
-    <mat-icon matListItemIcon>{{board.icon}}</mat-icon>
-    <div matListItemTitle>{{board.name}}</div>
-    <div matListItemLine>{{board.description}}</div>
-  </mat-list-item>
-  <br>
-</mat-list>
+@for (category of categoryNames; track category) {
+  <mat-list>
+    <h3 mat-subheader class="category-header">{{category}}</h3>
+    <mat-divider></mat-divider>
+    @for (board of categories.get(category); track board) {
+      <mat-list-item class="board-item"
+        routerLink="/board/{{board.id}}/{{config.generateURL(board.name)}}">
+        <mat-icon matListItemIcon>{{board.icon}}</mat-icon>
+        <div matListItemTitle>{{board.name}}</div>
+        <div matListItemLine>{{board.description}}</div>
+      </mat-list-item>
+    }
+    <br>
+    </mat-list>
+  }
 
-<mat-card *ngIf="categories.size == 0">
-  <mat-card-header>
-    <mat-card-title>{{ lang('noBoards') }}</mat-card-title>
-  </mat-card-header>
-</mat-card>
+  @if (categories.size == 0) {
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ lang('noBoards') }}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  }
