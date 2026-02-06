@@ -4,9 +4,10 @@ import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.css'],
+    standalone: false
 })
 export class UsersComponent implements OnInit {
   config = Config;

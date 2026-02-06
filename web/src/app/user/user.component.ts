@@ -25,9 +25,10 @@ export class UserData {
 }
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.css'],
+    standalone: false
 })
 export class UserComponent implements OnInit {
   config = Config;

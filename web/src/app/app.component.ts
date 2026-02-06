@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 export let appInstance: AppComponent;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
   config = Config;
@@ -158,9 +159,10 @@ export interface LoginDialogData {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'login-dialog-overview',
-  templateUrl: './login-dialog-overview.html'
+    // tslint:disable-next-line:component-selector
+    selector: 'login-dialog-overview',
+    templateUrl: './login-dialog-overview.html',
+    standalone: false
 })
 // tslint:disable-next-line:component-class-suffix
 export class LoginDialogOverview {
@@ -182,9 +184,10 @@ export interface RegisterDialogData {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'register-dialog-overview',
-  templateUrl: './register-dialog-overview.html'
+    // tslint:disable-next-line:component-selector
+    selector: 'register-dialog-overview',
+    templateUrl: './register-dialog-overview.html',
+    standalone: false
 })
 // tslint:disable-next-line:component-class-suffix
 export class RegisterDialogOverview {

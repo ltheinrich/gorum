@@ -3,9 +3,10 @@ import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-export-data',
-  templateUrl: './export-data.component.html',
-  styleUrls: ['./export-data.component.css']
+    selector: 'app-export-data',
+    templateUrl: './export-data.component.html',
+    styleUrls: ['./export-data.component.css'],
+    standalone: false
 })
 export class ExportDataComponent implements OnInit {
   config = Config;

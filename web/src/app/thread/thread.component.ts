@@ -49,9 +49,10 @@ export class Post {
 }
 
 @Component({
-  selector: 'app-thread',
-  templateUrl: './thread.component.html',
-  styleUrls: ['./thread.component.css']
+    selector: 'app-thread',
+    templateUrl: './thread.component.html',
+    styleUrls: ['./thread.component.css'],
+    standalone: false
 })
 export class ThreadComponent implements OnInit {
   config = Config;

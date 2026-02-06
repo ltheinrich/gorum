@@ -98,7 +98,7 @@ func SecurityHeaders(w http.ResponseWriter, r *http.Request) {
 		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 
 	// access-control-allow-methods
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST")
 }
 
 // GetUserID user id from username

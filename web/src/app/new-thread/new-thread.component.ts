@@ -5,9 +5,10 @@ import { Board } from '../board/board.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-new-thread',
-  templateUrl: './new-thread.component.html',
-  styleUrls: ['./new-thread.component.css']
+    selector: 'app-new-thread',
+    templateUrl: './new-thread.component.html',
+    styleUrls: ['./new-thread.component.css'],
+    standalone: false
 })
 export class NewThreadComponent implements OnInit {
   config = Config;

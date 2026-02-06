@@ -6,9 +6,10 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-edit-profile',
-  templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+    selector: 'app-edit-profile',
+    templateUrl: './edit-profile.component.html',
+    styleUrls: ['./edit-profile.component.css'],
+    standalone: false
 })
 export class EditProfileComponent implements OnInit {
   config = Config;
@@ -198,9 +199,10 @@ export class EditProfileComponent implements OnInit {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'avatar-dialog-overview',
-  templateUrl: './avatar-dialog-overview.html'
+    // tslint:disable-next-line:component-selector
+    selector: 'avatar-dialog-overview',
+    templateUrl: './avatar-dialog-overview.html',
+    standalone: false
 })
 // tslint:disable-next-line:component-class-suffix
 export class AvatarDialogOverview {

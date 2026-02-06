@@ -4,9 +4,10 @@ import { Title } from '@angular/platform-browser';
 import { Board } from '../board/board.component';
 
 @Component({
-  selector: 'app-boards',
-  templateUrl: './boards.component.html',
-  styleUrls: ['./boards.component.css']
+    selector: 'app-boards',
+    templateUrl: './boards.component.html',
+    styleUrls: ['./boards.component.css'],
+    standalone: false
 })
 export class BoardsComponent implements OnInit {
   config = Config;

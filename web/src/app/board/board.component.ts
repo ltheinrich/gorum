@@ -21,9 +21,10 @@ export class Board {
 }
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.css'],
+    standalone: false
 })
 export class BoardComponent implements OnInit {
   config = Config;

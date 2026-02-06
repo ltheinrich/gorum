@@ -3,9 +3,10 @@ import { Config } from '../config';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-page-not-found',
-  templateUrl: './page-not-found.component.html',
-  styleUrls: ['./page-not-found.component.css']
+    selector: 'app-page-not-found',
+    templateUrl: './page-not-found.component.html',
+    styleUrls: ['./page-not-found.component.css'],
+    standalone: false
 })
 export class PageNotFoundComponent implements OnInit {
   config = Config;

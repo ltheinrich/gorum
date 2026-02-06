@@ -5,9 +5,10 @@ import { Title } from '@angular/platform-browser';
 import { timeout } from 'q';
 
 @Component({
-  selector: 'app-edit-post',
-  templateUrl: './edit-post.component.html',
-  styleUrls: ['./edit-post.component.css']
+    selector: 'app-edit-post',
+    templateUrl: './edit-post.component.html',
+    styleUrls: ['./edit-post.component.css'],
+    standalone: false
 })
 export class EditPostComponent implements OnInit {
   config = Config;
