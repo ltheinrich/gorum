@@ -36,13 +36,13 @@
       </p>
       <p mat-line *ngIf="userData.userData['twitter'] !== undefined">
         {{lang("twitter")}}: <a href="https://twitter.com/{{userData.userData['twitter']}}"
-          class="url">@{{userData.userData['twitter']}}</a>
+          class="url">&#64;{{userData.userData['twitter']}}</a>
       </p>
       <p mat-line *ngIf="userData.userData['youtube'] !== undefined">
         {{lang("youtube")}}: <a href="{{userData.userData['youtube']}}" class="url">{{userData.userData['youtube']}}</a>
       </p>
       <p mat-line *ngIf="userData.userData['wire'] !== undefined">
-        {{lang("wire")}}: @{{userData.userData['wire']}}
+        {{lang("wire")}}: &#64;{{userData.userData['wire']}}
       </p>
       <p mat-line *ngIf="userData.userData['discord'] !== undefined">
         {{lang("discord")}}: {{userData.userData['discord']}}
